@@ -1,0 +1,1420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HEL83H3BW4"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HEL83H3BW4');
+  </script>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DevOps Tutorials Free | AWS Docker Jenkins GitHub CI/CD | VinzapInfotech</title>
+  <meta name="description" content="Free DevOps tutorials in Hindi & English. Learn AWS, Docker, Jenkins, GitHub Actions CI/CD, Linux for beginners. Step-by-step guides by VinzapInfotech."/>
+  <meta name="keywords" content="devops tutorial hindi, aws tutorial beginners, docker tutorial, jenkins cicd, github actions, linux commands, devops roadmap 2026, free devops course india"/>
+  <meta name="author" content="VinzapInfotech"/>
+  <meta property="og:title" content="Free DevOps Tutorials - AWS Docker Jenkins GitHub CI/CD"/>
+  <meta property="og:description" content="Step-by-step DevOps tutorials in Hindi & English. Learn for free with VinzapInfotech."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://vinzapinfotech.in/devops-tutorials"/>
+  <link rel="canonical" href="https://vinzapinfotech.in/devops-tutorials"/>
+
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TVTBVCZH');</script>
+  <!-- End Google Tag Manager -->
+
+  <!-- GA4 Direct -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-JJTCVNXZFX"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-JJTCVNXZFX');</script>
+
+  <!-- AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2639020346909963" crossorigin="anonymous"></script>
+
+  <!-- Google Fonts non-blocking -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=optional" rel="stylesheet" media="print" onload="this.media='all'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=optional" rel="stylesheet"/></noscript>
+
+  <style>
+    :root {
+      --primary: #0ea5e9;
+      --primary-dark: #0284c7;
+      --secondary: #7c3aed;
+      --accent: #10b981;
+      --dark: #0f172a;
+      --dark2: #1e293b;
+      --dark3: #334155;
+      --text: #1e293b;
+      --text-light: #64748b;
+      --border: #e2e8f0;
+      --card-bg: #ffffff;
+      --bg: #f8fafc;
+    }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;}
+
+    /* ===== NAVBAR ===== */
+    nav{position:sticky;top:0;z-index:1000;background:var(--dark);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,0.08);padding:0;}
+    .nav-inner{width:100%;display:flex;align-items:center;justify-content:space-between;height:48px;padding:0 16px;gap:12px;}
+    .nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none;flex-shrink:0;}
+    .logo-icon{width:30px;height:30px;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:13px;}
+    .logo-text{color:#fff;font-weight:700;font-size:13px;line-height:1.2;}
+    .logo-sub{display:block;font-size:9px;color:var(--primary);font-weight:400;}
+    /* Nav Search */
+    .nav-search{flex:1;max-width:260px;position:relative;}
+    .nav-search input{width:100%;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:20px;padding:5px 14px 5px 32px;color:#fff;font-size:12px;outline:none;transition:all 0.2s;}
+    .nav-search input::placeholder{color:#64748b;}
+    .nav-search input:focus{border-color:var(--primary);background:rgba(14,165,233,0.08);}
+    .nav-search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#64748b;font-size:12px;}
+    /* Nav links */
+    .nav-links{display:flex;gap:2px;align-items:center;flex-shrink:0;}
+    .nav-links a{color:#94a3b8;text-decoration:none;padding:5px 9px;border-radius:6px;font-size:12px;font-weight:500;transition:all 0.2s;white-space:nowrap;}
+    .nav-links a:hover,.nav-links a.active{color:#fff;background:rgba(255,255,255,0.1);}
+    /* Nav right */
+    .nav-right{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+    .nav-ai-btn{display:flex;align-items:center;gap:5px;background:linear-gradient(135deg,#7c3aed,#6d28d9);color:#fff;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;border:none;transition:all 0.2s;}
+    .nav-ai-btn:hover{opacity:0.9;transform:translateY(-1px);}
+    .nav-ai-dot{width:6px;height:6px;background:#10b981;border-radius:50%;animation:pulse-dot 2s infinite;}
+    @keyframes pulse-dot{0%,100%{opacity:1;}50%{opacity:0.4;}}
+    .nav-cta{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff!important;padding:5px 14px!important;border-radius:20px!important;font-size:12px!important;}
+    .nav-cta:hover{opacity:0.9;transform:translateY(-1px);}
+    /* Nav stats strip */
+    .nav-stats-strip{background:linear-gradient(90deg,var(--secondary),var(--primary));padding:3px 16px;display:flex;align-items:center;gap:24px;overflow:hidden;}
+    .nav-stat-item{display:flex;align-items:center;gap:6px;font-size:11px;color:rgba(255,255,255,0.9);white-space:nowrap;}
+    .nav-stat-item b{color:#fff;}
+    .strip-divider{color:rgba(255,255,255,0.3);}
+    .hamburger{display:none;flex-direction:column;gap:4px;cursor:pointer;padding:6px;}
+    .hamburger span{width:20px;height:2px;background:#fff;border-radius:2px;transition:0.3s;}
+    .mobile-menu{display:none;background:var(--dark2);border-top:1px solid rgba(255,255,255,0.1);}
+    .mobile-menu a{display:block;color:#94a3b8;text-decoration:none;padding:12px 20px;font-size:14px;border-bottom:1px solid rgba(255,255,255,0.05);}
+    .mobile-menu a:hover{color:#fff;background:rgba(255,255,255,0.05);}
+
+    /* ===== AI CHAT WIDGET ===== */
+    .ai-widget{position:fixed;bottom:24px;right:24px;z-index:9999;}
+    .ai-fab{width:56px;height:56px;background:linear-gradient(135deg,#7c3aed,#0ea5e9);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 8px 32px rgba(124,58,237,0.5);transition:all 0.3s;border:none;}
+    .ai-fab:hover{transform:scale(1.1);box-shadow:0 12px 40px rgba(124,58,237,0.7);}
+    .ai-fab-icon{font-size:24px;}
+    .ai-fab-badge{position:absolute;top:-4px;right:-4px;background:#10b981;color:#fff;width:18px;height:18px;border-radius:50%;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;}
+    .ai-panel{position:absolute;bottom:68px;right:0;width:360px;background:var(--dark2);border-radius:20px;border:1px solid rgba(255,255,255,0.1);box-shadow:0 24px 60px rgba(0,0,0,0.5);display:none;flex-direction:column;overflow:hidden;max-height:520px;}
+    .ai-panel.open{display:flex;}
+    .ai-panel-header{background:linear-gradient(135deg,#7c3aed,#0ea5e9);padding:16px 18px;display:flex;align-items:center;justify-content:space-between;}
+    .ai-header-info{display:flex;align-items:center;gap:10px;}
+    .ai-avatar{width:36px;height:36px;background:rgba(255,255,255,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;}
+    .ai-header-text h4{color:#fff;font-size:14px;font-weight:700;margin-bottom:2px;}
+    .ai-header-text p{color:rgba(255,255,255,0.7);font-size:11px;display:flex;align-items:center;gap:4px;}
+    .ai-online{width:6px;height:6px;background:#10b981;border-radius:50%;display:inline-block;}
+    .ai-close{background:rgba(255,255,255,0.2);border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:0.2s;}
+    .ai-close:hover{background:rgba(255,255,255,0.3);}
+    .ai-messages{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;max-height:340px;}
+    .ai-messages::-webkit-scrollbar{width:4px;}
+    .ai-messages::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:2px;}
+    .ai-msg{display:flex;gap:8px;animation:msgIn 0.3s ease;}
+    @keyframes msgIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+    .ai-msg.user{flex-direction:row-reverse;}
+    .ai-msg-avatar{width:28px;height:28px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px;}
+    .ai-msg.bot .ai-msg-avatar{background:linear-gradient(135deg,#7c3aed,#0ea5e9);}
+    .ai-msg.user .ai-msg-avatar{background:linear-gradient(135deg,var(--primary),#0369a1);}
+    .ai-msg-bubble{max-width:260px;padding:10px 14px;border-radius:14px;font-size:13px;line-height:1.5;}
+    .ai-msg.bot .ai-msg-bubble{background:rgba(255,255,255,0.07);color:#e2e8f0;border-bottom-left-radius:4px;}
+    .ai-msg.user .ai-msg-bubble{background:linear-gradient(135deg,var(--primary),#0369a1);color:#fff;border-bottom-right-radius:4px;}
+    .ai-typing{display:flex;gap:4px;padding:10px 14px;background:rgba(255,255,255,0.07);border-radius:14px;border-bottom-left-radius:4px;width:fit-content;}
+    .ai-typing span{width:6px;height:6px;background:#64748b;border-radius:50%;animation:typing 1.2s infinite;}
+    .ai-typing span:nth-child(2){animation-delay:0.2s;}
+    .ai-typing span:nth-child(3){animation-delay:0.4s;}
+    @keyframes typing{0%,60%,100%{transform:translateY(0);}30%{transform:translateY(-6px);}}
+    .ai-quick-btns{padding:0 16px 10px;display:flex;flex-wrap:wrap;gap:6px;}
+    .ai-quick-btn{background:rgba(14,165,233,0.1);border:1px solid rgba(14,165,233,0.2);color:var(--primary);padding:4px 10px;border-radius:12px;font-size:11px;cursor:pointer;transition:all 0.2s;white-space:nowrap;}
+    .ai-quick-btn:hover{background:rgba(14,165,233,0.2);border-color:var(--primary);}
+    .ai-input-area{padding:12px 16px;border-top:1px solid rgba(255,255,255,0.08);display:flex;gap:8px;}
+    .ai-input{flex:1;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:8px 14px;color:#fff;font-size:13px;outline:none;font-family:inherit;}
+    .ai-input::placeholder{color:#64748b;}
+    .ai-input:focus{border-color:var(--primary);}
+    .ai-send{background:linear-gradient(135deg,var(--primary),#0369a1);border:none;color:#fff;width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s;}
+    .ai-send:hover{transform:scale(1.1);}
+
+    @media(max-width:768px){.nav-links{display:none;}.nav-search{display:none;}.hamburger{display:flex;}.mobile-menu.open{display:block;}.ai-panel{width:320px;right:-10px;}.nav-stats-strip{display:none;}}
+
+    /* ===== HERO ===== */
+    .hero{background:linear-gradient(135deg,var(--dark) 0%,#1a1040 50%,var(--dark2) 100%);padding:80px 24px 60px;text-align:center;position:relative;overflow:hidden;}
+    .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(14,165,233,0.15) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(124,58,237,0.15) 0%,transparent 60%);}
+    .hero-inner{max-width:800px;margin:0 auto;position:relative;z-index:1;}
+    .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(14,165,233,0.15);border:1px solid rgba(14,165,233,0.3);color:var(--primary);padding:6px 16px;border-radius:20px;font-size:13px;font-weight:500;margin-bottom:24px;}
+    .hero h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:800;color:#fff;line-height:1.2;margin-bottom:16px;}
+    .hero h1 span{background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+    .hero-sub{font-size:1.1rem;color:#94a3b8;margin-bottom:12px;max-width:600px;margin-left:auto;margin-right:auto;}
+    .hero-hindi{font-size:1rem;color:#64748b;margin-bottom:32px;font-style:italic;}
+    .hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:40px;}
+    .btn-primary{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;padding:13px 28px;border-radius:10px;text-decoration:none;font-weight:600;font-size:15px;transition:all 0.2s;display:inline-flex;align-items:center;gap:8px;}
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(14,165,233,0.4);}
+    .btn-outline{background:transparent;color:#fff;padding:13px 28px;border-radius:10px;text-decoration:none;font-weight:600;font-size:15px;border:2px solid rgba(255,255,255,0.2);transition:all 0.2s;}
+    .btn-outline:hover{border-color:var(--primary);color:var(--primary);}
+    .hero-stats{display:flex;gap:32px;justify-content:center;flex-wrap:wrap;}
+    .hero-stat{text-align:center;}
+    .hero-stat-num{font-size:1.8rem;font-weight:800;color:#fff;}
+    .hero-stat-label{font-size:12px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;}
+
+    /* ===== TABS ===== */
+    .tabs-section{background:#fff;border-bottom:1px solid var(--border);position:sticky;top:67px;z-index:100;overflow-x:auto;}
+    .tabs-inner{max-width:1200px;margin:0 auto;display:flex;padding:0 24px;}
+    .tab-btn{padding:16px 20px;border:none;background:none;cursor:pointer;font-size:14px;font-weight:600;color:var(--text-light);border-bottom:3px solid transparent;transition:all 0.2s;white-space:nowrap;display:flex;align-items:center;gap:8px;}
+    .tab-btn:hover{color:var(--primary);}
+    .tab-btn.active{color:var(--primary);border-bottom-color:var(--primary);}
+    .tab-icon{font-size:16px;}
+
+    /* ===== MAIN LAYOUT ===== */
+    .main-layout{max-width:1200px;margin:0 auto;padding:40px 24px;display:grid;grid-template-columns:1fr 300px;gap:32px;}
+    @media(max-width:900px){.main-layout{grid-template-columns:1fr;}}
+
+    /* ===== SECTION CONTENT ===== */
+    .content-section{display:none;}
+    .content-section.active{display:block;}
+    .section-header{margin-bottom:32px;}
+    .section-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(14,165,233,0.1);color:var(--primary);padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px;}
+    .section-header h2{font-size:1.8rem;font-weight:800;color:var(--dark);margin-bottom:8px;}
+    .section-header p{color:var(--text-light);font-size:1rem;}
+    .section-header .hindi-desc{font-style:italic;color:#94a3b8;font-size:0.9rem;margin-top:4px;}
+
+    /* ===== TUTORIAL CARDS ===== */
+    .tutorials-grid{display:grid;gap:20px;}
+    .tutorial-card{background:var(--card-bg);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:all 0.2s;cursor:pointer;}
+    .tutorial-card:hover{border-color:var(--primary);box-shadow:0 8px 30px rgba(14,165,233,0.12);transform:translateY(-2px);}
+    .card-video{position:relative;background:var(--dark);aspect-ratio:16/9;cursor:pointer;overflow:hidden;}
+    .card-thumb{width:100%;height:100%;object-fit:cover;transition:transform 0.3s;}
+    .tutorial-card:hover .card-thumb{transform:scale(1.03);}
+    .play-btn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:56px;height:56px;background:rgba(0,0,0,0.75);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all 0.2s;pointer-events:none;}
+    .play-btn svg{width:22px;height:22px;fill:#fff;margin-left:4px;}
+    .tutorial-card:hover .play-btn{background:var(--primary);transform:translate(-50%,-50%) scale(1.1);}
+    .yt-facade{position:relative;aspect-ratio:16/9;background:#000;cursor:pointer;overflow:hidden;}
+    .yt-facade img{width:100%;height:100%;object-fit:cover;}
+    .yt-facade .play-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.3);transition:background 0.2s;}
+    .yt-facade:hover .play-overlay{background:rgba(0,0,0,0.1);}
+    .yt-facade .play-btn-lg{width:64px;height:64px;background:rgba(255,0,0,0.9);border-radius:14px;display:flex;align-items:center;justify-content:center;}
+    .yt-facade .play-btn-lg svg{width:28px;height:28px;fill:#fff;margin-left:5px;}
+    .yt-facade iframe{position:absolute;inset:0;width:100%;height:100%;border:none;}
+    .card-body{padding:20px;}
+    .card-meta{display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
+    .card-level{padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;}
+    .level-beginner{background:#dcfce7;color:#16a34a;}
+    .level-intermediate{background:#fef3c7;color:#d97706;}
+    .level-advanced{background:#fee2e2;color:#dc2626;}
+    .card-duration{font-size:12px;color:var(--text-light);display:flex;align-items:center;gap:4px;}
+    .card-free{background:linear-gradient(135deg,var(--accent),#059669);color:#fff;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;}
+    .card-body h3{font-size:1.05rem;font-weight:700;color:var(--dark);margin-bottom:6px;line-height:1.4;}
+    .card-hindi{font-size:0.85rem;color:#7c3aed;font-style:italic;margin-bottom:10px;}
+    .card-desc{font-size:0.9rem;color:var(--text-light);margin-bottom:16px;line-height:1.5;}
+    .card-topics{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;}
+    .topic-tag{background:var(--bg);border:1px solid var(--border);color:var(--text-light);padding:4px 10px;border-radius:6px;font-size:12px;font-family:'Fira Code',monospace;}
+    .card-actions{display:flex;gap:8px;flex-wrap:wrap;}
+    .btn-watch{background:var(--primary);color:#fff;padding:8px 16px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;transition:all 0.2s;display:inline-flex;align-items:center;gap:6px;}
+    .btn-watch:hover{background:var(--primary-dark);}
+    .btn-udemy{background:#a435f0;color:#fff;padding:8px 16px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;transition:all 0.2s;display:inline-flex;align-items:center;gap:6px;}
+    .btn-udemy:hover{opacity:0.85;}
+    .btn-enroll{background:linear-gradient(135deg,var(--secondary),#6d28d9);color:#fff;padding:8px 16px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;transition:all 0.2s;display:inline-flex;align-items:center;gap:6px;}
+    .btn-enroll:hover{opacity:0.85;}
+
+    /* ===== ROADMAP ===== */
+    .roadmap{background:var(--card-bg);border:1px solid var(--border);border-radius:16px;padding:28px;margin-bottom:24px;}
+    .roadmap h3{font-size:1.1rem;font-weight:700;margin-bottom:6px;color:var(--dark);}
+    .roadmap-sub{font-size:0.85rem;color:#7c3aed;font-style:italic;margin-bottom:20px;}
+    .roadmap-steps{display:flex;flex-direction:column;gap:0;}
+    .roadmap-step{display:flex;gap:16px;position:relative;}
+    .roadmap-step:not(:last-child)::after{content:'';position:absolute;left:19px;top:40px;bottom:-4px;width:2px;background:linear-gradient(to bottom,var(--primary),var(--border));}
+    .step-num{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0;}
+    .step-content{padding-bottom:20px;}
+    .step-title{font-weight:600;font-size:0.95rem;color:var(--dark);}
+    .step-hindi{font-size:0.8rem;color:var(--text-light);font-style:italic;}
+    .step-tools{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px;}
+    .step-tool{background:var(--bg);border:1px solid var(--border);color:var(--text-light);padding:2px 8px;border-radius:4px;font-size:11px;font-family:'Fira Code',monospace;}
+
+    /* ===== CHEATSHEET ===== */
+    .cheatsheet{background:var(--dark);border-radius:16px;padding:24px;margin-bottom:24px;}
+    .cheatsheet h3{color:#fff;font-size:1.1rem;font-weight:700;margin-bottom:6px;}
+    .cheatsheet-sub{color:#64748b;font-size:0.85rem;font-style:italic;margin-bottom:16px;}
+    .cmd-group{margin-bottom:16px;}
+    .cmd-group-title{color:var(--primary);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;}
+    .cmd{display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,0.05);border-radius:6px;padding:8px 12px;margin-bottom:4px;gap:12px;}
+    .cmd code{font-family:'Fira Code',monospace;color:#a5f3fc;font-size:13px;}
+    .cmd span{color:#64748b;font-size:12px;text-align:right;max-width:150px;}
+
+    /* ===== ADSBYGOOGLE ===== */
+    .ad-slot{background:#f1f5f9;border:1px dashed #cbd5e1;border-radius:8px;text-align:center;padding:8px;margin:20px 0;}
+    .ad-label{font-size:10px;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;}
+
+    /* ===== SIDEBAR ===== */
+    .sidebar{display:flex;flex-direction:column;gap:20px;}
+    .sidebar-card{background:var(--card-bg);border:1px solid var(--border);border-radius:16px;overflow:hidden;}
+    .sidebar-card-header{background:linear-gradient(135deg,var(--dark),var(--dark2));padding:16px 20px;color:#fff;}
+    .sidebar-card-header h4{font-size:1rem;font-weight:700;}
+    .sidebar-card-header p{font-size:12px;color:#94a3b8;margin-top:2px;}
+    .sidebar-card-body{padding:20px;}
+    .enroll-form input,.enroll-form select{width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-size:14px;margin-bottom:10px;outline:none;font-family:inherit;background:#fff;color:var(--text);}
+    .enroll-form input:focus,.enroll-form select:focus{border-color:var(--primary);}
+    .enroll-form .btn-submit{width:100%;background:linear-gradient(135deg,var(--secondary),#6d28d9);color:#fff;border:none;padding:12px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;transition:all 0.2s;}
+    .enroll-form .btn-submit:hover{opacity:0.9;transform:translateY(-1px);}
+    .course-list{display:flex;flex-direction:column;gap:8px;}
+    .course-item{display:flex;align-items:center;gap:10px;padding:10px;border-radius:8px;background:var(--bg);text-decoration:none;transition:all 0.2s;border:1px solid transparent;}
+    .course-item:hover{border-color:var(--primary);background:#f0f9ff;}
+    .course-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+    .course-info{flex:1;min-width:0;}
+    .course-name{font-size:13px;font-weight:600;color:var(--dark);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .course-meta{font-size:11px;color:var(--text-light);}
+    .course-price{font-size:12px;font-weight:700;color:var(--accent);}
+    .progress-wrap{margin-bottom:8px;}
+    .progress-label{display:flex;justify-content:space-between;font-size:12px;color:var(--text-light);margin-bottom:4px;}
+    .progress-bar{height:6px;background:var(--border);border-radius:3px;overflow:hidden;}
+    .progress-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--primary),var(--secondary));}
+    .quick-links{display:flex;flex-direction:column;gap:6px;}
+    .quick-link{display:flex;align-items:center;gap:10px;padding:10px;border-radius:8px;text-decoration:none;background:var(--bg);font-size:13px;font-weight:500;color:var(--text);transition:all 0.2s;border:1px solid transparent;}
+    .quick-link:hover{border-color:var(--primary);color:var(--primary);}
+
+    /* ===== NEWSLETTER ===== */
+    .newsletter{background:linear-gradient(135deg,var(--dark),#1a1040);border-radius:16px;padding:40px 24px;text-align:center;margin:40px 0;}
+    .newsletter h2{color:#fff;font-size:1.6rem;font-weight:800;margin-bottom:8px;}
+    .newsletter p{color:#94a3b8;margin-bottom:8px;}
+    .newsletter .hindi{color:#64748b;font-style:italic;font-size:0.9rem;margin-bottom:24px;}
+    .newsletter-form{display:flex;gap:10px;max-width:480px;margin:0 auto;flex-wrap:wrap;}
+    .newsletter-form input{flex:1;padding:12px 18px;border-radius:10px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05);color:#fff;font-size:14px;outline:none;min-width:200px;}
+    .newsletter-form input::placeholder{color:#64748b;}
+    .newsletter-form input:focus{border-color:var(--primary);}
+    .newsletter-form button{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;padding:12px 24px;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;transition:all 0.2s;}
+    .newsletter-form button:hover{opacity:0.9;}
+
+    /* ===== FOOTER ===== */
+    footer{background:var(--dark);color:#94a3b8;padding:40px 24px 20px;}
+    .footer-inner{max-width:1200px;margin:0 auto;}
+    .footer-top{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;margin-bottom:32px;}
+    @media(max-width:640px){.footer-top{grid-template-columns:1fr;gap:24px;}}
+    .footer-brand .logo-text{color:#fff;font-size:18px;font-weight:700;}
+    .footer-desc{font-size:13px;line-height:1.6;margin-top:10px;}
+    .footer-col h4{color:#fff;font-size:14px;font-weight:700;margin-bottom:12px;}
+    .footer-col a{display:block;color:#64748b;text-decoration:none;font-size:13px;margin-bottom:8px;transition:color 0.2s;}
+    .footer-col a:hover{color:var(--primary);}
+    .footer-bottom{border-top:1px solid rgba(255,255,255,0.1);padding-top:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:gap;gap:12px;font-size:12px;}
+
+    /* ===== FADE IN ===== */
+    .fade-in{opacity:0;transform:translateY(20px);transition:opacity 0.5s,transform 0.5s;}
+    .fade-in.visible{opacity:1;transform:none;}
+
+    /* ===== RESPONSIVE ===== */
+    @media(max-width:640px){
+      .hero{padding:50px 20px 40px;}
+      .hero-stats{gap:20px;}
+      .main-layout{padding:24px 16px;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- GTM noscript -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TVTBVCZH" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<!-- NAVBAR -->
+<nav>
+  <!-- Stats strip -->
+  <div class="nav-stats-strip">
+    <div class="nav-stat-item">🚀 <b>15+</b> Free Tutorials</div>
+    <span class="strip-divider">|</span>
+    <div class="nav-stat-item">☁️ <b>AWS</b> · 🐳 Docker · ⚙️ Jenkins · ☸️ K8s</div>
+    <span class="strip-divider">|</span>
+    <div class="nav-stat-item">🇮🇳 Hindi + English — <b>Bilkul Free</b></div>
+    <span class="strip-divider">|</span>
+    <div class="nav-stat-item">🎓 Internship: <b>Apply Now →</b></div>
+  </div>
+  <!-- Main nav -->
+  <div class="nav-inner">
+    <a class="nav-logo" href="https://vinzapinfotech.com">
+      <div class="logo-icon">Vi</div>
+      <div class="logo-text">VinzapInfotech <span class="logo-sub">DevOps Hub</span></div>
+    </a>
+    <div class="nav-search">
+      <span class="nav-search-icon">🔍</span>
+      <input type="text" placeholder="Search tutorials..." id="navSearch" onkeyup="handleNavSearch(event)"/>
+    </div>
+    <div class="nav-links">
+      <a href="#" onclick="showTab('devops')" class="active" id="nav-devops">🚀 DevOps</a>
+      <a href="#" onclick="showTab('aws')" id="nav-aws">☁️ AWS</a>
+      <a href="#" onclick="showTab('docker')" id="nav-docker">🐳 Docker</a>
+      <a href="#" onclick="showTab('jenkins')" id="nav-jenkins">⚙️ Jenkins</a>
+      <a href="#" onclick="showTab('github')" id="nav-github">🔄 CI/CD</a>
+      <a href="#" onclick="showTab('linux')" id="nav-linux">🐧 Linux</a>
+      <a href="#" onclick="showTab('k8s')" id="nav-k8s">☸️ K8s</a>
+    </div>
+    <div class="nav-right">
+      <button class="nav-ai-btn" onclick="toggleAI()"><span class="nav-ai-dot"></span>🤖 AI Help</button>
+      <a href="https://vinzapinfotech.com/#contact" class="nav-links nav-cta" style="text-decoration:none;padding:5px 14px;border-radius:20px;font-size:12px;font-weight:700;">🎓 Enroll</a>
+    </div>
+    <div class="hamburger" onclick="toggleMenu()" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#" onclick="showTab('devops');toggleMenu()">🚀 DevOps Roadmap</a>
+    <a href="#" onclick="showTab('aws');toggleMenu()">☁️ AWS Tutorial</a>
+    <a href="#" onclick="showTab('docker');toggleMenu()">🐳 Docker</a>
+    <a href="#" onclick="showTab('jenkins');toggleMenu()">⚙️ Jenkins</a>
+    <a href="#" onclick="showTab('github');toggleMenu()">🔄 GitHub CI/CD</a>
+    <a href="#" onclick="showTab('linux');toggleMenu()">🐧 Linux</a>
+    <a href="#" onclick="showTab('k8s');toggleMenu()">☸️ Kubernetes</a>
+    <a href="https://vinzapinfotech.com/#contact">🎓 Enroll Now</a>
+  </div>
+</nav>
+
+<!-- AI CHAT WIDGET -->
+<div class="ai-widget">
+  <div class="ai-panel" id="aiPanel">
+    <div class="ai-panel-header">
+      <div class="ai-header-info">
+        <div class="ai-avatar">🤖</div>
+        <div class="ai-header-text">
+          <h4>DevOps AI Assistant</h4>
+          <p><span class="ai-online"></span> Online — Ask me anything!</p>
+        </div>
+      </div>
+      <button class="ai-close" onclick="toggleAI()">✕</button>
+    </div>
+    <div class="ai-messages" id="aiMessages">
+      <div class="ai-msg bot">
+        <div class="ai-msg-avatar">🤖</div>
+        <div class="ai-msg-bubble">Namaste! 👋 Main hoon <b>DevOps AI Assistant</b> by VinzapInfotech.<br/><br/>Aap mujhse koi bhi DevOps sawaal pooch sakte ho — AWS, Docker, Kubernetes, Jenkins, CI/CD, Linux! 🚀</div>
+      </div>
+    </div>
+    <div class="ai-quick-btns" id="quickBtns">
+      <button class="ai-quick-btn" onclick="askAI('DevOps roadmap kya hai?')">🗺️ DevOps Roadmap</button>
+      <button class="ai-quick-btn" onclick="askAI('Docker kya hai?')">🐳 Docker kya hai?</button>
+      <button class="ai-quick-btn" onclick="askAI('AWS free tier kya milta hai?')">☁️ AWS Free Tier</button>
+      <button class="ai-quick-btn" onclick="askAI('Kubernetes vs Docker Swarm')">☸️ K8s vs Swarm</button>
+      <button class="ai-quick-btn" onclick="askAI('DevOps ki salary kitni hoti hai?')">💰 Salary?</button>
+      <button class="ai-quick-btn" onclick="askAI('Jenkins pipeline kaise banate hain?')">⚙️ Jenkins Pipeline</button>
+    </div>
+    <div class="ai-input-area">
+      <input class="ai-input" id="aiInput" placeholder="Koi bhi DevOps sawaal poochho..." onkeypress="if(event.key==='Enter')sendAI()"/>
+      <button class="ai-send" onclick="sendAI()">➤</button>
+    </div>
+  </div>
+  <button class="ai-fab" onclick="toggleAI()">
+    <span class="ai-fab-icon">🤖</span>
+    <span class="ai-fab-badge">AI</span>
+  </button>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">🚀 Free DevOps Tutorials 2026</div>
+    <h1>Learn <span>DevOps</span> — Free<br/>Hindi & English</h1>
+    <p class="hero-sub">Step-by-step tutorials on AWS, Docker, Jenkins, GitHub Actions, Linux for complete beginners</p>
+    <p class="hero-hindi">Bilkul free mein seekho — beginner se professional tak 🙌</p>
+    <div class="hero-btns">
+      <a href="#" onclick="showTab('devops')" class="btn-primary">🗺️ Start Roadmap</a>
+      <a href="https://vinzapinfotech.in/#contact" class="btn-outline">🎓 Join Internship</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-num">6+</div><div class="hero-stat-label">Tech Topics</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">50+</div><div class="hero-stat-label">Tutorials</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">Free</div><div class="hero-stat-label">Always Free</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">Hindi</div><div class="hero-stat-label">+English</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TABS -->
+<div class="tabs-section">
+  <div class="tabs-inner">
+    <button class="tab-btn active" id="tab-devops" onclick="showTab('devops')"><span class="tab-icon">🚀</span> DevOps</button>
+    <button class="tab-btn" id="tab-aws" onclick="showTab('aws')"><span class="tab-icon">☁️</span> AWS</button>
+    <button class="tab-btn" id="tab-docker" onclick="showTab('docker')"><span class="tab-icon">🐳</span> Docker</button>
+    <button class="tab-btn" id="tab-jenkins" onclick="showTab('jenkins')"><span class="tab-icon">⚙️</span> Jenkins</button>
+    <button class="tab-btn" id="tab-github" onclick="showTab('github')"><span class="tab-icon">🔄</span> GitHub CI/CD</button>
+    <button class="tab-btn" id="tab-linux" onclick="showTab('linux')"><span class="tab-icon">🐧</span> Linux</button>
+    <button class="tab-btn" id="tab-k8s" onclick="showTab('k8s')"><span class="tab-icon">☸️</span> Kubernetes</button>
+  </div>
+</div>
+
+<!-- MAIN LAYOUT -->
+<div class="main-layout">
+
+  <!-- ============ CONTENT AREA ============ -->
+  <div>
+
+    <!-- ===== DEVOPS TAB ===== -->
+    <div class="content-section active" id="section-devops">
+      <div class="section-header fade-in">
+        <div class="section-badge">🚀 DevOps Roadmap 2026</div>
+        <h2>DevOps Complete Roadmap</h2>
+        <p>Zero se hero tak — complete DevOps engineer kaise bane 2026 mein</p>
+        <p class="hindi-desc">पूरा रोडमैप हिंदी और English में — step by step सीखो</p>
+      </div>
+
+      <div class="roadmap fade-in">
+        <h3>🗺️ DevOps Engineer Roadmap 2026</h3>
+        <p class="roadmap-sub">Yeh order follow karo — pehle Linux, phir AWS, Docker, Jenkins, CI/CD</p>
+        <div class="roadmap-steps">
+          <div class="roadmap-step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Linux & Shell Scripting</div><div class="step-hindi">Sabse pehle Linux seekho — sab kuch iske upar chalta hai</div><div class="step-tools"><span class="step-tool">bash</span><span class="step-tool">vim</span><span class="step-tool">grep</span><span class="step-tool">ssh</span><span class="step-tool">cron</span></div></div></div>
+          <div class="roadmap-step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Git & GitHub Basics</div><div class="step-hindi">Version control — team mein kaam karne ke liye zaruri</div><div class="step-tools"><span class="step-tool">git</span><span class="step-tool">github</span><span class="step-tool">branches</span><span class="step-tool">PR</span></div></div></div>
+          <div class="roadmap-step"><div class="step-num">3</div><div class="step-content"><div class="step-title">AWS Cloud (EC2, S3, IAM)</div><div class="step-hindi">Cloud pe deploy karna seekho — job mein yahi maang hai</div><div class="step-tools"><span class="step-tool">EC2</span><span class="step-tool">S3</span><span class="step-tool">IAM</span><span class="step-tool">VPC</span><span class="step-tool">RDS</span></div></div></div>
+          <div class="roadmap-step"><div class="step-num">4</div><div class="step-content"><div class="step-title">Docker & Containerization</div><div class="step-hindi">App ko container mein pack karo — "works on my machine" problem khatam</div><div class="step-tools"><span class="step-tool">docker</span><span class="step-tool">dockerfile</span><span class="step-tool">compose</span><span class="step-tool">hub</span></div></div></div>
+          <div class="roadmap-step"><div class="step-num">5</div><div class="step-content"><div class="step-title">Jenkins CI/CD Pipeline</div><div class="step-hindi">Automation — code push karo, automatically build-test-deploy ho</div><div class="step-tools"><span class="step-tool">pipeline</span><span class="step-tool">groovy</span><span class="step-tool">webhooks</span><span class="step-tool">stages</span></div></div></div>
+          <div class="roadmap-step"><div class="step-num">6</div><div class="step-content"><div class="step-title">GitHub Actions CI/CD</div><div class="step-hindi">Modern CI/CD — GitHub ke andar hi automation setup karo</div><div class="step-tools"><span class="step-tool">workflows</span><span class="step-tool">actions</span><span class="step-tool">YAML</span><span class="step-tool">secrets</span></div></div></div>
+          <div class="roadmap-step"><div class="step-num">7</div><div class="step-content"><div class="step-title">Kubernetes (K8s) - Advanced</div><div class="step-hindi">Containers ko scale karo — bade companies yahi use karti hain</div><div class="step-tools"><span class="step-tool">pods</span><span class="step-tool">services</span><span class="step-tool">helm</span><span class="step-tool">kubectl</span></div></div></div>
+        </div>
+      </div>
+
+      <!-- AdSense -->
+      <div class="ad-slot">
+        <div class="ad-label">Advertisement</div>
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2639020346909963" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      </div>
+
+      <div class="tutorials-grid">
+        <div class="tutorial-card fade-in">
+          <div class="yt-facade" id="yt-devops1" onclick="loadYT(this,'hQcFE0RD0cQ')">
+            <img src="https://img.youtube.com/vi/hQcFE0RD0cQ/maxresdefault.jpg" alt="DevOps Tutorial for Beginners" loading="lazy"/>
+            <div class="play-overlay"><div class="play-btn-lg"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+          </div>
+          <div class="card-body">
+            <div class="card-meta">
+              <span class="card-level level-beginner">Beginner</span>
+              <span class="card-duration">⏱ 2 hrs</span>
+              <span class="card-free">FREE</span>
+            </div>
+            <h3>DevOps Full Course for Beginners 2026</h3>
+            <p class="card-hindi">📌 Beginners ke liye — DevOps kya hai, kaise seekhein, job kaise milegi</p>
+            <p class="card-desc">Complete DevOps introduction covering culture, tools, processes. SDLC se leke CI/CD pipeline tak samjho.</p>
+            <div class="card-topics"><span class="topic-tag">SDLC</span><span class="topic-tag">CI/CD</span><span class="topic-tag">Agile</span><span class="topic-tag">DevOps culture</span></div>
+            <div class="card-actions">
+              <a href="https://www.youtube.com/watch?v=hQcFE0RD0cQ" target="_blank" class="btn-watch" onclick="gtag('event','tutorial_click',{topic:'devops',type:'youtube'})">▶ Watch Free</a>
+              <a href="https://www.udemy.com/courses/search/?q=devops+beginners&src=ukw&kw=devops" target="_blank" class="btn-udemy" onclick="gtag('event','affiliate_click',{platform:'udemy',topic:'devops'})">🎓 Udemy Course</a>
+              <a href="https://vinzapinfotech.in/#contact" class="btn-enroll" onclick="gtag('event','enroll_click',{source:'devops_tutorial'})">Join Internship</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="tutorial-card fade-in">
+          <div class="yt-facade" id="yt-devops2" onclick="loadYT(this,'j5Zsa_eOXeY')">
+            <img src="https://img.youtube.com/vi/j5Zsa_eOXeY/maxresdefault.jpg" alt="DevOps Roadmap Hindi" loading="lazy"/>
+            <div class="play-overlay"><div class="play-btn-lg"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+          </div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-level level-beginner">Beginner</span><span class="card-duration">⏱ 45 min</span><span class="card-free">FREE</span></div>
+            <h3>DevOps Roadmap 2026 - Hindi Mein</h3>
+            <p class="card-hindi">📌 2026 mein DevOps engineer kaise banein — complete roadmap Hindi mein</p>
+            <p class="card-desc">Shubham Londhe ki DevOps roadmap — konse tools seekhne chahiye, kaunse certificates lene chahiye, salary kitni hoti hai.</p>
+            <div class="card-topics"><span class="topic-tag">Roadmap</span><span class="topic-tag">Career</span><span class="topic-tag">Salary</span><span class="topic-tag">Tools</span></div>
+            <div class="card-actions">
+              <a href="https://www.youtube.com/watch?v=j5Zsa_eOXeY" target="_blank" class="btn-watch">▶ Watch Free</a>
+              <a href="https://vinzapinfotech.in/#contact" class="btn-enroll">Join Internship</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="tutorial-card fade-in">
+          <div class="yt-facade" id="yt-devops3" onclick="loadYT(this,'0yWAtQ6wYNM')">
+            <img src="https://img.youtube.com/vi/0yWAtQ6wYNM/maxresdefault.jpg" alt="DevOps Project CI/CD" loading="lazy"/>
+            <div class="play-overlay"><div class="play-btn-lg"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+          </div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-level level-intermediate">Intermediate</span><span class="card-duration">⏱ 3 hrs</span><span class="card-free">FREE</span></div>
+            <h3>DevOps Real World Project — CI/CD Pipeline Complete</h3>
+            <p class="card-hindi">📌 Real project banao resume ke liye — GitHub se AWS tak poora pipeline ek baar mein</p>
+            <p class="card-desc">Hands-on DevOps project — code commit karo GitHub pe, Jenkins automatically build-test-deploy kare AWS pe. Interview mein yahi poochha jata hai.</p>
+            <div class="card-topics"><span class="topic-tag">project</span><span class="topic-tag">github</span><span class="topic-tag">jenkins</span><span class="topic-tag">docker</span><span class="topic-tag">aws</span></div>
+            <div class="card-actions">
+              <a href="https://www.youtube.com/watch?v=0yWAtQ6wYNM" target="_blank" class="btn-watch">▶ Watch Free</a>
+              <a href="https://www.udemy.com/courses/search/?q=devops+project+cicd&src=ukw" target="_blank" class="btn-udemy">🎓 Udemy Course</a>
+              <a href="https://vinzapinfotech.in/#contact" class="btn-enroll">Join Internship</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="tutorial-card fade-in">
+          <div class="yt-facade" id="yt-devops4" onclick="loadYT(this,'9pZ2xmsSDdo')">
+            <img src="https://img.youtube.com/vi/9pZ2xmsSDdo/maxresdefault.jpg" alt="DevOps Interview Questions" loading="lazy"/>
+            <div class="play-overlay"><div class="play-btn-lg"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+          </div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-level level-intermediate">Intermediate</span><span class="card-duration">⏱ 1.5 hrs</span><span class="card-free">FREE</span></div>
+            <h3>DevOps Interview Questions 2026 — Top 50 Q&A</h3>
+            <p class="card-hindi">📌 Interview crack karo — sabse zyada poochhe jaane wale DevOps questions aur answers</p>
+            <p class="card-desc">Top 50 DevOps interview questions covering Docker, Kubernetes, Jenkins, AWS, CI/CD — fresher se experienced tak sabke liye useful.</p>
+            <div class="card-topics"><span class="topic-tag">interview</span><span class="topic-tag">Q&A</span><span class="topic-tag">placement</span><span class="topic-tag">fresher</span></div>
+            <div class="card-actions">
+              <a href="https://www.youtube.com/watch?v=9pZ2xmsSDdo" target="_blank" class="btn-watch">▶ Watch Free</a>
+              <a href="https://vinzapinfotech.in/#contact" class="btn-enroll">Join Internship</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== AWS TAB ===== -->
+    <div class="content-section" id="section-aws">
+      <div class="section-header fade-in">
+        <div class="section-badge">☁️ AWS Cloud</div>
+        <h2>AWS Tutorials — Zero to Cloud</h2>
+        <p>Amazon Web Services — India ki #1 in-demand cloud skill</p>
+        <p class="hindi-desc">AWS mein job ke liye sabse important topics — EC2, S3, IAM, Lambda, RDS</p>
+      </div>
+
+      <div class="cheatsheet fade-in">
+        <h3>⚡ AWS CLI Quick Reference</h3>
+        <p class="cheatsheet-sub">Common AWS commands jo roz kaam aate hain — copy karo aur use karo</p>
+        <div class="cmd-group">
+          <div class="cmd-group-title">S3 Commands</div>
+          <div class="cmd"><code>aws s3 ls s3://bucket-name</code><span>List all files in bucket</span></div>
+          <div class="cmd"><code>aws s3 cp file.html s3://bucket-name/</code><span>Upload file to S3</span></div>
+          <div class="cmd"><code>aws s3 sync ./folder s3://bucket/</code><span>Sync local folder to S3</span></div>
+        </div>
+        <div class="cmd-group">
+          <div class="cmd-group-title">EC2 Commands</div>
+          <div class="cmd"><code>aws ec2 describe-instances</code><span>List all EC2 instances</span></div>
+          <div class="cmd"><code>aws ec2 start-instances --instance-ids i-xxx</code><span>Start EC2 instance</span></div>
+          <div class="cmd"><code>ssh -i key.pem ec2-user@IP</code><span>Connect to EC2 via SSH</span></div>
+        </div>
+        <div class="cmd-group">
+          <div class="cmd-group-title">CloudFront</div>
+          <div class="cmd"><code>aws cloudfront create-invalidation --distribution-id ID --paths "/*"</code><span>Clear cache</span></div>
+        </div>
+      </div>
+
+      <!-- AdSense -->
+      <div class="ad-slot">
+        <div class="ad-label">Advertisement</div>
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2639020346909963" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      </div>
+
+      <div class="tutorials-grid">
+        <div class="tutorial-card fade-in">
+          <div class="yt-facade" id="yt-aws1" onclick="loadYT(this,'ulprqHHWlng')">
+            <img src="https://img.youtube.com/vi/ulprqHHWlng/maxresdefault.jpg" alt="AWS Tutorial Beginners" loading="lazy"/>
+            <div class="play-overlay"><div class="play-btn-lg"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+          </div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-level level-beginner">Beginner</span><span class="card-duration">⏱ 5 hrs</span><span class="card-free">FREE</span></div>
+            <h3>AWS Complete Tutorial for Beginners — Hindi</h3>
+            <p class="card-hindi">📌 AWS ka poora course free mein — EC2 se Lambda tak sab kuch Hindi mein</p>
+            <p class="card-desc">AWS ke sare core services ek hi video mein — EC2, S3, IAM, VPC, RDS, Lambda. Job interviews ke liye perfect.</p>
+            <div class="card-topics"><span class="topic-tag">EC2</span><span class="topic-tag">S3</span><span class="topic-tag">IAM</span><span class="topic-tag">Lambda</span><span class="topic-tag">VPC</span></div>
+            <div class="card-actions">
+              <a href="https://www.youtube.com/watch?v=ulprqHHWlng" target="_blank" class="btn-watch">▶ Watch Free</a>
+              <a href="https://www.udemy.com/courses/search/?q=aws+certified+solutions+architect&src=ukw" target="_blank" class="btn-udemy">🎓 AWS Cert Course</a>
+              <a href="https://vinzapinfotech.in/#contact" class="btn-enroll">Join AWS Internship</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="tutorial-card fade-in">
+          <div class="yt-facade" id="yt-aws2" onclick="loadYT(this,'3hLmDS179YE')">
+            <img src="https://img.youtube.com/vi/3hLmDS179YE/maxresdefault.jpg" alt="AWS S3 Static Website" loading="lazy"/>
+            <div class="play-overlay"><div class="play-btn-lg"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+          </div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-level level-beginner">Beginner</span><span class="card-duration">⏱ 30 min</span><span class="card-free">FREE</span></div>
+            <h3>Host Static Website on AWS S3 + CloudFront</h3>
+            <p class="card-hindi">📌 S3 pe website host karo + CloudFront se fast banao + SSL free mein lagao</p>
+            <p class="card-desc">Exactly yahi steps use karke wordcounteronline.in banaya gaya hai — S3 bucket, CloudFront distribution, ACM SSL certificate.</p>
+            <div class="card-topics"><span class="topic-tag">S3</span><span class="topic-tag">CloudFront</span><span class="topic-tag">ACM</span><span class="topic-tag">Route 53</span></div>
+            <div class="card-actions">
+              <a href="https://www.youtube.com/watch?v=3hLmDS179YE" target="_blank" class="btn-watch">▶ Watch Free</a>
+              <a href="https://vinzapinfotech.in/#contact" class="btn-enroll">Join Internship</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="tutorial-card fade-in">
+          <div class="yt-facade" id="yt-aws3" onclick="loadYT(this,'a9__D53WsUs')">
+            <img src="https://img.youtube.com/vi/a9__D53WsUs/maxresdefault.jpg" alt="AWS Full Course Beginners" loading="lazy"/>
+            <div class="play-overlay"><div class="play-btn-lg"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+          </div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-level level-beginner">Beginner</span><span class="card-duration">⏱ 11 hrs</span><span class="card-free">FREE</span></div>
+            <h3>AWS Full Course 2026 — All Services One Video</h3>
+            <p class="card-hindi">📌 AWS ke saare services ek hi video mein — EC2, S3, Lambda, RDS, VPC, IAM sab kuch</p>
+            <p class="card-desc">Simplilearn ka comprehensive AWS course — 11 ghante mein AWS ke all major services cover. AWS certification ke liye best foundation.</p>
+            <div class="card-topics"><span class="topic-tag">EC2</span><span class="topic-tag">Lambda</span><span class="topic-tag">RDS</span><span class="topic-tag">DynamoDB</span><span class="topic-tag">CloudWatch</span></div>
+            <div class="card-actions">
+              <a href="https://www.youtube.com/watch?v=a9__D53WsUs" target="_blank" class="btn-watch">▶ Watch Free</a>
+              <a href="https://www.udemy.com/courses/search/?q=aws+solutions+architect&src=ukw" target="_blank" class="btn-udemy">🎓 AWS Cert Prep</a>
+              <a href="https://vinzapinfotech.in/#contact" class="btn-enroll">Join AWS Internship</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="tutorial-card fade-in">
+          <div class="yt-facade" id="yt-aws4" onclick="loadYT(this,'RLd_XTyt-w8')">
+            <img src="https://img.youtube.com/vi/RLd_XTyt-w8/maxresdefault.jpg" alt="AWS EC2 Tutorial" loading="lazy"/>
+            <div class="play-overlay"><div class="play-btn-lg"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+          </div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-level level-beginner">Beginner</span><span class="card-duration">⏱ 2 hrs</span><span class="card-free">FREE</span></div>
+            <h3>AWS EC2 Complete Tutorial — Launch, Configure, Deploy</h3>
+            <p class="card-hindi">📌 EC2 instance launch karo, web server deploy karo — step by step samjho</p>
+            <p class="card-desc">AWS EC2 ka poora tutorial — instance types, AMIs, security groups, key pairs, Elastic IP, load balancer. DevOps job mein rooj kaam aata hai.</p>
+            <div class="card-topics"><span class="topic-tag">EC2</span><span class="topic-tag">security groups</span><span class="topic-tag">AMI</span><span class="topic-tag">Elastic IP</span><span class="topic-tag">SSH</span></div>
+            <div class="card-actions">
+              <a href="https://www.youtube.com/watch?v=RLd_XTyt-w8" target="_blank" class="btn-watch">▶ Watch Free</a>
+              <a href="https://vinzapinfotech.in/#contact" class="btn-enroll">Join Internship</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== DOCKER TAB ===== -->
+    <div class="content-section" id="section-docker">
+      <div class="section-header fade-in">
+        <div class="section-badge">🐳 Docker</div>
+        <h2>Docker Tutorials — Beginner to Pro</h2>
+        <p>Container technology — modern development ka backbone</p>
+        <p class="hindi-desc">Docker kya hai, kaise use karte hain — Hindi aur English mein samjho</p>
+      </div>
+
+      <div class="cheatsheet fade-in">
+        <h3>🐳 Docker Commands Cheatsheet</h3>
+        <p class="cheatsheet-sub">Sabse important Docker commands — ek jagah par</p>
+        <div class="cmd-group">
+          <div class="cmd-group-title">Basic Commands</div>
+          <div class="cmd"><code>docker pull nginx</code><span>Download image from Hub</span></div>
+          <div class="cmd"><code>docker run -d -p 80:80 nginx</code><span>Run container in background</span></div>
+          <div class="cmd"><code>docker ps -a</code><span>List all containers</span></div>
+          <div class="cmd"><code>docker stop container_id</code><span>Stop running container</span></div>
+          <div class="cmd"><code>docker rm container_id</code><span>Delete container</span></div>
+        </div>
+        <div class="cmd-group">
+          <div class="cmd-group-title">Images & Build</div>
+          <div class="cmd"><code>docker build -t myapp:v1 .</code><span>Build image from Dockerfile</span></div>
+          <div class="cmd"><code>docker images</code><span>List all local images</span></div>
+          <div class="cmd"><code>docker push username/myapp</code><span>Push to Docker Hub</span></div>
+        </div>
+        <div class="cmd-group">
+          <div class="cmd-group-title">Docker Compose</div>
+          <div class="cmd"><code>docker-compose up -d</code><span>Start all services</span></div>
+          <div class="cmd"><code>docker-compose down</code><span>Stop all services</span></div>
+          <div class="cmd"><code>docker-compose logs -f</code><span>Follow logs</span></div>
+        </div>
+      </div>
+
+      <!-- AdSense -->
+      <div class="ad-slot">
+        <div class="ad-label">Advertisement</div>
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2639020346909963" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      </div>
+
+      <div class="tutorials-grid">
+        <div class="tutorial-card fade-in">
+          <div class="yt-facade" id="yt-docker1" onclick="loadYT(this,'pg19Z8LL06w')">
+            <img src="https://img.youtube.com/vi/pg19Z8LL06w/maxresdefault.jpg" alt="Docker Tutorial Beginners" loading="lazy"/>
+            <div class="play-overlay"><div class="play-btn-lg"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+          </div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-level level-beginner">Beginner</span><span class="card-duration">⏱ 3 hrs</span><span class="card-free">FREE</span></div>
+            <h3>Docker Complete Tutorial — Install se Deployment tak</h3>
+            <p class="card-hindi">📌 Docker bilkul zero se — kya hai, kyun use karte hain, kaise kaam karta hai</p>
+            <p class="card-desc">Docker containers, images, Dockerfile, Docker Compose — sab kuch ek comprehensive guide mein. Hands-on practice ke saath.</p>
+            <div class="card-topics"><span class="topic-tag">containers</span><span class="topic-tag">dockerfile</span><span class="topic-tag">compose</span><span class="topic-tag">networking</span><span class="topic-tag">volumes</span></div>
+            <div class="card-actions">
+              <a href="https://www.youtube.com/watch?v=pg19Z8LL06w" target="_blank" class="btn-watch">▶ Watch Free</a>
+              <a href="https://www.udemy.com/courses/search/?q=docker+kubernetes&src=ukw" target="_blank" class="btn-udemy">🎓 Udemy Course</a>
+              <a href="https://vinzapinfotech.in/#contact" class="btn-enroll">Join Internship</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="tutorial-card fade-in">
+          <div class="yt-facade" id="yt-docker2" onclick="loadYT(this,'3c-iBn73dDE')">
+            <img src="https://img.youtube.com/vi/3c-iBn73dDE/maxresdefault.jpg" alt="Docker Crash Course" loading="lazy"/>
+            <div class="play-overlay"><div class="play-btn-lg"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+          </div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-level level-intermediate">Intermediate</span><span class="card-duration">⏱ 4 hrs</span><span class="card-free">FREE</span></div>
+            <h3>Docker + Kubernetes Full Course — TechWorld with Nana</h3>
+            <p class="card-hindi">📌 Docker aur Kubernetes dono ek saath — DevOps engineer ke liye must-watch</p>
+            <p class="card-desc">Industry standard course — Docker se start karke Kubernetes orchestration tak. Companies mein yahi use hota hai.</p>
+            <div class="card-topics"><span class="topic-tag">docker</span><span class="topic-tag">kubernetes</span><span class="topic-tag">k8s</span><span class="topic-tag">pods</span><span class="topic-tag">services</span></div>
+            <div class="card-actions">
+              <a href="https://www.youtube.com/watch?v=3c-iBn73dDE" target="_blank" class="btn-watch">▶ Watch Free</a>
+              <a href="https://vinzapinfotech.in/#contact" class="btn-enroll">Join Internship</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="tutorial-card fade-in">
+          <div class="yt-facade" id="yt-docker3" onclick="loadYT(this,'fqMOX6JJhGo')">
+            <img src="https://img.youtube.com/vi/fqMOX6JJhGo/maxresdefault.jpg" alt="Docker Full Course TechWorld" loading="lazy"/>
+            <div class="play-overlay"><div class="play-btn-lg"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+          </div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-level level-beginner">Beginner</span><span class="card-duration">⏱ 4 hrs</span><span class="card-free">FREE</span></div>
+            <h3>Docker Tutorial for Beginners — TechWorld with Nana</h3>
+            <p class="card-hindi">📌 World ka best Docker tutorial — Nana ki video se Docker bilkul clear ho jaata hai</p>
+            <p class="card-desc">Docker concepts, architecture, images, containers, volumes, networks — sabse popular Docker tutorial worldwide. Hands-on projects ke saath.</p>
+            <div class="card-topics"><span class="topic-tag">architecture</span><span class="topic-tag">volumes</span><span class="topic-tag">networks</span><span class="topic-tag">registry</span><span class="topic-tag">hands-on</span></div>
+            <div class="card-actions">
+              <a href="https://www.youtube.com/watch?v=fqMOX6JJhGo" target="_blank" class="btn-watch">▶ Watch Free</a>
+              <a href="https://www.udemy.com/courses/search/?q=docker+complete+course&src=ukw" target="_blank" class="btn-udemy">🎓 Udemy Course</a>
+              <a href="https://vinzapinfotech.in/#contact" class="btn-enroll">Join Internship</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="tutorial-card fade-in">
+          <div class="yt-facade" id="yt-docker4" onclick="loadYT(this,'Gjnup-PuquQ')">
+            <img src="https://img.youtube.com/vi/Gjnup-PuquQ/maxresdefault.jpg" alt="Docker in 100 Seconds" loading="lazy"/>
+            <div class="play-overlay"><div class="play-btn-lg"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+          </div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-level level-beginner">Beginner</span><span class="card-duration">⏱ 2 min</span><span class="card-free">FREE</span></div>
+            <h3>Docker Explained in 100 Seconds — Quick Concept Clarity</h3>
+            <p class="card-hindi">📌 Sirf 2 minute mein Docker ka concept crystal clear — interview se pehle zaroor dekho</p>
+            <p class="card-desc">Fireship ka viral Docker video — 100 seconds mein containers ka poora concept samjho. Quick revision ke liye perfect.</p>
+            <div class="card-topics"><span class="topic-tag">concept</span><span class="topic-tag">quick</span><span class="topic-tag">revision</span><span class="topic-tag">interview prep</span></div>
+            <div class="card-actions">
+              <a href="https://www.youtube.com/watch?v=Gjnup-PuquQ" target="_blank" class="btn-watch">▶ Watch Free</a>
+              <a href="https://vinzapinfotech.in/#contact" class="btn-enroll">Join Internship</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== JENKINS TAB ===== -->
+    <div class="content-section" id="section-jenkins">
+      <div class="section-header fade-in">
+        <div class="section-badge">⚙️ Jenkins</div>
+        <h2>Jenkins CI/CD Pipeline</h2>
+        <p>Automation ka king — build, test, deploy automatically</p>
+        <p class="hindi-desc">Jenkins pipeline banao — code push karo aur baki sab automatic ho jata hai</p>
+      </div>
+
+      <div class="cheatsheet fade-in">
+        <h3>⚙️ Jenkins Pipeline — Jenkinsfile Template</h3>
+        <p class="cheatsheet-sub">Basic Declarative Pipeline structure — copy karo aur customize karo</p>
+        <div class="cmd-group">
+          <div class="cmd-group-title">Basic Declarative Pipeline</div>
+          <div class="cmd"><code>pipeline &#123; agent any</code><span>Run on any available agent</span></div>
+          <div class="cmd"><code>stages &#123; stage('Build') &#123;</code><span>Define pipeline stages</span></div>
+          <div class="cmd"><code>steps &#123; sh 'mvn clean package' &#125;</code><span>Shell command in step</span></div>
+          <div class="cmd"><code>post &#123; success &#123; echo 'Done!' &#125; &#125;</code><span>Post build actions</span></div>
+        </div>
+        <div class="cmd-group">
+          <div class="cmd-group-title">Jenkins CLI</div>
+          <div class="cmd"><code>java -jar jenkins-cli.jar -s URL build JOB</code><span>Trigger build from CLI</span></div>
+          <div class="cmd"><code>curl -X POST URL/job/NAME/build</code><span>Trigger via API</span></div>
+        </div>
+      </div>
+
+      <!-- AdSense -->
+      <div class="ad-slot">
+        <div class="ad-label">Advertisement</div>
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2639020346909963" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      </div>
+
+      <div class="tutorials-grid">
+        <div class="tutorial-card fade-in">
+          <div class="yt-facade" id="yt-jenkins1" onclick="loadYT(this,'6YZvp2GwT0g')">
+            <img src="https://img.youtube.com/vi/6YZvp2GwT0g/maxresdefault.jpg" alt="Jenkins Tutorial" loading="lazy"/>
+            <div class="play-overlay"><div class="play-btn-lg"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+          </div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-level level-beginner">Beginner</span><span class="card-duration">⏱ 2.5 hrs</span><span class="card-free">FREE</span></div>
+            <h3>Jenkins Full Tutorial — Install se CI/CD Pipeline tak</h3>
+            <p class="card-hindi">📌 Jenkins install karo, first pipeline banao — step by step Hindi + English</p>
+            <p class="card-desc">Jenkins installation on Linux/Docker, first freestyle job, declarative pipeline, GitHub webhook integration — sab kuch ek video mein.</p>
+            <div class="card-topics"><span class="topic-tag">install</span><span class="topic-tag">pipeline</span><span class="topic-tag">webhooks</span><span class="topic-tag">plugins</span><span class="topic-tag">groovy</span></div>
+            <div class="card-actions">
+              <a href="https://www.youtube.com/watch?v=6YZvp2GwT0g" target="_blank" class="btn-watch">▶ Watch Free</a>
+              <a href="https://www.udemy.com/courses/search/?q=jenkins+cicd+pipeline&src=ukw" target="_blank" class="btn-udemy">🎓 Udemy Course</a>
+              <a href="https://vinzapinfotech.in/#contact" class="btn-enroll">Join Internship</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="tutorial-card fade-in">
+          <div class="yt-facade" id="yt-jenkins2" onclick="loadYT(this,'FX322RVNGj4')">
+            <img src="https://img.youtube.com/vi/FX322RVNGj4/maxresdefault.jpg" alt="Jenkins Docker Pipeline" loading="lazy"/>
+            <div class="play-overlay"><div class="play-btn-lg"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+          </div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-level level-intermediate">Intermediate</span><span class="card-duration">⏱ 3 hrs</span><span class="card-free">FREE</span></div>
+            <h3>Jenkins + Docker + AWS — Real World CI/CD Project</h3>
+            <p class="card-hindi">📌 Real project — Jenkins se Docker build karo aur AWS pe deploy karo automatically</p>
+            <p class="card-desc">End-to-end CI/CD project — GitHub commit → Jenkins build → Docker image → Push to ECR → Deploy on EC2. Resume ke liye perfect project.</p>
+            <div class="card-topics"><span class="topic-tag">jenkins</span><span class="topic-tag">docker</span><span class="topic-tag">aws ecr</span><span class="topic-tag">ec2</span><span class="topic-tag">real project</span></div>
+            <div class="card-actions">
+              <a href="https://www.youtube.com/watch?v=FX322RVNGj4" target="_blank" class="btn-watch">▶ Watch Free</a>
+              <a href="https://vinzapinfotech.in/#contact" class="btn-enroll">Join Internship</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== GITHUB CICD TAB ===== -->
+    <div class="content-section" id="section-github">
+      <div class="section-header fade-in">
+        <div class="section-badge">🔄 GitHub Actions</div>
+        <h2>GitHub Actions CI/CD — Modern Automation</h2>
+        <p>Jenkins ka modern alternative — GitHub ke andar hi CI/CD setup karo</p>
+        <p class="hindi-desc">2026 mein sabse popular CI/CD tool — job mein yahi poochha jata hai</p>
+      </div>
+
+      <div class="cheatsheet fade-in">
+        <h3>🔄 GitHub Actions — Workflow Template</h3>
+        <p class="cheatsheet-sub">Basic workflow YAML — .github/workflows/deploy.yml mein copy karo</p>
+        <div class="cmd-group">
+          <div class="cmd-group-title">Basic Workflow Structure</div>
+          <div class="cmd"><code>on: push: branches: [main]</code><span>Trigger on main push</span></div>
+          <div class="cmd"><code>jobs: build: runs-on: ubuntu-latest</code><span>Run on Ubuntu runner</span></div>
+          <div class="cmd"><code>uses: actions/checkout@v4</code><span>Checkout repository code</span></div>
+          <div class="cmd"><code>uses: actions/setup-node@v4</code><span>Setup Node.js environment</span></div>
+        </div>
+        <div class="cmd-group">
+          <div class="cmd-group-title">AWS Deploy Actions</div>
+          <div class="cmd"><code>uses: aws-actions/configure-aws-credentials@v4</code><span>Configure AWS credentials</span></div>
+          <div class="cmd"><code>run: aws s3 sync . s3://$BUCKET</code><span>Sync files to S3</span></div>
+          <div class="cmd"><code>run: aws cloudfront create-invalidation ...</code><span>Invalidate CDN cache</span></div>
+        </div>
+      </div>
+
+      <!-- AdSense -->
+      <div class="ad-slot">
+        <div class="ad-label">Advertisement</div>
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2639020346909963" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      </div>
+
+      <div class="tutorials-grid">
+        <div class="tutorial-card fade-in">
+          <div class="yt-facade" id="yt-gh1" onclick="loadYT(this,'R8_veQiYBjI')">
+            <img src="https://img.youtube.com/vi/R8_veQiYBjI/maxresdefault.jpg" alt="GitHub Actions Tutorial" loading="lazy"/>
+            <div class="play-overlay"><div class="play-btn-lg"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+          </div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-level level-beginner">Beginner</span><span class="card-duration">⏱ 1.5 hrs</span><span class="card-free">FREE</span></div>
+            <h3>GitHub Actions — Zero to Hero CI/CD Pipeline</h3>
+            <p class="card-hindi">📌 GitHub Actions kya hai aur apna pehla workflow kaise banate hain — step by step</p>
+            <p class="card-desc">GitHub Actions basics — triggers, jobs, steps, secrets, environments. Apna pehla CI/CD pipeline banao jo test + deploy kare.</p>
+            <div class="card-topics"><span class="topic-tag">workflows</span><span class="topic-tag">YAML</span><span class="topic-tag">secrets</span><span class="topic-tag">environments</span></div>
+            <div class="card-actions">
+              <a href="https://www.youtube.com/watch?v=R8_veQiYBjI" target="_blank" class="btn-watch">▶ Watch Free</a>
+              <a href="https://www.udemy.com/courses/search/?q=github+actions+cicd&src=ukw" target="_blank" class="btn-udemy">🎓 Udemy Course</a>
+              <a href="https://vinzapinfotech.in/#contact" class="btn-enroll">Join Internship</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="tutorial-card fade-in">
+          <div class="yt-facade" id="yt-gh2" onclick="loadYT(this,'mFFXuXjVgkU')">
+            <img src="https://img.youtube.com/vi/mFFXuXjVgkU/maxresdefault.jpg" alt="GitHub Actions AWS Deploy" loading="lazy"/>
+            <div class="play-overlay"><div class="play-btn-lg"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+          </div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-level level-intermediate">Intermediate</span><span class="card-duration">⏱ 45 min</span><span class="card-free">FREE</span></div>
+            <h3>Deploy to AWS S3 + CloudFront with GitHub Actions</h3>
+            <p class="card-hindi">📌 GitHub pe code push karo aur automatically AWS pe deploy ho — ye tutorial exactly yahi sikhata hai</p>
+            <p class="card-desc">Exactly jo wordcounteronline.in ke liye kiya — GitHub Actions se S3 upload + CloudFront invalidation automatic karo. No more manual uploads!</p>
+            <div class="card-topics"><span class="topic-tag">s3 deploy</span><span class="topic-tag">cloudfront</span><span class="topic-tag">iam roles</span><span class="topic-tag">github secrets</span></div>
+            <div class="card-actions">
+              <a href="https://www.youtube.com/watch?v=mFFXuXjVgkU" target="_blank" class="btn-watch">▶ Watch Free</a>
+              <a href="https://vinzapinfotech.in/#contact" class="btn-enroll">Join Internship</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== LINUX TAB ===== -->
+    <div class="content-section" id="section-linux">
+      <div class="section-header fade-in">
+        <div class="section-badge">🐧 Linux</div>
+        <h2>Linux for DevOps — Essential Commands</h2>
+        <p>DevOps ka foundation — Linux ke bina DevOps nahi hota</p>
+        <p class="hindi-desc">Sabse important Linux commands aur concepts jo DevOps interview mein pooche jaate hain</p>
+      </div>
+
+      <div class="cheatsheet fade-in">
+        <h3>🐧 Linux Commands Cheatsheet</h3>
+        <p class="cheatsheet-sub">DevOps mein sabse common Linux commands — roz kaam aate hain</p>
+        <div class="cmd-group">
+          <div class="cmd-group-title">File & Directory</div>
+          <div class="cmd"><code>ls -la /path</code><span>List with permissions</span></div>
+          <div class="cmd"><code>find / -name "*.log" -type f</code><span>Find files by name</span></div>
+          <div class="cmd"><code>chmod 755 script.sh</code><span>Change file permissions</span></div>
+          <div class="cmd"><code>chown user:group file</code><span>Change file owner</span></div>
+        </div>
+        <div class="cmd-group">
+          <div class="cmd-group-title">Process & System</div>
+          <div class="cmd"><code>ps aux | grep nginx</code><span>Find running process</span></div>
+          <div class="cmd"><code>kill -9 PID</code><span>Force kill process</span></div>
+          <div class="cmd"><code>df -h</code><span>Check disk space</span></div>
+          <div class="cmd"><code>free -m</code><span>Check RAM usage</span></div>
+          <div class="cmd"><code>top / htop</code><span>Live system monitor</span></div>
+        </div>
+        <div class="cmd-group">
+          <div class="cmd-group-title">Network & SSH</div>
+          <div class="cmd"><code>netstat -tulpn</code><span>Show open ports</span></div>
+          <div class="cmd"><code>curl -I https://site.com</code><span>Check HTTP headers</span></div>
+          <div class="cmd"><code>ssh-keygen -t rsa -b 4096</code><span>Generate SSH key pair</span></div>
+          <div class="cmd"><code>scp file.txt user@IP:/path</code><span>Copy file over SSH</span></div>
+        </div>
+      </div>
+
+      <!-- AdSense -->
+      <div class="ad-slot">
+        <div class="ad-label">Advertisement</div>
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2639020346909963" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      </div>
+
+      <div class="tutorials-grid">
+        <div class="tutorial-card fade-in">
+          <div class="yt-facade" id="yt-linux1" onclick="loadYT(this,'sWbUDq4S6Y8')">
+            <img src="https://img.youtube.com/vi/sWbUDq4S6Y8/maxresdefault.jpg" alt="Linux Tutorial Hindi" loading="lazy"/>
+            <div class="play-overlay"><div class="play-btn-lg"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+          </div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-level level-beginner">Beginner</span><span class="card-duration">⏱ 4 hrs</span><span class="card-free">FREE</span></div>
+            <h3>Linux Full Course for DevOps — Hindi Mein</h3>
+            <p class="card-hindi">📌 Linux zero se seekho — commands, shell scripting, user management — Hindi mein</p>
+            <p class="card-desc">Linux fundamentals for DevOps — filesystem, permissions, shell scripting, cron jobs, networking. DevOps interview preparation ke liye.</p>
+            <div class="card-topics"><span class="topic-tag">bash</span><span class="topic-tag">scripting</span><span class="topic-tag">cron</span><span class="topic-tag">networking</span><span class="topic-tag">vim</span></div>
+            <div class="card-actions">
+              <a href="https://www.youtube.com/watch?v=sWbUDq4S6Y8" target="_blank" class="btn-watch">▶ Watch Free</a>
+              <a href="https://www.udemy.com/courses/search/?q=linux+for+devops&src=ukw" target="_blank" class="btn-udemy">🎓 Udemy Course</a>
+              <a href="https://vinzapinfotech.in/#contact" class="btn-enroll">Join Internship</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== KUBERNETES TAB ===== -->
+    <div class="content-section" id="section-k8s">
+      <div class="section-header fade-in">
+        <div class="section-badge">☸️ Kubernetes</div>
+        <h2>Kubernetes (K8s) — Container Orchestration</h2>
+        <p>Docker ke baad Kubernetes — large scale apps ka standard</p>
+        <p class="hindi-desc">Kubernetes 2026 mein sabse demanded skill hai — Docker jaanna zaroori hai pehle</p>
+      </div>
+
+      <div class="cheatsheet fade-in">
+        <h3>☸️ kubectl Commands Cheatsheet</h3>
+        <p class="cheatsheet-sub">Sabse important Kubernetes commands — roz kaam aate hain</p>
+        <div class="cmd-group">
+          <div class="cmd-group-title">Pods & Deployments</div>
+          <div class="cmd"><code>kubectl get pods</code><span>List all pods</span></div>
+          <div class="cmd"><code>kubectl get pods -n namespace</code><span>Pods in namespace</span></div>
+          <div class="cmd"><code>kubectl describe pod pod-name</code><span>Pod details</span></div>
+          <div class="cmd"><code>kubectl logs pod-name</code><span>View pod logs</span></div>
+          <div class="cmd"><code>kubectl apply -f deployment.yaml</code><span>Apply config file</span></div>
+          <div class="cmd"><code>kubectl delete pod pod-name</code><span>Delete a pod</span></div>
+        </div>
+        <div class="cmd-group">
+          <div class="cmd-group-title">Services & Scaling</div>
+          <div class="cmd"><code>kubectl get services</code><span>List all services</span></div>
+          <div class="cmd"><code>kubectl scale deployment app --replicas=3</code><span>Scale to 3 replicas</span></div>
+          <div class="cmd"><code>kubectl rollout status deployment/app</code><span>Check rollout status</span></div>
+          <div class="cmd"><code>kubectl rollout undo deployment/app</code><span>Rollback deployment</span></div>
+        </div>
+        <div class="cmd-group">
+          <div class="cmd-group-title">Config & Secrets</div>
+          <div class="cmd"><code>kubectl get configmaps</code><span>List ConfigMaps</span></div>
+          <div class="cmd"><code>kubectl get secrets</code><span>List Secrets</span></div>
+          <div class="cmd"><code>kubectl exec -it pod-name -- bash</code><span>Shell into pod</span></div>
+        </div>
+      </div>
+
+      <!-- AdSense -->
+      <div class="ad-slot">
+        <div class="ad-label">Advertisement</div>
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2639020346909963" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      </div>
+
+      <div class="tutorials-grid">
+        <div class="tutorial-card fade-in">
+          <div class="yt-facade" id="yt-k8s1" onclick="loadYT(this,'s_o8dwzRlu4')">
+            <img src="https://img.youtube.com/vi/s_o8dwzRlu4/maxresdefault.jpg" alt="Kubernetes Tutorial Beginners" loading="lazy"/>
+            <div class="play-overlay"><div class="play-btn-lg"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+          </div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-level level-beginner">Beginner</span><span class="card-duration">⏱ 4 hrs</span><span class="card-free">FREE</span></div>
+            <h3>Kubernetes Full Course for Beginners — TechWorld with Nana</h3>
+            <p class="card-hindi">📌 Kubernetes zero se seekho — pods, services, deployments sab kuch Nana ke saath</p>
+            <p class="card-desc">World ka best Kubernetes tutorial — architecture se leke real deployment tak. Har concept diagrams ke saath clearly explain kiya gaya hai.</p>
+            <div class="card-topics"><span class="topic-tag">pods</span><span class="topic-tag">services</span><span class="topic-tag">deployments</span><span class="topic-tag">namespaces</span><span class="topic-tag">ingress</span></div>
+            <div class="card-actions">
+              <a href="https://www.youtube.com/watch?v=s_o8dwzRlu4" target="_blank" class="btn-watch">▶ Watch Free</a>
+              <a href="https://www.udemy.com/courses/search/?q=kubernetes+beginners&src=ukw" target="_blank" class="btn-udemy">🎓 Udemy Course</a>
+              <a href="https://vinzapinfotech.in/#contact" class="btn-enroll">Join Internship</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="tutorial-card fade-in">
+          <div class="yt-facade" id="yt-k8s2" onclick="loadYT(this,'X48VuDVv0do')">
+            <img src="https://img.youtube.com/vi/X48VuDVv0do/maxresdefault.jpg" alt="Kubernetes Crash Course" loading="lazy"/>
+            <div class="play-overlay"><div class="play-btn-lg"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+          </div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-level level-intermediate">Intermediate</span><span class="card-duration">⏱ 4 hrs</span><span class="card-free">FREE</span></div>
+            <h3>Kubernetes Crash Course — Hands-on Project</h3>
+            <p class="card-hindi">📌 Kubernetes ka crash course — ek real app deploy karo K8s cluster pe step by step</p>
+            <p class="card-desc">Complete K8s hands-on — local cluster setup, Deployments, Services, ConfigMaps, Secrets, Ingress. Resume project ke liye bilkul sahi.</p>
+            <div class="card-topics"><span class="topic-tag">minikube</span><span class="topic-tag">kubectl</span><span class="topic-tag">configmap</span><span class="topic-tag">secrets</span><span class="topic-tag">helm</span></div>
+            <div class="card-actions">
+              <a href="https://www.youtube.com/watch?v=X48VuDVv0do" target="_blank" class="btn-watch">▶ Watch Free</a>
+              <a href="https://www.udemy.com/courses/search/?q=kubernetes+hands+on&src=ukw" target="_blank" class="btn-udemy">🎓 Udemy Course</a>
+              <a href="https://vinzapinfotech.in/#contact" class="btn-enroll">Join Internship</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="tutorial-card fade-in">
+          <div class="yt-facade" id="yt-k8s3" onclick="loadYT(this,'d6WC5n9G_sM')">
+            <img src="https://img.youtube.com/vi/d6WC5n9G_sM/maxresdefault.jpg" alt="Kubernetes NetworkChuck" loading="lazy"/>
+            <div class="play-overlay"><div class="play-btn-lg"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+          </div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-level level-beginner">Beginner</span><span class="card-duration">⏱ 1 hr</span><span class="card-free">FREE</span></div>
+            <h3>Kubernetes is Easy! — NetworkChuck Explains Simply</h3>
+            <p class="card-hindi">📌 Kubernetes ko simple tarike se samjho — NetworkChuck ka entertaining aur easy style</p>
+            <p class="card-desc">NetworkChuck Kubernetes tutorial — entertaining aur beginner friendly. K8s kyu zaroori hai aur kaise kaam karta hai easily samjho.</p>
+            <div class="card-topics"><span class="topic-tag">beginner</span><span class="topic-tag">concept</span><span class="topic-tag">easy</span><span class="topic-tag">docker+k8s</span></div>
+            <div class="card-actions">
+              <a href="https://www.youtube.com/watch?v=d6WC5n9G_sM" target="_blank" class="btn-watch">▶ Watch Free</a>
+              <a href="https://vinzapinfotech.in/#contact" class="btn-enroll">Join Internship</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="tutorial-card fade-in">
+          <div class="yt-facade" id="yt-k8s4" onclick="loadYT(this,'PziYflu8cB8')">
+            <img src="https://img.youtube.com/vi/PziYflu8cB8/maxresdefault.jpg" alt="Kubernetes on AWS EKS" loading="lazy"/>
+            <div class="play-overlay"><div class="play-btn-lg"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+          </div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-level level-advanced">Advanced</span><span class="card-duration">⏱ 2 hrs</span><span class="card-free">FREE</span></div>
+            <h3>Kubernetes on AWS EKS — Deploy Real App on Cloud</h3>
+            <p class="card-hindi">📌 AWS EKS pe Kubernetes deploy karo — yahi companies production mein use karti hain</p>
+            <p class="card-desc">AWS Elastic Kubernetes Service (EKS) — managed Kubernetes on AWS. Real application deploy karo production-grade cluster pe. High salary jobs ke liye.</p>
+            <div class="card-topics"><span class="topic-tag">EKS</span><span class="topic-tag">AWS</span><span class="topic-tag">production</span><span class="topic-tag">eksctl</span><span class="topic-tag">fargate</span></div>
+            <div class="card-actions">
+              <a href="https://www.youtube.com/watch?v=PziYflu8cB8" target="_blank" class="btn-watch">▶ Watch Free</a>
+              <a href="https://www.udemy.com/courses/search/?q=aws+eks+kubernetes&src=ukw" target="_blank" class="btn-udemy">🎓 AWS EKS Course</a>
+              <a href="https://vinzapinfotech.in/#contact" class="btn-enroll">Join Internship</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Newsletter -->
+    <div class="newsletter fade-in">
+      <h2>🚀 Free DevOps Newsletter</h2>
+      <p>Weekly tips, new tutorials, job openings — inbox mein free mein</p>
+      <p class="hindi">Har hafte nayi tutorials aur DevOps jobs ki list — bilkul free!</p>
+      <div class="newsletter-form">
+        <input type="email" placeholder="Your email address..." id="newsletterEmail"/>
+        <button onclick="subscribeNewsletter()">Subscribe Free →</button>
+      </div>
+    </div>
+
+  </div><!-- end content area -->
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar">
+
+    <!-- Enrollment Form -->
+    <div class="sidebar-card">
+      <div class="sidebar-card-header">
+        <h4>🎓 Join DevOps Internship</h4>
+        <p>Free registration — limited seats</p>
+      </div>
+      <div class="sidebar-card-body">
+        <form class="enroll-form" onsubmit="handleEnroll(event)">
+          <input type="text" placeholder="Your Name *" required/>
+          <input type="email" placeholder="Email Address *" required/>
+          <input type="tel" placeholder="WhatsApp Number *" required/>
+          <select required>
+            <option value="">Select Program</option>
+            <option>DevOps Internship (AWS + Docker + CI/CD)</option>
+            <option>AWS Cloud Internship</option>
+            <option>Full Stack Development</option>
+            <option>Python & Data Science</option>
+            <option>Digital Marketing</option>
+          </select>
+          <button type="submit" class="btn-submit">🚀 Apply Now — Free</button>
+        </form>
+        <p style="font-size:11px;color:var(--text-light);text-align:center;margin-top:10px;">✅ 3-6 months internship • Certificate • Job assistance</p>
+      </div>
+    </div>
+
+    <!-- Sidebar AdSense -->
+    <div class="sidebar-card" style="padding:12px;">
+      <div class="ad-label" style="text-align:center;font-size:10px;color:#94a3b8;margin-bottom:4px;">Advertisement</div>
+      <ins class="adsbygoogle" data-ad-client="ca-pub-2639020346909963" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true" style="display:block"></ins>
+    </div>
+
+    <!-- Quick Udemy Courses -->
+    <div class="sidebar-card">
+      <div class="sidebar-card-header">
+        <h4>🎓 Recommended Courses</h4>
+        <p>Affiliate links — support us free</p>
+      </div>
+      <div class="sidebar-card-body">
+        <div class="course-list">
+          <a href="https://www.udemy.com/courses/search/?q=devops+aws&src=ukw" target="_blank" class="course-item" onclick="gtag('event','affiliate_click',{platform:'udemy',topic:'devops_aws'})">
+            <div class="course-icon" style="background:#FF9900;">☁️</div>
+            <div class="course-info"><div class="course-name">DevOps + AWS Complete</div><div class="course-meta">Best seller • 40 hrs</div></div>
+            <div class="course-price">↗</div>
+          </a>
+          <a href="https://www.udemy.com/courses/search/?q=docker+kubernetes&src=ukw" target="_blank" class="course-item" onclick="gtag('event','affiliate_click',{platform:'udemy',topic:'docker_k8s'})">
+            <div class="course-icon" style="background:#2496ED;">🐳</div>
+            <div class="course-info"><div class="course-name">Docker + Kubernetes</div><div class="course-meta">Top rated • 25 hrs</div></div>
+            <div class="course-price">↗</div>
+          </a>
+          <a href="https://www.udemy.com/courses/search/?q=jenkins+cicd&src=ukw" target="_blank" class="course-item" onclick="gtag('event','affiliate_click',{platform:'udemy',topic:'jenkins'})">
+            <div class="course-icon" style="background:#D24939;">⚙️</div>
+            <div class="course-info"><div class="course-name">Jenkins CI/CD Pipeline</div><div class="course-meta">Popular • 15 hrs</div></div>
+            <div class="course-price">↗</div>
+          </a>
+          <a href="https://www.udemy.com/courses/search/?q=linux+devops&src=ukw" target="_blank" class="course-item" onclick="gtag('event','affiliate_click',{platform:'udemy',topic:'linux'})">
+            <div class="course-icon" style="background:#FCC624;">🐧</div>
+            <div class="course-info"><div class="course-name">Linux for DevOps</div><div class="course-meta">Beginner friendly</div></div>
+            <div class="course-price">↗</div>
+          </a>
+        </div>
+        <p style="font-size:10px;color:#94a3b8;margin-top:12px;text-align:center;">* Affiliate links — we earn small commission at no extra cost to you</p>
+      </div>
+    </div>
+
+    <!-- Progress Tracker -->
+    <div class="sidebar-card">
+      <div class="sidebar-card-header">
+        <h4>📊 DevOps Roadmap Progress</h4>
+        <p>Track your learning journey</p>
+      </div>
+      <div class="sidebar-card-body">
+        <div class="progress-wrap"><div class="progress-label"><span>🐧 Linux</span><span>Start here</span></div><div class="progress-bar"><div class="progress-fill" style="width:85%"></div></div></div>
+        <div class="progress-wrap"><div class="progress-label"><span>☁️ AWS</span><span>Highly demanded</span></div><div class="progress-bar"><div class="progress-fill" style="width:90%"></div></div></div>
+        <div class="progress-wrap"><div class="progress-label"><span>🐳 Docker</span><span>Must know</span></div><div class="progress-bar"><div class="progress-fill" style="width:80%"></div></div></div>
+        <div class="progress-wrap"><div class="progress-label"><span>⚙️ Jenkins</span><span>CI/CD core</span></div><div class="progress-bar"><div class="progress-fill" style="width:70%"></div></div></div>
+        <div class="progress-wrap"><div class="progress-label"><span>🔄 GitHub CI/CD</span><span>Modern approach</span></div><div class="progress-bar"><div class="progress-fill" style="width:95%"></div></div></div>
+        <p style="font-size:11px;color:#94a3b8;margin-top:10px;text-align:center;">% = Job market demand in India 2026</p>
+      </div>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="sidebar-card">
+      <div class="sidebar-card-header"><h4>🔗 Quick Links</h4><p>Free tools & resources</p></div>
+      <div class="sidebar-card-body">
+        <div class="quick-links">
+          <a href="https://wordcounteronline.in" target="_blank" class="quick-link">📝 Word Counter Tool</a>
+          <a href="https://docs.aws.amazon.com" target="_blank" class="quick-link">📚 AWS Documentation</a>
+          <a href="https://docs.docker.com" target="_blank" class="quick-link">🐳 Docker Docs</a>
+          <a href="https://docs.github.com/en/actions" target="_blank" class="quick-link">🔄 GitHub Actions Docs</a>
+          <a href="https://www.jenkins.io/doc/" target="_blank" class="quick-link">⚙️ Jenkins Documentation</a>
+          <a href="https://roadmap.sh/devops" target="_blank" class="quick-link">🗺️ DevOps Roadmap</a>
+        </div>
+      </div>
+    </div>
+
+  </aside>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+          <div class="logo-icon">Vi</div>
+          <span class="logo-text">VinzapInfotech</span>
+        </div>
+        <p class="footer-desc">Free DevOps tutorials in Hindi & English. Learn AWS, Docker, Jenkins, GitHub CI/CD and get placed in top IT companies. Bangalore based IT training company.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Tutorials</h4>
+        <a href="#" onclick="showTab('devops')">DevOps Roadmap</a>
+        <a href="#" onclick="showTab('aws')">AWS Tutorial</a>
+        <a href="#" onclick="showTab('docker')">Docker Guide</a>
+        <a href="#" onclick="showTab('jenkins')">Jenkins CI/CD</a>
+        <a href="#" onclick="showTab('github')">GitHub Actions</a>
+        <a href="#" onclick="showTab('linux')">Linux Commands</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="https://vinzapinfotech.in">About Us</a>
+        <a href="https://vinzapinfotech.in/#contact">Contact</a>
+        <a href="https://vinzapinfotech.in/#programs">Internships</a>
+        <a href="https://wordcounteronline.in">Word Counter</a>
+        <a href="https://vinzapinfotech.in/privacy-policy">Privacy Policy</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 VinzapInfotech. Free DevOps Tutorials.</span>
+      <span>Made with ❤️ in Bangalore, India</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ===== TAB SWITCHING =====
+  function showTab(name) {
+    document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    document.getElementById('section-' + name).classList.add('active');
+    document.getElementById('tab-' + name).classList.add('active');
+    const navLink = document.getElementById('nav-' + name);
+    if (navLink) navLink.classList.add('active');
+    gtag('event', 'tab_view', { tab: name });
+    triggerFadeIns();
+    return false;
+  }
+
+  // ===== HAMBURGER =====
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+
+  // ===== YOUTUBE LAZY LOAD =====
+  function loadYT(el, videoId) {
+    el.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:none;"></iframe>`;
+    gtag('event', 'video_play', { video_id: videoId });
+  }
+
+  // ===== FADE IN =====
+  function triggerFadeIns() {
+    setTimeout(() => {
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.fade-in:not(.visible)').forEach(el => obs.observe(el));
+    }, 50);
+  }
+
+  // ===== NEWSLETTER =====
+  function subscribeNewsletter() {
+    const email = document.getElementById('newsletterEmail').value;
+    if (!email) return;
+    gtag('event', 'newsletter_subscribe', { email_domain: email.split('@')[1] });
+    alert('🎉 Subscribed! Check your email for confirmation.\nDevOps updates aapke inbox mein aayenge!');
+  }
+
+  // ===== ENROLL FORM =====
+  function handleEnroll(e) {
+    e.preventDefault();
+    gtag('event', 'enroll_form_submit', { source: 'devops_tutorials_sidebar' });
+    e.target.innerHTML = '<div style="text-align:center;padding:20px;"><div style="font-size:3rem;margin-bottom:12px;">🎉</div><h3 style="color:var(--accent);margin-bottom:8px;">Application Received!</h3><p style="color:var(--text-light);font-size:14px;">Hum aapko 24 ghante ke andar WhatsApp karenge.<br/>VinzapInfotech team will contact you soon!</p></div>';
+  }
+
+  // ===== ADSENSE PUSH =====
+  window.addEventListener('load', function() {
+    document.querySelectorAll('.adsbygoogle').forEach(function(ad) {
+      if (ad.offsetWidth > 0) {
+        try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch(e) {}
+      }
+    });
+  });
+
+  // ===== ACTIVE NAV ON SCROLL =====
+  window.addEventListener('scroll', function() {
+    const scrolled = window.scrollY > 20;
+    document.querySelector('nav').style.boxShadow = scrolled ? '0 4px 20px rgba(0,0,0,0.3)' : 'none';
+  });
+
+  // ===== NAV SEARCH =====
+  function handleNavSearch(e) {
+    const q = e.target.value.toLowerCase().trim();
+    if (!q) return;
+    if (e.key === 'Enter') {
+      const map = {aws:['aws','cloud','ec2','s3','lambda','iam'],docker:['docker','container','dockerfile','compose'],jenkins:['jenkins','pipeline','cicd','groovy'],github:['github','actions','workflow','yaml'],linux:['linux','bash','shell','command'],k8s:['kubernetes','k8s','pod','kubectl','helm'],devops:['devops','roadmap','career','salary']};
+      for (const [tab, keywords] of Object.entries(map)) {
+        if (keywords.some(k => q.includes(k))) { showTab(tab); e.target.value=''; return; }
+      }
+      showTab('devops'); e.target.value='';
+    }
+  }
+
+  // ===== AI CHAT =====
+  function toggleAI() {
+    const panel = document.getElementById('aiPanel');
+    panel.classList.toggle('open');
+    if (panel.classList.contains('open')) document.getElementById('aiInput').focus();
+    gtag('event','ai_chat_open');
+  }
+
+  const aiKnowledge = {
+    'devops kya hai': '🚀 **DevOps kya hai?**\n\nDevOps = Development + Operations. Yeh ek culture/practice hai jahan developers aur operations team milke kaam karte hain.\n\n**Key goals:**\n• Faster software delivery\n• Automated testing & deployment\n• Less bugs in production\n\n**Main tools:** Git → Jenkins/GitHub Actions → Docker → Kubernetes → AWS\n\nIndia mein DevOps engineer ki salary: ₹6-25 LPA 💰',
+    'docker kya hai': '🐳 **Docker kya hai?**\n\nDocker ek containerization tool hai. Apni app ko ek "box" (container) mein pack karo jo har jagah same chalega.\n\n**Simple analogy:** Jaise tiffin box — ghar pe banao, office mein same taste!\n\n**Key commands:**\n```\ndocker pull nginx\ndocker run -d -p 80:80 nginx\ndocker ps\ndocker stop container_id\n```\n\nSabse pehle Docker tutorial dekho AWS tab mein! ☁️',
+    'aws': '☁️ **AWS (Amazon Web Services)**\n\nDuniya ki #1 cloud platform! India mein AWS skills ki bahut demand hai.\n\n**Free tier mein milta hai:**\n• EC2: 750 hrs/month FREE\n• S3: 5GB FREE\n• Lambda: 1M requests FREE\n• RDS: 750 hrs FREE\n\n**Sabse pehle seekho:**\n1. IAM (security)\n2. EC2 (virtual servers)\n3. S3 (storage)\n4. VPC (networking)\n\nAWS tab mein free tutorials hain! 🎓',
+    'kubernetes': '☸️ **Kubernetes (K8s) kya hai?**\n\nDocker containers ko large scale pe manage karna — yahi Kubernetes karta hai!\n\n**Simple terms mein:**\n• Docker = ek container chalana\n• K8s = 1000 containers manage karna\n\n**Key concepts:**\n• Pod = ek ya zyada containers ka group\n• Deployment = pods ko manage karta hai\n• Service = pods ko network expose karta hai\n• kubectl = K8s ka command tool\n\nPehle Docker seekho, phir K8s! Kubernetes tab mein 4 videos hain 🎬',
+    'salary': '💰 **DevOps Engineer Salary India 2026**\n\n| Experience | Salary |\n|---|---|\n| Fresher (0-1 yr) | ₹4-8 LPA |\n| Junior (1-3 yr) | ₹8-15 LPA |\n| Mid (3-5 yr) | ₹15-25 LPA |\n| Senior (5+ yr) | ₹25-50 LPA |\n\n**High paying skills:**\n• AWS + K8s = +40% salary\n• DevSecOps = +30%\n• SRE role = ₹30-60 LPA\n\nVinzapInfotech ke internship se career start karo! 🎓',
+    'jenkins': '⚙️ **Jenkins kya hai?**\n\nJenkins ek open-source CI/CD tool hai — code push karo, baaki sab automatic!\n\n**Pipeline flow:**\nGitHub push → Jenkins trigger → Build → Test → Docker build → Deploy to AWS\n\n**Basic Jenkinsfile:**\n```\npipeline {\n  agent any\n  stages {\n    stage("Build") {\n      steps { sh "mvn package" }\n    }\n    stage("Deploy") {\n      steps { sh "./deploy.sh" }\n    }\n  }\n}\n```\n\nJenkins tab mein 2 real project videos hain! ⚙️',
+    'github actions': '🔄 **GitHub Actions CI/CD**\n\n2026 mein Jenkins ka popular alternative! GitHub ke andar hi CI/CD.\n\n**Basic workflow:**\n```yaml\non: push:\n  branches: [main]\njobs:\n  deploy:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - run: npm install && npm test\n      - run: aws s3 sync . s3://bucket\n```\n\n**Free tier:**\n• Public repos: UNLIMITED free minutes\n• Private repos: 2000 min/month free\n\nGitHub CI/CD tab dekho! 🔄',
+    'linux': '🐧 **Linux for DevOps**\n\nDevOps ka foundation — bina Linux ke DevOps nahi hota!\n\n**Must know commands:**\n```bash\nls -la          # files list\nchmod 755 file  # permissions\nps aux          # processes\ntop             # system monitor\ngrep -r "text"  # search\nssh user@ip     # connect server\ncron            # schedule tasks\n```\n\n**Best distros for DevOps:**\n• Ubuntu (recommended)\n• CentOS/RHEL (enterprise)\n• Amazon Linux (AWS default)\n\nLinux tab mein tutorial hai! 🐧',
+    'internship': '🎓 **VinzapInfotech Internship**\n\n**Available Programs:**\n• DevOps (AWS + Docker + K8s + CI/CD)\n• AWS Cloud\n• Full Stack Development\n• Python & Data Science\n• Digital Marketing\n\n**Duration:** 3-6 months\n**Mode:** Online/Offline (Bangalore)\n**Certificate:** Yes ✅\n**Job Assistance:** Yes ✅\n\n**Apply karo:** vinzapinfotech.com/#contact\n\nLimited seats — abhi apply karo! 🚀',
+    'default': '🤖 Yeh sawaal mujhe clearly samajh nahi aaya. Kya aap inme se kuch poochna chahte hain?\n\n• DevOps kya hai?\n• Docker tutorial\n• AWS free tier\n• Kubernetes basics\n• Jenkins pipeline\n• Linux commands\n• Salary information\n• Internship details\n\nYa neeche ke quick buttons use karo! 👇'
+  };
+
+  function getAIResponse(msg) {
+    const m = msg.toLowerCase();
+    if (m.includes('devops') && (m.includes('kya') || m.includes('what') || m.includes('roadmap'))) return aiKnowledge['devops kya hai'];
+    if (m.includes('docker')) return aiKnowledge['docker kya hai'];
+    if (m.includes('aws') || m.includes('amazon') || m.includes('cloud') || m.includes('free tier')) return aiKnowledge['aws'];
+    if (m.includes('kubernetes') || m.includes('k8s') || m.includes('kubectl')) return aiKnowledge['kubernetes'];
+    if (m.includes('salary') || m.includes('package') || m.includes('kitni')) return aiKnowledge['salary'];
+    if (m.includes('jenkins')) return aiKnowledge['jenkins'];
+    if (m.includes('github') || m.includes('actions') || m.includes('cicd') || m.includes('ci/cd')) return aiKnowledge['github actions'];
+    if (m.includes('linux') || m.includes('bash') || m.includes('command')) return aiKnowledge['linux'];
+    if (m.includes('internship') || m.includes('course') || m.includes('join') || m.includes('enroll')) return aiKnowledge['internship'];
+    return aiKnowledge['default'];
+  }
+
+  function addAIMessage(text, isUser) {
+    const msgs = document.getElementById('aiMessages');
+    const div = document.createElement('div');
+    div.className = 'ai-msg ' + (isUser ? 'user' : 'bot');
+    div.innerHTML = `<div class="ai-msg-avatar">${isUser ? '👤' : '🤖'}</div><div class="ai-msg-bubble">${text.replace(/\n/g,'<br/>').replace(/\*\*(.*?)\*\*/g,'<b>$1</b>').replace(/```([\s\S]*?)```/g,'<code style="display:block;background:rgba(0,0,0,0.3);padding:8px;border-radius:6px;font-size:11px;margin-top:6px;font-family:monospace;white-space:pre-wrap;">$1</code>')}</div>`;
+    msgs.appendChild(div);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function showTyping() {
+    const msgs = document.getElementById('aiMessages');
+    const div = document.createElement('div');
+    div.className = 'ai-msg bot';
+    div.id = 'typingIndicator';
+    div.innerHTML = '<div class="ai-msg-avatar">🤖</div><div class="ai-typing"><span></span><span></span><span></span></div>';
+    msgs.appendChild(div);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function sendAI() {
+    const input = document.getElementById('aiInput');
+    const msg = input.value.trim();
+    if (!msg) return;
+    input.value = '';
+    addAIMessage(msg, true);
+    document.getElementById('quickBtns').style.display = 'none';
+    showTyping();
+    gtag('event', 'ai_question', {question: msg.substring(0,50)});
+    setTimeout(() => {
+      const typing = document.getElementById('typingIndicator');
+      if (typing) typing.remove();
+      addAIMessage(getAIResponse(msg), false);
+    }, 800 + Math.random() * 600);
+  }
+
+  function askAI(question) {
+    document.getElementById('aiInput').value = question;
+    sendAI();
+  }
+
+  // ===== INIT =====
+  triggerFadeIns();
+</script>
+</body>
+</html>
