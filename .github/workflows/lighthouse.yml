@@ -1,0 +1,30 @@
+name: 🔦 Lighthouse Performance Audit
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '0 6 * * 1'    # Every Monday at 6 AM — weekly audit
+  workflow_dispatch:
+
+jobs:
+  lighthouse:
+    name: 🔦 Run Lighthouse Audit
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout
+        uses: actions/checkout@v4
+
+      - name: 🔦 Lighthouse CI Audit
+        uses: treosh/lighthouse-ci-action@v11
+        with:
+          urls: |
+            https://www.vinzapinfotech.com
+            https://www.vinzapinfotech.com/devops-tutorials.html
+            https://www.vinzapinfotech.com/digital-marketing.html
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+        continue-on-error: true
+
+      - name: 📊 Print scores
+        run: echo "Lighthouse audit complete — check artifacts for detailed report"

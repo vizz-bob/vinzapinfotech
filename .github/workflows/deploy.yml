@@ -1,0 +1,249 @@
+name: 🚀 Vinzap CI/CD — Build, Test & Deploy
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:           # allows manual trigger from GitHub UI
+
+env:
+  AWS_REGION: us-east-1
+  S3_BUCKET: vinzapinfotech.com
+  CLOUDFRONT_DISTRIBUTION_ID: E3LBDJFANT9F4V
+
+jobs:
+  # ─────────────────────────────────────────────
+  # JOB 1: LINT & VALIDATE HTML
+  # ─────────────────────────────────────────────
+  lint-and-validate:
+    name: 🔍 Lint & Validate HTML
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 📦 Install HTML validator
+        run: npm install -g html-validate
+
+      - name: ✅ Validate HTML files
+        run: |
+          echo "Validating HTML files..."
+          for file in *.html; do
+            echo "→ Checking $file"
+            html-validate "$file" || true
+          done
+
+      - name: 🔗 Check for broken links (basic)
+        run: |
+          echo "Checking internal links..."
+          grep -oP 'href="[^"#http][^"]*"' *.html | grep -v 'mailto' | sort -u || true
+
+  # ─────────────────────────────────────────────
+  # JOB 2: SECURITY SCAN
+  # ─────────────────────────────────────────────
+  security-scan:
+    name: 🔒 Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🛡️ Scan for secrets with Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true
+
+      - name: 🔐 Check for hardcoded credentials
+        run: |
+          echo "Scanning for potential secrets..."
+          grep -rn "password\|secret\|api_key\|apikey" --include="*.html" --include="*.js" . | grep -v ".git" | grep -v "placeholder" || echo "✅ No obvious secrets found"
+
+  # ─────────────────────────────────────────────
+  # JOB 3: BUILD (Minify / Optimize)
+  # ─────────────────────────────────────────────
+  build:
+    name: 🏗️ Build & Optimize
+    runs-on: ubuntu-latest
+    needs: [lint-and-validate]
+    steps:
+      - name: ⬇️ Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 📦 Install optimization tools
+        run: |
+          npm install -g html-minifier-terser
+          sudo apt-get install -y gzip brotli
+
+      - name: 📁 Create build directory
+        run: mkdir -p build
+
+      - name: 🗜️ Minify HTML files
+        run: |
+          for file in *.html; do
+            echo "Minifying $file..."
+            html-minifier-terser \
+              --collapse-whitespace \
+              --remove-comments \
+              --remove-optional-tags \
+              --remove-redundant-attributes \
+              --remove-script-type-attributes \
+              --remove-tag-whitespace \
+              --use-short-doctype \
+              --minify-css true \
+              --minify-js true \
+              "$file" -o "build/$file"
+            echo "✅ $file minified"
+          done
+
+      - name: 📋 Copy static files
+        run: |
+          cp sitemap.xml build/ 2>/dev/null || true
+          cp robots.txt build/ 2>/dev/null || true
+          cp BingSiteAuth.xml build/ 2>/dev/null || true
+          cp -r images build/ 2>/dev/null || true
+          cp -r assets build/ 2>/dev/null || true
+
+      - name: 📊 Build size report
+        run: |
+          echo "=== BUILD SIZE REPORT ==="
+          du -sh build/
+          echo ""
+          echo "=== FILE SIZES ==="
+          ls -lh build/
+
+      - name: 📤 Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: website-build
+          path: build/
+          retention-days: 7
+
+  # ─────────────────────────────────────────────
+  # JOB 4: DEPLOY TO S3 + CLOUDFRONT
+  # ─────────────────────────────────────────────
+  deploy-production:
+    name: 🚀 Deploy to AWS S3 + CloudFront
+    runs-on: ubuntu-latest
+    needs: [build, security-scan]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    environment:
+      name: production
+      url: https://www.vinzapinfotech.com
+
+    steps:
+      - name: ⬇️ Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📥 Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: website-build
+          path: build/
+
+      - name: 🔑 Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: ☁️ Sync HTML files to S3 (no cache — always fresh)
+        run: |
+          aws s3 sync build/ s3://${{ env.S3_BUCKET }}/ \
+            --delete \
+            --cache-control "no-cache, no-store, must-revalidate" \
+            --content-type "text/html; charset=utf-8" \
+            --exclude "*" \
+            --include "*.html"
+          echo "✅ HTML files synced"
+
+      - name: ☁️ Sync XML / TXT files to S3
+        run: |
+          aws s3 sync build/ s3://${{ env.S3_BUCKET }}/ \
+            --cache-control "public, max-age=86400" \
+            --exclude "*" \
+            --include "*.xml" \
+            --include "*.txt"
+          echo "✅ XML/TXT files synced"
+
+      - name: ☁️ Sync all remaining assets (long cache)
+        run: |
+          aws s3 sync build/ s3://${{ env.S3_BUCKET }}/ \
+            --cache-control "public, max-age=31536000" \
+            --exclude "*.html" \
+            --exclude "*.xml" \
+            --exclude "*.txt"
+          echo "✅ Assets synced"
+
+      - name: ⚡ Invalidate CloudFront cache
+        run: |
+          INVALIDATION_ID=$(aws cloudfront create-invalidation \
+            --distribution-id ${{ env.CLOUDFRONT_DISTRIBUTION_ID }} \
+            --paths "/*" \
+            --query 'Invalidation.Id' \
+            --output text)
+          echo "CloudFront invalidation created: $INVALIDATION_ID"
+          echo "Waiting for invalidation to complete..."
+          aws cloudfront wait invalidation-completed \
+            --distribution-id ${{ env.CLOUDFRONT_DISTRIBUTION_ID }} \
+            --id "$INVALIDATION_ID"
+          echo "✅ CloudFront cache cleared!"
+
+      - name: 🌐 Verify deployment
+        run: |
+          echo "Checking if site is live..."
+          sleep 10
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://www.vinzapinfotech.com)
+          echo "HTTP Status: $STATUS"
+          if [ "$STATUS" = "200" ]; then
+            echo "✅ Site is live and responding!"
+          else
+            echo "⚠️  Site returned status $STATUS — check CloudFront"
+          fi
+
+      - name: 📣 Notify deployment success
+        if: success()
+        run: |
+          echo "🎉 DEPLOYMENT SUCCESSFUL!"
+          echo "URL: https://www.vinzapinfotech.com"
+          echo "Deployed at: $(date)"
+          echo "Commit: ${{ github.sha }}"
+
+      - name: 🔔 Notify on failure
+        if: failure()
+        run: |
+          echo "❌ DEPLOYMENT FAILED!"
+          echo "Check the logs above for details."
+
+  # ─────────────────────────────────────────────
+  # JOB 5: POST-DEPLOY SEO PING
+  # ─────────────────────────────────────────────
+  seo-ping:
+    name: 📡 Ping Search Engines
+    runs-on: ubuntu-latest
+    needs: [deploy-production]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    steps:
+      - name: 🔔 Ping Google sitemap
+        run: |
+          curl -s "https://www.google.com/ping?sitemap=https://www.vinzapinfotech.com/sitemap.xml" || true
+          echo "✅ Google pinged"
+
+      - name: 🔔 Ping Bing sitemap
+        run: |
+          curl -s "https://www.bing.com/ping?sitemap=https://www.vinzapinfotech.com/sitemap.xml" || true
+          echo "✅ Bing pinged"

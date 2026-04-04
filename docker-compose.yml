@@ -1,0 +1,56 @@
+version: '3.9'
+
+# ──────────────────────────────────────────────
+# Vinzapinfotech — Docker Compose
+# Usage:
+#   Dev:        docker-compose up
+#   Production: docker-compose -f docker-compose.yml -f docker-compose.prod.yml up
+# ──────────────────────────────────────────────
+
+services:
+
+  # ── Web Server ──
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    container_name: vinzap_web
+    image: vinzapinfotech:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    networks:
+      - vinzap_network
+    labels:
+      - "com.vinzap.service=web"
+      - "com.vinzap.version=1.0"
+
+  # ── Dev Server (live reload for local development) ──
+  dev:
+    image: node:20-alpine
+    container_name: vinzap_dev
+    working_dir: /app
+    command: sh -c "npm install -g live-server && live-server --port=3000 --host=0.0.0.0 --no-browser"
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+    profiles:
+      - dev
+    networks:
+      - vinzap_network
+
+networks:
+  vinzap_network:
+    driver: bridge
+    name: vinzap_network

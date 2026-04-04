@@ -1,0 +1,39 @@
+# ── Terraform ──
+terraform/.terraform/
+terraform/.terraform.lock.hcl
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
+terraform/terraform.tfvars
+terraform/.terraform.tfvars
+*.tfstate
+*.tfstate.*
+
+# ── AWS Credentials / Keys ──
+*.pem
+*.ppk
+.aws/
+credentials
+.env
+.env.*
+
+# ── Node / Build ──
+node_modules/
+npm-debug.log
+build/
+dist/
+
+# ── OS Files ──
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# ── IDE ──
+.idea/
+.vscode/
+*.code-workspace
+
+# ── Logs ──
+*.log
+logs/
