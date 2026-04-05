@@ -82,30 +82,15 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "website" {
 }
 
 ###############################################################
-# ACM SSL CERTIFICATE — Email validation (no Route53 needed)
-#
-# After "terraform apply", AWS sends a validation email to:
-#   admin@vinzapinfotech.com
-#   webmaster@vinzapinfotech.com
-#   hostmaster@vinzapinfotech.com
-#   administrator@vinzapinfotech.com
-#
-# Click the approval link in the email to activate SSL!
+# ACM SSL CERTIFICATE — Reference existing certificate
+# Certificate was created manually and validated via DNS.
+# We look it up by domain so Terraform never replaces it.
 ###############################################################
-resource "aws_acm_certificate" "website" {
-  provider          = aws.us_east_1
-  domain_name       = var.domain_name
-  validation_method = "EMAIL"
-
-  subject_alternative_names = [
-    "www.${var.domain_name}"
-  ]
-
-  lifecycle {
-    create_before_destroy = true
-  }
-
-  tags = local.common_tags
+data "aws_acm_certificate" "website" {
+  provider    = aws.us_east_1
+  domain      = var.domain_name
+  statuses    = ["ISSUED"]
+  most_recent = true
 }
 
 ###############################################################
@@ -227,14 +212,15 @@ resource "aws_cloudfront_distribution" "website" {
   }
 
   viewer_certificate {
-    acm_certificate_arn      = aws_acm_certificate.website.arn
+    acm_certificate_arn      = data.aws_acm_certificate.website.arn
     ssl_support_method       = "sni-only"
     minimum_protocol_version = "TLSv1.2_2021"
   }
 
-  tags = local.common_tags
+  # Preserve the existing WAF web ACL
+  web_acl_id = "arn:aws:wafv2:us-east-1:402830379496:global/webacl/CreatedByCloudFront-7567e482/73019b07-b39c-4a18-bb5c-58abf533170e"
 
-  depends_on = [aws_acm_certificate.website]
+  tags = local.common_tags
 }
 
 ###############################################################

@@ -29,7 +29,7 @@ output "s3_bucket_arn" {
 
 output "ssl_certificate_arn" {
   description = "ACM SSL certificate ARN"
-  value       = aws_acm_certificate.website.arn
+  value       = data.aws_acm_certificate.website.arn
 }
 
 output "manual_dns_instructions" {
