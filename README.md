@@ -30,6 +30,7 @@ vinzapinfotech/
 ├── sitemap.xml                ← SEO Sitemap
 ├── robots.txt                 ← Search engine crawl rules
 └── BingSiteAuth.xml           ← Bing Webmaster verification
+└── Terraform                  ← Infrastructure as Code (IaC) can recreate the setup reliably in any                                         environment.
 ```
 
 ---
