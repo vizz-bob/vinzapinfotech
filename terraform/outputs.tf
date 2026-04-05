@@ -8,7 +8,7 @@ output "website_url" {
 }
 
 output "cloudfront_domain" {
-  description = "CloudFront distribution domain name"
+  description = "CloudFront distribution domain — use this as your CNAME target at your registrar"
   value       = aws_cloudfront_distribution.website.domain_name
 }
 
@@ -32,17 +32,36 @@ output "ssl_certificate_arn" {
   value       = aws_acm_certificate.website.arn
 }
 
-output "route53_zone_id" {
-  description = "Route53 zone ID"
-  value       = data.aws_route53_zone.main.zone_id
+output "manual_dns_instructions" {
+  description = "DNS records to add at your domain registrar (e.g. GoDaddy, Namecheap)"
+  value       = <<-EOT
+
+    ══════════════════════════════════════════════════════════
+    📌 ADD THESE DNS RECORDS AT YOUR DOMAIN REGISTRAR:
+    ══════════════════════════════════════════════════════════
+
+    Type   : CNAME
+    Name   : www
+    Value  : ${aws_cloudfront_distribution.website.domain_name}
+    TTL    : 3600
+
+    Type   : CNAME  (or ALIAS if your registrar supports it)
+    Name   : @  (root domain)
+    Value  : ${aws_cloudfront_distribution.website.domain_name}
+    TTL    : 3600
+
+    ══════════════════════════════════════════════════════════
+    ✅ After adding DNS records, wait 10-30 min for propagation
+    ══════════════════════════════════════════════════════════
+  EOT
 }
 
 output "deploy_command" {
-  description = "Command to deploy files to S3"
-  value       = "aws s3 sync ./build/ s3://${aws_s3_bucket.website.bucket}/ --delete"
+  description = "Command to upload your site files to S3"
+  value       = "aws s3 sync ./dist/ s3://${aws_s3_bucket.website.bucket}/ --delete"
 }
 
 output "invalidate_cache_command" {
-  description = "Command to invalidate CloudFront cache"
+  description = "Command to clear CloudFront cache after deploying new files"
   value       = "aws cloudfront create-invalidation --distribution-id ${aws_cloudfront_distribution.website.id} --paths '/*'"
 }

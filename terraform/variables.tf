@@ -24,17 +24,3 @@ variable "environment" {
     error_message = "Environment must be production, staging, or dev."
   }
 }
-
-variable "aws_access_key_id" {
-  description = "AWS Access Key ID (use env var TF_VAR_aws_access_key_id)"
-  type        = string
-  sensitive   = true
-  default     = ""
-}
-
-variable "aws_secret_access_key" {
-  description = "AWS Secret Access Key (use env var TF_VAR_aws_secret_access_key)"
-  type        = string
-  sensitive   = true
-  default     = ""
-}

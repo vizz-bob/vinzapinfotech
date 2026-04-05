@@ -1,6 +1,8 @@
 ###############################################################
 # Vinzapinfotech — Terraform Infrastructure as Code
-# Creates: S3 bucket, CloudFront CDN, ACM SSL, Route53 DNS
+# Creates: S3 bucket, CloudFront CDN, ACM SSL certificate
+# NO Route53 — DNS is managed manually at your registrar
+#
 # Usage:
 #   terraform init
 #   terraform plan
@@ -18,7 +20,7 @@ terraform {
   }
 
   # Recommended: Store state in S3 for team use
-  # Uncomment after creating the bucket manually once
+  # Uncomment after creating the state bucket manually
   # backend "s3" {
   #   bucket = "vinzap-terraform-state"
   #   key    = "website/terraform.tfstate"
@@ -35,12 +37,6 @@ provider "aws" {
 provider "aws" {
   alias  = "us_east_1"
   region = "us-east-1"
-}
-
-# ── Data Sources ──
-data "aws_route53_zone" "main" {
-  name         = var.domain_name
-  private_zone = false
 }
 
 ###############################################################
@@ -86,12 +82,20 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "website" {
 }
 
 ###############################################################
-# ACM SSL CERTIFICATE
+# ACM SSL CERTIFICATE — Email validation (no Route53 needed)
+#
+# After "terraform apply", AWS sends a validation email to:
+#   admin@vinzapinfotech.com
+#   webmaster@vinzapinfotech.com
+#   hostmaster@vinzapinfotech.com
+#   administrator@vinzapinfotech.com
+#
+# Click the approval link in the email to activate SSL!
 ###############################################################
 resource "aws_acm_certificate" "website" {
   provider          = aws.us_east_1
   domain_name       = var.domain_name
-  validation_method = "DNS"
+  validation_method = "EMAIL"
 
   subject_alternative_names = [
     "www.${var.domain_name}"
@@ -102,29 +106,6 @@ resource "aws_acm_certificate" "website" {
   }
 
   tags = local.common_tags
-}
-
-resource "aws_route53_record" "cert_validation" {
-  for_each = {
-    for dvo in aws_acm_certificate.website.domain_validation_options : dvo.domain_name => {
-      name   = dvo.resource_record_name
-      record = dvo.resource_record_value
-      type   = dvo.resource_record_type
-    }
-  }
-
-  allow_overwrite = true
-  name            = each.value.name
-  records         = [each.value.record]
-  ttl             = 60
-  type            = each.value.type
-  zone_id         = data.aws_route53_zone.main.zone_id
-}
-
-resource "aws_acm_certificate_validation" "website" {
-  provider                = aws.us_east_1
-  certificate_arn         = aws_acm_certificate.website.arn
-  validation_record_fqdns = [for record in aws_route53_record.cert_validation : record.fqdn]
 }
 
 ###############################################################
@@ -163,15 +144,17 @@ resource "aws_cloudfront_distribution" "website" {
     viewer_protocol_policy = "redirect-to-https"
     compress               = true
 
-    cache_policy_id            = "4135ea2d-6df8-44a3-9df3-4b5a84be39ad" # CachingDisabled for HTML
-    origin_request_policy_id   = "88a5eaf4-2fd4-4709-b370-b4c650ea3fcf"
+    forwarded_values {
+      query_string = false
+      cookies { forward = "none" }
+    }
 
     min_ttl     = 0
     default_ttl = 3600
     max_ttl     = 86400
   }
 
-  # Cache static assets for 1 year
+  # Cache CSS for 1 year
   ordered_cache_behavior {
     path_pattern           = "*.css"
     allowed_methods        = ["GET", "HEAD"]
@@ -189,6 +172,7 @@ resource "aws_cloudfront_distribution" "website" {
     }
   }
 
+  # Cache JS for 1 year
   ordered_cache_behavior {
     path_pattern           = "*.js"
     allowed_methods        = ["GET", "HEAD"]
@@ -199,6 +183,24 @@ resource "aws_cloudfront_distribution" "website" {
     min_ttl                = 31536000
     default_ttl            = 31536000
     max_ttl                = 31536000
+
+    forwarded_values {
+      query_string = false
+      cookies { forward = "none" }
+    }
+  }
+
+  # Cache images for 7 days
+  ordered_cache_behavior {
+    path_pattern           = "images/*"
+    allowed_methods        = ["GET", "HEAD"]
+    cached_methods         = ["GET", "HEAD"]
+    target_origin_id       = "S3-${var.domain_name}"
+    viewer_protocol_policy = "redirect-to-https"
+    compress               = true
+    min_ttl                = 604800
+    default_ttl            = 604800
+    max_ttl                = 604800
 
     forwarded_values {
       query_string = false
@@ -225,16 +227,18 @@ resource "aws_cloudfront_distribution" "website" {
   }
 
   viewer_certificate {
-    acm_certificate_arn      = aws_acm_certificate_validation.website.certificate_arn
+    acm_certificate_arn      = aws_acm_certificate.website.arn
     ssl_support_method       = "sni-only"
     minimum_protocol_version = "TLSv1.2_2021"
   }
 
   tags = local.common_tags
+
+  depends_on = [aws_acm_certificate.website]
 }
 
 ###############################################################
-# S3 BUCKET POLICY — Allow CloudFront OAC
+# S3 BUCKET POLICY — Allow CloudFront OAC only
 ###############################################################
 resource "aws_s3_bucket_policy" "website" {
   bucket = aws_s3_bucket.website.id
@@ -242,8 +246,8 @@ resource "aws_s3_bucket_policy" "website" {
     Version = "2012-10-17"
     Statement = [
       {
-        Sid       = "AllowCloudFrontServicePrincipal"
-        Effect    = "Allow"
+        Sid    = "AllowCloudFrontServicePrincipal"
+        Effect = "Allow"
         Principal = {
           Service = "cloudfront.amazonaws.com"
         }
@@ -257,33 +261,6 @@ resource "aws_s3_bucket_policy" "website" {
       }
     ]
   })
-}
-
-###############################################################
-# ROUTE53 DNS RECORDS
-###############################################################
-resource "aws_route53_record" "www" {
-  zone_id = data.aws_route53_zone.main.zone_id
-  name    = "www.${var.domain_name}"
-  type    = "A"
-
-  alias {
-    name                   = aws_cloudfront_distribution.website.domain_name
-    zone_id                = aws_cloudfront_distribution.website.hosted_zone_id
-    evaluate_target_health = false
-  }
-}
-
-resource "aws_route53_record" "root" {
-  zone_id = data.aws_route53_zone.main.zone_id
-  name    = var.domain_name
-  type    = "A"
-
-  alias {
-    name                   = aws_cloudfront_distribution.website.domain_name
-    zone_id                = aws_cloudfront_distribution.website.hosted_zone_id
-    evaluate_target_health = false
-  }
 }
 
 ###############################################################
