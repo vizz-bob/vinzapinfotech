@@ -29,6 +29,8 @@ RUN mkdir -p dist && \
     cp -r *.xml *.txt dist/ 2>/dev/null || true && \
     cp -r images dist/ 2>/dev/null || true && \
     cp -r assets dist/ 2>/dev/null || true && \
+    # Create a default favicon if not present
+    echo "" > dist/favicon.ico && \
     echo "✅ Build complete"
 
 # ── STAGE 2: Serve with Nginx ──
@@ -37,6 +39,9 @@ FROM nginx:1.25-alpine AS production
 LABEL maintainer="Vijayendra Singh <vizz.bob@gmail.com>"
 LABEL website="https://www.vinzapinfotech.com"
 LABEL version="1.0"
+
+# Install wget for healthcheck
+RUN apk add --no-cache wget
 
 # Remove default nginx page
 RUN rm -rf /usr/share/nginx/html/*
