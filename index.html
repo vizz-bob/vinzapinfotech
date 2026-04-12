@@ -394,16 +394,43 @@
     /* AdSense & Ad Units */
     .ad-unit { width: 100%; text-align: center; margin: 20px auto; overflow: hidden; }
     .ad-unit ins { display: block; }
-    /* Sidebar layout for wide screens */
-    @media(min-width:1300px){
-      .page-wrapper { display: grid; grid-template-columns: 1fr 160px; gap: 0; }
-      .sidebar-ad { position: sticky; top: 80px; padding: 20px 10px; }
+    /* Fixed Left & Right Rail Ads */
+    .rail-ad-left, .rail-ad-right {
+      display: none;
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 160px;
+      z-index: 100;
+    }
+    .rail-ad-left { left: 0; }
+    .rail-ad-right { right: 0; }
+    @media(min-width:1520px){
+      .rail-ad-left, .rail-ad-right { display: block; }
     }
   </style>
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2639020346909963" crossorigin="anonymous"></script>
 </head>
 <body>
+<\!-- ── LEFT RAIL AD ── -->
+<div class="rail-ad-left">
+  <ins class="adsbygoogle"
+       style="display:inline-block;width:160px;height:600px"
+       data-ad-client="ca-pub-2639020346909963"
+       data-ad-slot="auto"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+<\!-- ── RIGHT RAIL AD ── -->
+<div class="rail-ad-right">
+  <ins class="adsbygoogle"
+       style="display:inline-block;width:160px;height:600px"
+       data-ad-client="ca-pub-2639020346909963"
+       data-ad-slot="auto"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
 
 <!-- ── NAVBAR ── -->
 <nav id="navbar">
