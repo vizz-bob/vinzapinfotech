@@ -40,3 +40,16 @@ logs/
 github-actions-vinzap_accessKeys.csv
 github-actions-vinzap_credentials_IAM.csv
 *.pem
+github-actions-vinzap_accessKeys*.csv
+
+# Temp Word/Office files
+~$*.docx
+.~*.docx
+*.~*.docx
+main.tf_corrected*.docx
+main.tf_complete*.docx
+main.tf.pdf
+*.pdf
+PROMOTION_MONETIZATION.md
+Vinzap_DevOps_CICD_Guide.pdf
+Vinzap_Promotion_Monetization_Guide.pdf
