@@ -95,18 +95,19 @@ jobs:
         run: |
           for file in *.html; do
             echo "Minifying $file..."
-            html-minifier-terser \
+            if html-minifier-terser \
               --collapse-whitespace \
-              --remove-comments \
-              --remove-optional-tags \
               --remove-redundant-attributes \
               --remove-script-type-attributes \
               --remove-tag-whitespace \
               --use-short-doctype \
               --minify-css true \
-              --minify-js true \
-              "$file" -o "build/$file"
-            echo "✅ $file minified"
+              "$file" -o "build/$file"; then
+              echo "✅ $file minified"
+            else
+              echo "⚠️  Minification failed for $file — copying as-is"
+              cp "$file" "build/$file"
+            fi
           done
 
       - name: 📋 Copy static files
