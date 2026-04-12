@@ -76,7 +76,7 @@
 
     /* ── HERO ── */
     .hero {
-      min-height: 100vh; padding: 100px 40px 60px;
+      padding: 100px 40px 60px;
       background: linear-gradient(135deg, #f0f4ff 0%, #faf5ff 40%, #eff6ff 100%);
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       text-align: center; position: relative; overflow: hidden;
@@ -392,7 +392,7 @@
     }
 
     /* AdSense & Ad Units */
-    .ad-unit { width: 100%; text-align: center; margin: 0 auto; overflow: hidden; }
+    .ad-unit { width: 100%; text-align: center; margin: 0 auto; overflow: hidden; line-height:0; font-size:0; }
     .ad-unit ins { display: block; }
     /* Hide ad containers when AdSense not yet approved/loaded */
     .adsbygoogle[data-adsbygoogle-status="done"]:empty + script { display:none; }
@@ -408,7 +408,7 @@
     }
     .rail-ad-left { left: 0; }
     .rail-ad-right { right: 0; }
-    @media(min-width:1520px){
+    @media(min-width:1400px){
       .rail-ad-left, .rail-ad-right { display: block; }
     }
   </style>
@@ -530,13 +530,42 @@
     </div>
   </div>
 </section>
-<!-- AdSense Banner -->
-<div class="ad-unit" style="background:#f8fafc;padding:16px 20px;">
-  <div class="container">
-    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2639020346909963" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true" style="min-height:0"></ins>
-    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+<!-- Next Batch Banner -->
+<div style="background:linear-gradient(90deg,#1e40af 0%,#4f46e5 50%,#7c3aed 100%);padding:22px 20px;">
+  <div class="container" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+    <div style="display:flex;align-items:center;gap:16px;">
+      <div style="background:rgba(255,255,255,.15);border-radius:12px;padding:10px 16px;font-size:1.4rem;">&#128640;</div>
+      <div>
+        <div style="color:#bfdbfe;font-size:.78rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;">Limited Seats Available</div>
+        <div style="color:#fff;font-size:1.1rem;font-weight:800;">Next Batch Starting Soon &mdash; DevOps &amp; AWS Bootcamp</div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+      <div id="batch-countdown" style="display:flex;gap:8px;"></div>
+      <a href="#programs" style="background:#fff;color:#4f46e5;padding:10px 24px;border-radius:30px;font-weight:800;font-size:.9rem;text-decoration:none;white-space:nowrap;">Enroll Now &rarr;</a>
+    </div>
   </div>
 </div>
+<script>
+(function(){
+  var target=new Date(); target.setDate(target.getDate()+14); target.setHours(0,0,0,0);
+  function pad(n){return n<10?'0'+n:n;}
+  function tick(){
+    var now=new Date(),diff=target-now;
+    if(diff<=0){var el=document.getElementById('batch-countdown');if(el)el.innerHTML='<span style="color:#fff;font-weight:800;">Enrolling Now!</span>';return;}
+    var d=Math.floor(diff/864e5),h=Math.floor((diff%864e5)/36e5),m=Math.floor((diff%36e5)/6e4),s=Math.floor((diff%6e4)/1e3);
+    var b='background:rgba(255,255,255,.18);border-radius:8px;padding:6px 10px;text-align:center;min-width:48px;';
+    var l='display:block;font-size:.6rem;color:#bfdbfe;font-weight:700;';
+    var el=document.getElementById('batch-countdown');
+    if(el)el.innerHTML=
+      '<div style="'+b+'"><span style="color:#fff;font-size:1.2rem;font-weight:800;">'+pad(d)+'</span><span style="'+l+'">DAYS</span></div>'+
+      '<div style="'+b+'"><span style="color:#fff;font-size:1.2rem;font-weight:800;">'+pad(h)+'</span><span style="'+l+'">HRS</span></div>'+
+      '<div style="'+b+'"><span style="color:#fff;font-size:1.2rem;font-weight:800;">'+pad(m)+'</span><span style="'+l+'">MIN</span></div>'+
+      '<div style="'+b+'"><span style="color:#fff;font-size:1.2rem;font-weight:800;">'+pad(s)+'</span><span style="'+l+'">SEC</span></div>';
+  }
+  tick(); setInterval(tick,1000);
+})();
+</script>
 
 <!-- ── DARK STATS ── -->
 <div class="stats-dark">
@@ -1387,6 +1416,7 @@ async function loadTrending() {
 
 document.addEventListener('DOMContentLoaded', () => { loadJobs(); loadTrending(); });
 </script>
+
 
 </body>
 </html>
