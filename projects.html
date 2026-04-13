@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HEL83H3BW4"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HEL83H3BW4');
+  </script>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Projects & Portfolio | DevOps, Web Dev, Meta Ads | Vinzap Infotech</title>
+  <meta name="description" content="Explore Vinzap Infotech's real-world projects: iOS apps (Bhejdu, Kashikart), AWS DevOps CI/CD pipelines, Docker, Kubernetes, GitHub Actions, Jenkins — and 5 years of Meta Facebook Ads expertise. Hire us for your next project."/>
+  <meta name="keywords" content="devops projects portfolio, cicd pipeline github actions, docker kubernetes aws, meta facebook ads expert, web development projects india, bhejdu app, kashikart, vinzap infotech portfolio, hire devops engineer india, facebook ads consultant bangalore"/>
+  <meta name="author" content="Vinzap Infotech"/>
+  <link rel="canonical" href="https://www.vinzapinfotech.com/projects.html"/>
+  <meta property="og:title" content="Projects & Portfolio | Vinzap Infotech — DevOps, Web Dev, Meta Ads"/>
+  <meta property="og:description" content="Real-world DevOps, web development and Meta Ads projects by Vinzap Infotech. 5+ years experience. Hire us for your next project."/>
+  <meta property="og:url" content="https://www.vinzapinfotech.com/projects.html"/>
+  <meta property="og:type" content="website"/>
+
+  <!-- AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2639020346909963" crossorigin="anonymous"></script>
+
+  <!-- Schema: Professional Service -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Vinzap Infotech",
+    "url": "https://www.vinzapinfotech.com",
+    "description": "DevOps, Web Development, and Digital Marketing services from Bangalore, India",
+    "areaServed": "IN",
+    "knowsAbout": ["DevOps", "AWS", "Docker", "Kubernetes", "CI/CD", "Meta Ads", "Facebook Ads", "Web Development", "Digital Marketing"]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=optional" rel="stylesheet" media="print" onload="this.media='all'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=optional" rel="stylesheet"/></noscript>
+
+  <style>
+    :root {
+      --blue:    #2563eb;
+      --blue2:   #1d4ed8;
+      --indigo:  #4f46e5;
+      --purple:  #7c3aed;
+      --cyan:    #06b6d4;
+      --green:   #10b981;
+      --orange:  #f97316;
+      --pink:    #ec4899;
+      --dark:    #0f172a;
+      --dark2:   #1e293b;
+      --light:   #f8faff;
+      --white:   #ffffff;
+      --text:    #1e293b;
+      --muted:   #64748b;
+      --border:  #e2e8f0;
+      --radius:  16px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: var(--text); line-height: 1.6; overflow-x: hidden; }
+
+    /* ── NAVBAR ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(37,99,235,.1);
+      padding: 0 20px; height: 68px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo-icon {
+      width: 38px; height: 38px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; font-weight: 900; color: #fff; letter-spacing: -1px;
+    }
+    .logo-text { font-size: .95rem; font-weight: 800; color: var(--dark); letter-spacing: -.3px; }
+    .logo-sub { font-size: .65rem; font-weight: 500; color: var(--muted); letter-spacing: .5px; text-transform: uppercase; display: block; }
+    .nav-links { display: flex; align-items: center; gap: 28px; }
+    .nav-links a {
+      font-size: .9rem; font-weight: 500; color: var(--muted);
+      text-decoration: none; transition: color .2s; position: relative;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--blue); }
+    .nav-links a.active::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+      height: 2px; background: var(--blue); border-radius: 2px;
+    }
+    .btn-hire {
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      color: #fff; border: none; padding: 10px 24px; border-radius: 10px;
+      font-size: .9rem; font-weight: 700; cursor: pointer;
+      transition: opacity .2s, transform .15s; text-decoration: none;
+      display: inline-block;
+    }
+    .btn-hire:hover { opacity: .9; transform: translateY(-1px); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { width: 24px; height: 2px; background: var(--dark); border-radius: 2px; transition: all .3s; display: block; }
+    .mobile-menu {
+      display: none; position: fixed; top: 68px; left: 0; right: 0; bottom: 0;
+      background: #fff; z-index: 999; padding: 24px 20px; flex-direction: column; gap: 4px;
+      overflow-y: auto;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      padding: 14px 16px; font-size: 1rem; font-weight: 600; color: var(--text);
+      text-decoration: none; border-radius: 10px; transition: background .15s;
+    }
+    .mobile-menu a:hover { background: var(--light); }
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      padding: 100px 20px 60px;
+      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .page-hero::before {
+      content: ''; position: absolute; width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(79,70,229,.25) 0%, transparent 70%);
+      top: -200px; right: -150px; pointer-events: none;
+    }
+    .page-hero::after {
+      content: ''; position: absolute; width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(37,99,235,.2) 0%, transparent 70%);
+      bottom: -100px; left: -100px; pointer-events: none;
+    }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(79,70,229,.2); border: 1px solid rgba(79,70,229,.4);
+      color: #a5b4fc; border-radius: 30px; padding: 6px 18px;
+      font-size: .8rem; font-weight: 700; letter-spacing: .5px;
+      text-transform: uppercase; margin-bottom: 24px; position: relative; z-index: 1;
+    }
+    .hero-tag .dot { width: 7px; height: 7px; border-radius: 50%; background: #a5b4fc; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:.3;} }
+    .page-hero h1 {
+      font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 900; color: #fff;
+      line-height: 1.2; max-width: 720px; margin: 0 auto 20px;
+      position: relative; z-index: 1;
+    }
+    .page-hero h1 .grad {
+      background: linear-gradient(135deg, #60a5fa, #a78bfa, #f0abfc);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .page-hero p {
+      font-size: 1.05rem; color: rgba(255,255,255,.65); max-width: 580px;
+      margin: 0 auto 32px; position: relative; z-index: 1;
+    }
+    .hero-cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      color: #fff; padding: 13px 28px; border-radius: 30px;
+      font-size: .95rem; font-weight: 700; border: none; cursor: pointer;
+      transition: all .2s; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+      box-shadow: 0 6px 20px rgba(79,70,229,.4);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(79,70,229,.5); }
+    .btn-outline-light {
+      border: 2px solid rgba(255,255,255,.3); background: rgba(255,255,255,.08);
+      color: rgba(255,255,255,.85); padding: 13px 28px; border-radius: 30px;
+      font-size: .95rem; font-weight: 600; cursor: pointer;
+      transition: all .2s; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-outline-light:hover { border-color: rgba(255,255,255,.6); background: rgba(255,255,255,.14); }
+
+    /* ── STATS STRIP ── */
+    .stats-strip {
+      background: var(--dark2);
+      padding: 36px 20px;
+    }
+    .stats-row { display: flex; justify-content: center; flex-wrap: wrap; gap: 40px; max-width: 900px; margin: 0 auto; }
+    .stat-item { text-align: center; }
+    .stat-num { font-size: 2rem; font-weight: 900; color: #fff; line-height: 1; }
+    .stat-num span { background: linear-gradient(135deg, #60a5fa, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .stat-lbl { font-size: .75rem; font-weight: 600; color: rgba(255,255,255,.45); text-transform: uppercase; letter-spacing: .8px; margin-top: 4px; }
+
+    /* ── FILTER TABS ── */
+    .filter-section { background: var(--light); padding: 48px 20px 0; }
+    .filter-wrap { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; max-width: 900px; margin: 0 auto; }
+    .filter-btn {
+      padding: 10px 22px; border-radius: 30px; font-size: .88rem; font-weight: 600;
+      border: 2px solid var(--border); background: #fff; color: var(--muted);
+      cursor: pointer; transition: all .2s;
+    }
+    .filter-btn:hover { border-color: var(--blue); color: var(--blue); }
+    .filter-btn.active {
+      background: linear-gradient(135deg, var(--blue), var(--indigo));
+      border-color: transparent; color: #fff;
+      box-shadow: 0 4px 14px rgba(79,70,229,.35);
+    }
+
+    /* ── PROJECTS GRID ── */
+    .projects-section { background: var(--light); padding: 40px 20px 80px; }
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 24px; max-width: 1200px; margin: 40px auto 0; }
+    .project-card {
+      background: #fff; border-radius: 20px; overflow: hidden;
+      border: 1px solid var(--border); transition: all .25s;
+      display: flex; flex-direction: column;
+    }
+    .project-card:hover { transform: translateY(-6px); box-shadow: 0 20px 48px rgba(37,99,235,.12); border-color: rgba(79,70,229,.25); }
+    .card-banner {
+      height: 160px; position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .card-banner .banner-icon { font-size: 3.5rem; position: relative; z-index: 1; }
+    .card-banner .banner-label {
+      position: absolute; bottom: 12px; right: 14px;
+      background: rgba(0,0,0,.4); color: #fff; border-radius: 6px;
+      padding: 3px 10px; font-size: .72rem; font-weight: 700;
+      backdrop-filter: blur(4px); text-transform: uppercase; letter-spacing: .5px;
+    }
+    .card-body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+    .card-category {
+      display: inline-flex; align-items: center; gap: 6px;
+      border-radius: 20px; padding: 4px 12px; font-size: .72rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .5px; margin-bottom: 12px;
+    }
+    .card-body h3 { font-size: 1.12rem; font-weight: 800; color: var(--dark); margin-bottom: 8px; line-height: 1.3; }
+    .card-body p { font-size: .88rem; color: var(--muted); line-height: 1.7; flex: 1; }
+    .card-tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 16px 0; }
+    .card-tag { background: #f1f5f9; color: #475569; border-radius: 6px; padding: 3px 10px; font-size: .72rem; font-weight: 600; }
+    .card-footer {
+      padding: 16px 24px; border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    }
+    .card-result { font-size: .78rem; font-weight: 600; color: var(--green); display: flex; align-items: center; gap: 5px; }
+    .card-link {
+      padding: 8px 18px; border-radius: 8px; font-size: .82rem; font-weight: 700;
+      text-decoration: none; transition: all .15s; white-space: nowrap;
+    }
+
+    /* category colour variants */
+    .cat-devops { background: #dbeafe; color: #1d4ed8; }
+    .cat-web    { background: #dcfce7; color: #166534; }
+    .cat-meta   { background: #fce7f3; color: #9d174d; }
+    .cat-cloud  { background: #ffedd5; color: #9a3412; }
+
+    .banner-devops  { background: linear-gradient(135deg, #0f172a, #1e3a5f); }
+    .banner-web     { background: linear-gradient(135deg, #064e3b, #065f46); }
+    .banner-meta    { background: linear-gradient(135deg, #1877f2, #0a4f9e); }
+    .banner-aws     { background: linear-gradient(135deg, #ff9900, #c47b00); }
+    .banner-cicd    { background: linear-gradient(135deg, #1e1b4b, #312e81); }
+    .banner-docker  { background: linear-gradient(135deg, #0ea5e9, #0369a1); }
+
+    .link-devops  { background: var(--blue); color: #fff; }
+    .link-devops:hover { background: var(--blue2); }
+    .link-web     { background: #059669; color: #fff; }
+    .link-web:hover { background: #047857; }
+    .link-meta    { background: #1877f2; color: #fff; }
+    .link-meta:hover { background: #1565c2; }
+    .link-aws     { background: #ff9900; color: #fff; }
+    .link-aws:hover { background: #e68900; }
+    .link-cicd    { background: var(--indigo); color: #fff; }
+    .link-cicd:hover { background: var(--blue2); }
+
+    /* ── EXPERTISE SECTION ── */
+    .expertise-section { background: var(--dark); padding: 80px 20px; }
+    .expertise-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; max-width: 1100px; margin: 48px auto 0; }
+    .expertise-card {
+      background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08);
+      border-radius: 18px; padding: 28px 24px; transition: all .25s;
+    }
+    .expertise-card:hover { background: rgba(255,255,255,.09); transform: translateY(-4px); }
+    .exp-icon { font-size: 2rem; margin-bottom: 16px; display: block; }
+    .exp-title { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 8px; }
+    .exp-desc { font-size: .85rem; color: rgba(255,255,255,.5); line-height: 1.6; }
+    .exp-bar { height: 4px; border-radius: 2px; margin-top: 16px; position: relative; background: rgba(255,255,255,.1); }
+    .exp-fill { height: 100%; border-radius: 2px; }
+
+    /* ── TESTIMONIALS / CLIENTS ── */
+    .clients-section { background: #fff; padding: 70px 20px; }
+    .clients-logos { display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; margin-top: 40px; max-width: 900px; margin-left: auto; margin-right: auto; }
+    .client-chip {
+      background: var(--light); border: 1.5px solid var(--border); border-radius: 12px;
+      padding: 14px 24px; display: flex; align-items: center; gap: 10px;
+      font-size: .9rem; font-weight: 700; color: var(--dark);
+      transition: all .2s; text-decoration: none;
+    }
+    .client-chip:hover { border-color: var(--blue); color: var(--blue); box-shadow: 0 4px 16px rgba(37,99,235,.1); }
+    .client-chip .chip-icon { font-size: 1.4rem; }
+
+    /* ── HIRE CTA ── */
+    .hire-section {
+      padding: 80px 20px;
+      background: linear-gradient(135deg, #eff6ff 0%, #f5f3ff 100%);
+    }
+    .hire-box {
+      max-width: 860px; margin: 0 auto;
+      background: linear-gradient(135deg, #0f172a, #1e1b4b);
+      border-radius: 28px; padding: 56px 48px;
+      display: flex; gap: 48px; align-items: center;
+      flex-wrap: wrap; position: relative; overflow: hidden;
+    }
+    .hire-box::before {
+      content: ''; position: absolute; width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(79,70,229,.3) 0%, transparent 70%);
+      top: -100px; right: -100px; pointer-events: none;
+    }
+    .hire-text { flex: 1; min-width: 260px; position: relative; z-index: 1; }
+    .hire-text h2 { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 900; color: #fff; margin-bottom: 12px; line-height: 1.25; }
+    .hire-text p { font-size: .95rem; color: rgba(255,255,255,.6); line-height: 1.7; }
+    .hire-form { flex: 1; min-width: 260px; position: relative; z-index: 1; }
+    .hire-form input, .hire-form select, .hire-form textarea {
+      width: 100%; padding: 12px 16px; border-radius: 10px;
+      border: 1.5px solid rgba(255,255,255,.15); background: rgba(255,255,255,.07);
+      color: #fff; font-size: .9rem; font-family: inherit; margin-bottom: 12px;
+      transition: border-color .2s; outline: none;
+    }
+    .hire-form input::placeholder, .hire-form textarea::placeholder { color: rgba(255,255,255,.35); }
+    .hire-form select option { background: #1e293b; color: #fff; }
+    .hire-form input:focus, .hire-form select:focus, .hire-form textarea:focus { border-color: rgba(99,102,241,.7); }
+    .hire-form textarea { resize: vertical; min-height: 90px; }
+    .hire-form button {
+      width: 100%; padding: 13px; border-radius: 10px; border: none; cursor: pointer;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      color: #fff; font-size: .95rem; font-weight: 700; font-family: inherit;
+      transition: all .2s; box-shadow: 0 6px 20px rgba(79,70,229,.4);
+    }
+    .hire-form button:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(79,70,229,.5); }
+    .hire-success { display: none; text-align: center; padding: 20px; color: #4ade80; font-weight: 700; font-size: 1.1rem; }
+
+    /* ── SECTION HELPERS ── */
+    section { padding: 80px 20px; }
+    .section-tag {
+      display: inline-block; background: #eff6ff; color: var(--blue);
+      border-radius: 20px; padding: 4px 14px; font-size: .8rem; font-weight: 700;
+      letter-spacing: .5px; text-transform: uppercase; margin-bottom: 14px;
+    }
+    .section-tag.dark { background: rgba(79,70,229,.15); color: #a5b4fc; }
+    .section-title { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800; color: var(--dark); margin-bottom: 14px; letter-spacing: -.3px; }
+    .section-title.light { color: #fff; }
+    .section-sub { font-size: 1rem; color: var(--muted); max-width: 560px; }
+    .section-sub.light { color: rgba(255,255,255,.55); }
+    .text-center { text-align: center; }
+    .text-center .section-sub { margin: 0 auto; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--dark); color: rgba(255,255,255,.6); padding: 56px 20px 24px; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; max-width: 1100px; margin: 0 auto 40px; }
+    .footer-col h4 { font-size: .85rem; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: .8px; margin-bottom: 16px; }
+    .footer-col a { display: block; font-size: .85rem; color: rgba(255,255,255,.5); text-decoration: none; margin-bottom: 10px; transition: color .2s; }
+    .footer-col a:hover { color: #fff; }
+    .footer-brand p { font-size: .85rem; line-height: 1.7; margin-top: 14px; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,.08); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; max-width: 1100px; margin: 0 auto; flex-wrap: wrap; gap: 12px; font-size: .82rem; }
+    .social-links { display: flex; gap: 10px; }
+    .social-link { width: 36px; height: 36px; border-radius: 10px; background: rgba(255,255,255,.07); display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1rem; transition: background .2s; }
+    .social-link:hover { background: rgba(255,255,255,.15); }
+
+    /* ── FADE IN ANIMATION ── */
+    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity .5s ease, transform .5s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .hire-box { padding: 36px 24px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .filter-btn { padding: 8px 16px; font-size: .82rem; }
+    }
+    @media (max-width: 480px) {
+      .footer-grid { grid-template-columns: 1fr; }
+      .stats-row { gap: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAVBAR ── -->
+<nav id="navbar">
+  <a class="logo" href="/">
+    <div class="logo-icon">Vi</div>
+    <div>
+      <span class="logo-text">vinzapinfotech</span>
+      <span class="logo-sub">Technology</span>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/#services">Services</a>
+    <a href="/#programs">Programs</a>
+    <a href="/projects.html" class="active">Portfolio</a>
+    <a href="/devops-tutorials.html" style="color:#0ea5e9;font-weight:700;">🚀 DevOps</a>
+    <a href="/digital-marketing.html" style="color:#10b981;font-weight:700;">📱 Marketing</a>
+    <a href="/#contact">Contact</a>
+  </div>
+  <a href="#hire" class="btn-hire">Hire Us</a>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/" onclick="toggleMenu()">Home</a>
+  <a href="/#services" onclick="toggleMenu()">Services</a>
+  <a href="/#programs" onclick="toggleMenu()">Programs</a>
+  <a href="/projects.html" onclick="toggleMenu()">Portfolio</a>
+  <a href="/devops-tutorials.html" onclick="toggleMenu()" style="background:#eff6ff;color:#0ea5e9;">🚀 DevOps Tutorials</a>
+  <a href="/digital-marketing.html" onclick="toggleMenu()" style="background:#f0fdf4;color:#10b981;">📱 Digital Marketing</a>
+  <a href="#hire" class="btn-hire" style="text-align:center;margin-top:8px;" onclick="toggleMenu()">Hire Us</a>
+</div>
+
+<!-- ── PAGE HERO ── -->
+<section class="page-hero">
+  <div class="hero-tag"><span class="dot"></span>Real Projects. Real Results.</div>
+  <h1>We Build Things That<br/><span class="grad">Actually Work</span></h1>
+  <p>From iOS apps and AWS cloud infrastructure to 5 years of Meta Ads campaigns — here's the work we've shipped for clients and ourselves.</p>
+  <div class="hero-cta">
+    <a href="#hire" class="btn-primary">💬 Hire Us for Your Project</a>
+    <a href="#projects" class="btn-outline-light">View All Projects ↓</a>
+  </div>
+</section>
+
+<!-- ── STATS STRIP ── -->
+<div class="stats-strip">
+  <div class="stats-row">
+    <div class="stat-item">
+      <div class="stat-num"><span>10+</span></div>
+      <div class="stat-lbl">Projects Delivered</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num"><span>5</span> Years</div>
+      <div class="stat-lbl">Meta Ads Experience</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num"><span>3</span></div>
+      <div class="stat-lbl">Live Client Apps</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num"><span>100%</span></div>
+      <div class="stat-lbl">Client Satisfaction</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── FILTER TABS ── -->
+<div class="filter-section" id="projects">
+  <div class="text-center" style="max-width:1200px;margin:0 auto 32px;">
+    <span class="section-tag">Our Work</span>
+    <h2 class="section-title">Projects & Portfolio</h2>
+    <p class="section-sub" style="margin:0 auto;">Real-world projects across DevOps, Web Development, and Digital Marketing. Click a category to filter.</p>
+  </div>
+  <div class="filter-wrap">
+    <button class="filter-btn active" onclick="filterProjects('all', this)">All Projects</button>
+    <button class="filter-btn" onclick="filterProjects('devops', this)">🚀 DevOps & Cloud</button>
+    <button class="filter-btn" onclick="filterProjects('web', this)">🌐 Web Development</button>
+    <button class="filter-btn" onclick="filterProjects('meta', this)">📣 Meta & Digital Ads</button>
+  </div>
+</div>
+
+<!-- ── PROJECTS GRID ── -->
+<section class="projects-section" style="padding-top: 0;">
+  <div class="projects-grid" id="projects-grid">
+
+    <!-- PROJECT 1: Bhejdu.com iOS App -->
+    <div class="project-card fade-in" data-cat="web">
+      <div class="card-banner banner-web">
+        <span class="banner-icon">📱</span>
+        <span class="banner-label">iOS App + Web</span>
+      </div>
+      <div class="card-body">
+        <span class="card-category cat-web">🌐 Web & App</span>
+        <h3>Bhejdu — On-Demand Delivery iOS App</h3>
+        <p>Full-stack project for Bhejdu.com — an on-demand delivery iOS application. Handled web presence, backend integration, performance optimisation, and digital marketing to drive app installs and user retention.</p>
+        <div class="card-tags">
+          <span class="card-tag">iOS App</span>
+          <span class="card-tag">Web Development</span>
+          <span class="card-tag">Digital Marketing</span>
+          <span class="card-tag">SEO</span>
+          <span class="card-tag">App Growth</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <span class="card-result">✅ Live & Growing</span>
+        <a href="https://bhejdu.com" target="_blank" rel="noopener" class="card-link link-web">View Live →</a>
+      </div>
+    </div>
+
+    <!-- PROJECT 2: Kashikart -->
+    <div class="project-card fade-in" data-cat="web">
+      <div class="card-banner banner-web" style="background: linear-gradient(135deg, #1a1a2e, #16213e);">
+        <span class="banner-icon">🛒</span>
+        <span class="banner-label">E-Commerce</span>
+      </div>
+      <div class="card-body">
+        <span class="card-category cat-web">🌐 Web Development</span>
+        <h3>Kashikart — E-Commerce Platform</h3>
+        <p>Built and managed the Kashikart e-commerce platform — a complete online store with product management, payment integration, and digital marketing funnels to drive sales. Implemented SEO strategy and Meta Ads campaigns to increase traffic and revenue.</p>
+        <div class="card-tags">
+          <span class="card-tag">E-Commerce</span>
+          <span class="card-tag">Web Development</span>
+          <span class="card-tag">Payment Gateway</span>
+          <span class="card-tag">Meta Ads</span>
+          <span class="card-tag">SEO</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <span class="card-result">✅ Live Platform</span>
+        <a href="https://kashikart.com" target="_blank" rel="noopener" class="card-link link-web">View Live →</a>
+      </div>
+    </div>
+
+    <!-- PROJECT 3: Vinzap Infotech Website -->
+    <div class="project-card fade-in" data-cat="devops">
+      <div class="card-banner banner-devops">
+        <span class="banner-icon">⚙️</span>
+        <span class="banner-label">DevOps + AWS</span>
+      </div>
+      <div class="card-body">
+        <span class="card-category cat-devops">🚀 DevOps</span>
+        <h3>Vinzap Infotech — Production Website with Full CI/CD</h3>
+        <p>Architected and deployed this very website with a full DevOps pipeline: AWS EC2 hosting, Nginx reverse proxy, Docker containerisation, GitHub Actions CI/CD for automated deployments, and Terraform for infrastructure-as-code.</p>
+        <div class="card-tags">
+          <span class="card-tag">AWS EC2</span>
+          <span class="card-tag">Nginx</span>
+          <span class="card-tag">Docker</span>
+          <span class="card-tag">GitHub Actions</span>
+          <span class="card-tag">Terraform</span>
+          <span class="card-tag">CI/CD</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <span class="card-result">✅ Production Live</span>
+        <a href="https://www.vinzapinfotech.com" target="_blank" rel="noopener" class="card-link link-devops">View Site →</a>
+      </div>
+    </div>
+
+    <!-- PROJECT 4: GitHub Actions CI/CD Pipeline -->
+    <div class="project-card fade-in" data-cat="devops">
+      <div class="card-banner banner-cicd">
+        <span class="banner-icon">🔄</span>
+        <span class="banner-label">CI/CD Pipeline</span>
+      </div>
+      <div class="card-body">
+        <span class="card-category cat-devops">🚀 DevOps</span>
+        <h3>GitHub Actions CI/CD — Zero-Downtime Deployments</h3>
+        <p>Designed and implemented end-to-end GitHub Actions workflows for automated build, test, Docker image push to ECR, and blue-green deployment on AWS ECS. Reduced deployment time from hours to minutes with zero downtime.</p>
+        <div class="card-tags">
+          <span class="card-tag">GitHub Actions</span>
+          <span class="card-tag">AWS ECS</span>
+          <span class="card-tag">AWS ECR</span>
+          <span class="card-tag">Docker</span>
+          <span class="card-tag">Blue-Green Deploy</span>
+          <span class="card-tag">Zero Downtime</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <span class="card-result">✅ Production Use</span>
+        <a href="/#contact" class="card-link link-cicd">Get This Pipeline →</a>
+      </div>
+    </div>
+
+    <!-- PROJECT 5: Jenkins + Docker -->
+    <div class="project-card fade-in" data-cat="devops">
+      <div class="card-banner banner-docker">
+        <span class="banner-icon">🐳</span>
+        <span class="banner-label">Jenkins + Docker</span>
+      </div>
+      <div class="card-body">
+        <span class="card-category cat-devops">🚀 DevOps</span>
+        <h3>Jenkins CI/CD + Dockerised Microservices</h3>
+        <p>Set up a Jenkins master-agent pipeline for a microservices architecture. Dockerised all services, configured Jenkins pipelines for automated testing, security scanning, and Docker Compose orchestration for staging and production environments.</p>
+        <div class="card-tags">
+          <span class="card-tag">Jenkins</span>
+          <span class="card-tag">Docker</span>
+          <span class="card-tag">Microservices</span>
+          <span class="card-tag">Docker Compose</span>
+          <span class="card-tag">SonarQube</span>
+          <span class="card-tag">Pipeline as Code</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <span class="card-result">✅ Deployed</span>
+        <a href="/#contact" class="card-link link-devops">Get This Setup →</a>
+      </div>
+    </div>
+
+    <!-- PROJECT 6: Kubernetes on AWS -->
+    <div class="project-card fade-in" data-cat="devops">
+      <div class="card-banner banner-aws" style="background: linear-gradient(135deg, #ff9900, #ff6600);">
+        <span class="banner-icon">☸️</span>
+        <span class="banner-label">Kubernetes + AWS EKS</span>
+      </div>
+      <div class="card-body">
+        <span class="card-category cat-cloud">☁️ Cloud / K8s</span>
+        <h3>AWS EKS Kubernetes Cluster — Production Setup</h3>
+        <p>Provisioned and managed a production Kubernetes cluster on AWS EKS using Terraform. Configured auto-scaling, ingress controllers, Helm chart deployments, cluster monitoring with Prometheus + Grafana, and secrets management with AWS Secrets Manager.</p>
+        <div class="card-tags">
+          <span class="card-tag">AWS EKS</span>
+          <span class="card-tag">Kubernetes</span>
+          <span class="card-tag">Terraform</span>
+          <span class="card-tag">Helm</span>
+          <span class="card-tag">Prometheus</span>
+          <span class="card-tag">Grafana</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <span class="card-result">✅ Production Cluster</span>
+        <a href="/#contact" class="card-link link-aws">Get This Setup →</a>
+      </div>
+    </div>
+
+    <!-- PROJECT 7: Terraform AWS Infrastructure -->
+    <div class="project-card fade-in" data-cat="devops">
+      <div class="card-banner banner-aws">
+        <span class="banner-icon">🏗️</span>
+        <span class="banner-label">Terraform IaC</span>
+      </div>
+      <div class="card-body">
+        <span class="card-category cat-cloud">☁️ Cloud / IaC</span>
+        <h3>Terraform AWS — Full Infrastructure as Code</h3>
+        <p>Complete AWS infrastructure managed via Terraform: VPC, subnets, security groups, ALB, RDS, S3, CloudFront, IAM roles and policies — all version-controlled and reproducible. Reduced infrastructure setup from days to under 30 minutes.</p>
+        <div class="card-tags">
+          <span class="card-tag">Terraform</span>
+          <span class="card-tag">AWS VPC</span>
+          <span class="card-tag">AWS RDS</span>
+          <span class="card-tag">AWS S3</span>
+          <span class="card-tag">CloudFront</span>
+          <span class="card-tag">IAM</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <span class="card-result">✅ Production IaC</span>
+        <a href="/#contact" class="card-link link-aws">Get This Template →</a>
+      </div>
+    </div>
+
+    <!-- PROJECT 8: Meta Ads — 5 Years Experience -->
+    <div class="project-card fade-in" data-cat="meta">
+      <div class="card-banner banner-meta">
+        <span class="banner-icon">📣</span>
+        <span class="banner-label">Meta Certified</span>
+      </div>
+      <div class="card-body">
+        <span class="card-category cat-meta">📣 Meta Ads</span>
+        <h3>Meta Ads Campaigns — 5 Years as Meta Marketing Pro</h3>
+        <p>5+ years working directly on Meta marketing projects as a certified Meta Marketing Pro. Managed multi-crore ad budgets, built high-converting ad creatives, advanced audience funnels (TOFU/MOFU/BOFU), retargeting strategies, and Lookalike Audiences across Facebook and Instagram.</p>
+        <div class="card-tags">
+          <span class="card-tag">Facebook Ads</span>
+          <span class="card-tag">Instagram Ads</span>
+          <span class="card-tag">Ad Creatives</span>
+          <span class="card-tag">Funnel Strategy</span>
+          <span class="card-tag">Retargeting</span>
+          <span class="card-tag">Lookalike Audiences</span>
+          <span class="card-tag">Meta Business Manager</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <span class="card-result">✅ 5 Years Track Record</span>
+        <a href="#hire" class="card-link link-meta">Hire for Ads →</a>
+      </div>
+    </div>
+
+    <!-- PROJECT 9: E-Commerce Facebook Ads -->
+    <div class="project-card fade-in" data-cat="meta">
+      <div class="card-banner banner-meta" style="background: linear-gradient(135deg, #e91e63, #9c27b0);">
+        <span class="banner-icon">🛍️</span>
+        <span class="banner-label">E-Commerce Ads</span>
+      </div>
+      <div class="card-body">
+        <span class="card-category cat-meta">📣 Facebook Ads</span>
+        <h3>E-Commerce Facebook & Instagram Ads — Full Funnel</h3>
+        <p>Designed and executed complete Facebook/Instagram ad funnels for e-commerce brands. Created winning ad creative sets (static, carousel, video), built audience segments, scaled winning ad sets, and consistently achieved 3–5x ROAS across campaigns.</p>
+        <div class="card-tags">
+          <span class="card-tag">Facebook Ads</span>
+          <span class="card-tag">Instagram Ads</span>
+          <span class="card-tag">3–5x ROAS</span>
+          <span class="card-tag">Creative Strategy</span>
+          <span class="card-tag">Scaling</span>
+          <span class="card-tag">A/B Testing</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <span class="card-result">📈 3–5x ROAS Achieved</span>
+        <a href="#hire" class="card-link link-meta">Hire for Ads →</a>
+      </div>
+    </div>
+
+    <!-- PROJECT 10: Social Media & Digital Marketing -->
+    <div class="project-card fade-in" data-cat="meta">
+      <div class="card-banner banner-meta" style="background: linear-gradient(135deg, #f97316, #dc2626);">
+        <span class="banner-icon">📲</span>
+        <span class="banner-label">Social Media</span>
+      </div>
+      <div class="card-body">
+        <span class="card-category cat-meta">📣 Social Media</span>
+        <h3>Social Media Marketing — Content + Paid Strategy</h3>
+        <p>End-to-end social media management: content calendar, creative production, community management, organic growth strategy, combined with paid amplification on Facebook and Instagram. Grew brand pages to thousands of engaged followers with measurable business outcomes.</p>
+        <div class="card-tags">
+          <span class="card-tag">Content Strategy</span>
+          <span class="card-tag">Facebook Page</span>
+          <span class="card-tag">Instagram Growth</span>
+          <span class="card-tag">Paid + Organic</span>
+          <span class="card-tag">Brand Building</span>
+          <span class="card-tag">Analytics</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <span class="card-result">📈 Proven Growth</span>
+        <a href="#hire" class="card-link link-meta">Get This Service →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── EXPERTISE SECTION ── -->
+<section class="expertise-section">
+  <div class="text-center container" style="max-width:1100px;margin:0 auto;">
+    <span class="section-tag dark">Skills & Expertise</span>
+    <h2 class="section-title light">What We're Really Good At</h2>
+    <p class="section-sub light" style="margin:0 auto 0;">The tools, platforms, and skills we use every day on real projects.</p>
+  </div>
+  <div class="expertise-grid">
+    <div class="expertise-card">
+      <span class="exp-icon">☁️</span>
+      <div class="exp-title">AWS Cloud</div>
+      <div class="exp-desc">EC2, EKS, ECS, S3, RDS, CloudFront, VPC, IAM, Lambda, Route53</div>
+      <div class="exp-bar"><div class="exp-fill" style="width:92%;background:linear-gradient(90deg,#ff9900,#ff6600);"></div></div>
+    </div>
+    <div class="expertise-card">
+      <span class="exp-icon">🐳</span>
+      <div class="exp-title">Docker & Kubernetes</div>
+      <div class="exp-desc">Containerisation, Docker Compose, K8s deployments, Helm, EKS cluster management</div>
+      <div class="exp-bar"><div class="exp-fill" style="width:90%;background:linear-gradient(90deg,#0ea5e9,#0369a1);"></div></div>
+    </div>
+    <div class="expertise-card">
+      <span class="exp-icon">🔄</span>
+      <div class="exp-title">CI/CD Pipelines</div>
+      <div class="exp-desc">GitHub Actions, Jenkins, automated testing, zero-downtime deployments, GitOps</div>
+      <div class="exp-bar"><div class="exp-fill" style="width:93%;background:linear-gradient(90deg,#4f46e5,#7c3aed);"></div></div>
+    </div>
+    <div class="expertise-card">
+      <span class="exp-icon">🏗️</span>
+      <div class="exp-title">Terraform (IaC)</div>
+      <div class="exp-desc">Complete AWS infrastructure as code, state management, modules, CI/CD integration</div>
+      <div class="exp-bar"><div class="exp-fill" style="width:88%;background:linear-gradient(90deg,#7c3aed,#ec4899);"></div></div>
+    </div>
+    <div class="expertise-card">
+      <span class="exp-icon">📣</span>
+      <div class="exp-title">Meta / Facebook Ads</div>
+      <div class="exp-desc">5 years as Meta Marketing Pro — ad creatives, funnels, retargeting, Lookalike Audiences, scaling</div>
+      <div class="exp-bar"><div class="exp-fill" style="width:97%;background:linear-gradient(90deg,#1877f2,#6d28d9);"></div></div>
+    </div>
+    <div class="expertise-card">
+      <span class="exp-icon">🌐</span>
+      <div class="exp-title">Web Development</div>
+      <div class="exp-desc">HTML/CSS/JS, responsive design, performance optimisation, SEO, WordPress, landing pages</div>
+      <div class="exp-bar"><div class="exp-fill" style="width:87%;background:linear-gradient(90deg,#10b981,#059669);"></div></div>
+    </div>
+    <div class="expertise-card">
+      <span class="exp-icon">📊</span>
+      <div class="exp-title">Digital Marketing</div>
+      <div class="exp-desc">SEO, Google Ads, social media marketing, content strategy, email campaigns, analytics</div>
+      <div class="exp-bar"><div class="exp-fill" style="width:91%;background:linear-gradient(90deg,#f97316,#dc2626);"></div></div>
+    </div>
+    <div class="expertise-card">
+      <span class="exp-icon">📱</span>
+      <div class="exp-title">App Projects</div>
+      <div class="exp-desc">iOS app project delivery, web-app integration, app store optimisation, growth marketing</div>
+      <div class="exp-bar"><div class="exp-fill" style="width:82%;background:linear-gradient(90deg,#06b6d4,#0ea5e9);"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CLIENT LOGOS ── -->
+<section class="clients-section">
+  <div class="text-center" style="max-width:800px;margin:0 auto;">
+    <span class="section-tag">Clients & Projects</span>
+    <h2 class="section-title">Brands & Platforms We've Worked With</h2>
+    <p class="section-sub" style="margin:0 auto;">Real projects for real clients — not just mock-ups.</p>
+  </div>
+  <div class="clients-logos">
+    <a href="https://bhejdu.com" target="_blank" rel="noopener" class="client-chip">
+      <span class="chip-icon">📱</span> Bhejdu.com
+    </a>
+    <a href="https://kashikart.com" target="_blank" rel="noopener" class="client-chip">
+      <span class="chip-icon">🛒</span> Kashikart
+    </a>
+    <span class="client-chip">
+      <span class="chip-icon">📣</span> Meta (Facebook)
+    </span>
+    <a href="https://www.vinzapinfotech.com" target="_blank" rel="noopener" class="client-chip">
+      <span class="chip-icon">⚙️</span> Vinzap Infotech
+    </a>
+    <span class="client-chip">
+      <span class="chip-icon">☁️</span> AWS Cloud
+    </span>
+    <span class="client-chip">
+      <span class="chip-icon">🐙</span> GitHub Actions
+    </span>
+  </div>
+</section>
+
+<!-- ── HIRE US CTA ── -->
+<section id="hire" class="hire-section">
+  <div class="hire-box">
+    <div class="hire-text">
+      <h2>Ready to Build Something Together?</h2>
+      <p>Whether you need a DevOps pipeline set up on AWS, a website built, or Facebook/Instagram ad campaigns that actually convert — let's talk. We respond within 24 hours.</p>
+      <br/>
+      <p style="color:rgba(255,255,255,.4);font-size:.82rem;">📍 Based in Bangalore, India &nbsp;·&nbsp; Working with clients globally</p>
+    </div>
+    <div class="hire-form">
+      <form onsubmit="submitHire(event)" id="hireForm">
+        <input type="text" placeholder="Your Name *" required/>
+        <input type="email" placeholder="Email Address *" required/>
+        <input type="tel" placeholder="WhatsApp / Phone Number"/>
+        <select required>
+          <option value="" disabled selected>What do you need? *</option>
+          <option value="devops">DevOps / AWS / CI-CD Pipeline</option>
+          <option value="docker">Docker / Kubernetes Setup</option>
+          <option value="web">Website Development</option>
+          <option value="meta">Meta / Facebook Ads Campaign</option>
+          <option value="social">Social Media Marketing</option>
+          <option value="seo">SEO / Google Ads</option>
+          <option value="fullstack">Full Digital Marketing Strategy</option>
+          <option value="other">Other / Multiple Services</option>
+        </select>
+        <textarea placeholder="Tell us about your project (budget, timeline, goals...)"></textarea>
+        <button type="submit">Send Project Enquiry →</button>
+      </form>
+      <div class="hire-success" id="hireSuccess">
+        ✅ Thank you! We'll get back to you within 24 hours.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a class="logo" href="/">
+        <div class="logo-icon">Vi</div>
+        <div>
+          <span class="logo-text" style="color:#fff;">vinzapinfotech</span>
+          <span class="logo-sub" style="color:rgba(255,255,255,.4);">Technology</span>
+        </div>
+      </a>
+      <p>DevOps, Web Development, and Meta Ads expertise from Bangalore, India. Real projects, real results.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <a href="/#services">DevOps & CI/CD</a>
+      <a href="/#services">AWS Cloud</a>
+      <a href="/#services">Web Development</a>
+      <a href="/#services">Meta Ads</a>
+      <a href="/#services">Digital Marketing</a>
+    </div>
+    <div class="footer-col">
+      <h4>Work</h4>
+      <a href="/projects.html">All Projects</a>
+      <a href="/devops-tutorials.html">DevOps Tutorials</a>
+      <a href="/digital-marketing.html">Marketing Tutorials</a>
+      <a href="#hire">Hire Us</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="/#about">About Us</a>
+      <a href="/#contact">Contact</a>
+      <a href="/privacy-policy.html">Privacy Policy</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Vinzap Infotech Technology. All rights reserved. | Bangalore, India</p>
+    <div class="social-links">
+      <a class="social-link" href="#" title="LinkedIn">💼</a>
+      <a class="social-link" href="#" title="Instagram">📸</a>
+      <a class="social-link" href="#" title="WhatsApp">💬</a>
+      <a class="social-link" href="#" title="YouTube">▶️</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ── Mobile menu ──
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+
+  // ── Navbar scroll effect ──
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('navbar');
+    nav.style.boxShadow = window.scrollY > 20 ? '0 4px 24px rgba(0,0,0,.08)' : 'none';
+  });
+
+  // ── Project filter ──
+  function filterProjects(cat, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.project-card').forEach(card => {
+      if (cat === 'all' || card.dataset.cat === cat) {
+        card.style.display = 'flex';
+        setTimeout(() => card.classList.add('visible'), 50);
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+
+  // ── Fade in on scroll ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // ── Hire form ──
+  function submitHire(e) {
+    e.preventDefault();
+    document.getElementById('hireForm').style.display = 'none';
+    document.getElementById('hireSuccess').style.display = 'block';
+  }
+</script>
+</body>
+</html>
