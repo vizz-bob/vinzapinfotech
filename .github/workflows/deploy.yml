@@ -114,6 +114,7 @@ jobs:
         run: |
           cp sitemap.xml build/ 2>/dev/null || true
           cp robots.txt build/ 2>/dev/null || true
+          cp ads.txt build/ 2>/dev/null || true
           cp BingSiteAuth.xml build/ 2>/dev/null || true
           cp -r images build/ 2>/dev/null || true
           cp -r assets build/ 2>/dev/null || true
