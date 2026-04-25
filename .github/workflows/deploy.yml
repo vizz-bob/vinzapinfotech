@@ -13,7 +13,6 @@ env:
   SITE_URL: https://www.vinzapinfotech.com
   EC2_HOST: 3.225.142.65
   EC2_USERNAME: ubuntu
-  EC2_WEB_ROOT: /usr/share/nginx/html   # matches root in nginx/nginx.conf
 
 jobs:
 
@@ -152,10 +151,12 @@ jobs:
           echo "✅ CloudFront cache cleared"
 
   # ─────────────────────────────────────────────
-  # JOB 3: DEPLOY TO EC2 (nginx — no Docker)
+  # JOB 3: BACKUP FILES TO EC2
+  # Site is served via S3 + CloudFront.
+  # EC2 just keeps a backup copy of all files.
   # ─────────────────────────────────────────────
   deploy-ec2:
-    name: 🖥️ Deploy → EC2 (nginx)
+    name: 🖥️ Backup → EC2 (file copy)
     runs-on: ubuntu-latest
     needs: build
     environment:
@@ -174,43 +175,23 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/vinzap.pem
           chmod 600 ~/.ssh/vinzap.pem
-          # Avoid interactive host-key prompt
           ssh-keyscan -H ${{ env.EC2_HOST }} >> ~/.ssh/known_hosts 2>/dev/null || true
 
-      - name: 📂 Create web root on EC2 (if not exists)
+      - name: 📂 Ensure backup folder exists on EC2
         run: |
           ssh -i ~/.ssh/vinzap.pem \
               -o StrictHostKeyChecking=no \
               -o ConnectTimeout=30 \
               ${{ env.EC2_USERNAME }}@${{ env.EC2_HOST }} \
-              "sudo mkdir -p ${{ env.EC2_WEB_ROOT }}/blog && \
-               sudo chown -R ${{ env.EC2_USERNAME }}:${{ env.EC2_USERNAME }} ${{ env.EC2_WEB_ROOT }}"
+              "mkdir -p ~/vinzap-backup/blog"
 
-      - name: 📡 Rsync build files to EC2
+      - name: 📡 Copy build files to EC2 backup folder
         run: |
           rsync -avz --delete \
             -e "ssh -i ~/.ssh/vinzap.pem -o StrictHostKeyChecking=no" \
             build/ \
-            ${{ env.EC2_USERNAME }}@${{ env.EC2_HOST }}:${{ env.EC2_WEB_ROOT }}/
-          echo "✅ Files synced to EC2"
-
-      - name: 🔄 Reload nginx on EC2
-        run: |
-          ssh -i ~/.ssh/vinzap.pem \
-              -o StrictHostKeyChecking=no \
-              ${{ env.EC2_USERNAME }}@${{ env.EC2_HOST }} \
-              "sudo nginx -t && sudo systemctl reload nginx && echo '✅ Nginx reloaded'"
-
-      - name: 🌐 Health check EC2
-        run: |
-          sleep 5
-          STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 15 http://${{ env.EC2_HOST }}/ || echo "000")
-          echo "EC2 direct HTTP status: $STATUS"
-          if [ "$STATUS" = "200" ] || [ "$STATUS" = "301" ]; then
-            echo "✅ EC2 is serving the site!"
-          else
-            echo "⚠️  Got $STATUS — check nginx on EC2"
-          fi
+            ${{ env.EC2_USERNAME }}@${{ env.EC2_HOST }}:~/vinzap-backup/
+          echo "✅ Backup complete on EC2 at ~/vinzap-backup/"
 
   # ─────────────────────────────────────────────
   # JOB 4: PING GOOGLE + BING (after both deploys)
