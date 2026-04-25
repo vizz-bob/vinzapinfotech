@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TVTBVCZH');</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HEL83H3BW4"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-HEL83H3BW4');</script>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="google-adsense-account" content="ca-pub-2639020346909963"/>
+  <title>Docker for Beginners — Complete Guide with Examples | Vinzap Infotech</title>
+  <meta name="description" content="Learn Docker from scratch. This beginner's guide explains containers, images, Dockerfiles, and Docker Compose with real examples and commands you can run today."/>
+  <link rel="canonical" href="https://www.vinzapinfotech.com/blog/docker-beginners-guide.html"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--blue:#2563eb;--purple:#7c3aed;--docker:#0db7ed;--dark:#0f172a;--text:#1e293b;--muted:#64748b;--border:#e2e8f0;--light:#f8faff;}
+    *{box-sizing:border-box;margin:0;padding:0;}body{font-family:'Inter',sans-serif;color:var(--text);background:var(--light);line-height:1.8;}
+    nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(37,99,235,.1);padding:0 24px;height:68px;display:flex;align-items:center;justify-content:space-between;}
+    .logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+    .logo-icon{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--blue),var(--purple));display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:900;color:#fff;}
+    .logo-text{font-size:.95rem;font-weight:800;color:var(--dark);}
+    .logo-sub{font-size:.65rem;color:var(--muted);letter-spacing:.5px;text-transform:uppercase;display:block;}
+    .nav-links{display:flex;align-items:center;gap:24px;}
+    .nav-links a{font-size:.88rem;font-weight:500;color:var(--muted);text-decoration:none;}
+    .nav-links a:hover{color:var(--blue);}
+    .btn-apply{background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;padding:9px 20px;border-radius:10px;font-size:.85rem;font-weight:700;text-decoration:none;}
+    @media(max-width:768px){.nav-links{display:none;}}
+    .article-hero{margin-top:68px;padding:60px 24px 40px;background:linear-gradient(135deg,#0a6fa8,#0db7ed);text-align:center;}
+    .article-tag{display:inline-block;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.4);color:#fff;padding:5px 16px;border-radius:30px;font-size:.78rem;font-weight:700;text-transform:uppercase;margin-bottom:16px;}
+    .article-hero h1{font-size:clamp(1.6rem,3.5vw,2.5rem);font-weight:900;color:#fff;max-width:750px;margin:0 auto 16px;line-height:1.25;}
+    .article-meta{color:rgba(255,255,255,.75);font-size:.88rem;margin-top:12px;}
+    .article-meta span{margin:0 8px;}
+    .article-layout{max-width:780px;margin:0 auto;padding:50px 24px 70px;}
+    .article-body h2{font-size:1.5rem;font-weight:800;color:var(--dark);margin:40px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--border);}
+    .article-body h3{font-size:1.15rem;font-weight:700;color:var(--dark);margin:28px 0 10px;}
+    .article-body p{color:var(--text);font-size:1rem;margin-bottom:18px;line-height:1.85;}
+    .article-body ul,.article-body ol{margin:0 0 18px 24px;color:var(--text);}
+    .article-body li{margin-bottom:8px;font-size:.97rem;line-height:1.7;}
+    .article-body strong{color:var(--dark);}
+    .code-block{background:#1e293b;color:#e2e8f0;border-radius:12px;padding:20px 24px;font-size:.88rem;font-family:'Courier New',monospace;margin:18px 0;overflow-x:auto;line-height:1.7;white-space:pre;}
+    .code-comment{color:#64748b;}
+    .code-cmd{color:#86efac;}
+    .code-string{color:#fbbf24;}
+    .highlight-box{background:linear-gradient(135deg,#eff6ff,#f0f4ff);border:1px solid #bfdbfe;border-radius:16px;padding:24px 28px;margin:28px 0;}
+    .highlight-box h4{color:var(--blue);font-size:.9rem;font-weight:700;text-transform:uppercase;margin-bottom:8px;}
+    .highlight-box p{margin:0;color:var(--text);font-size:.95rem;}
+    .cta-box{background:linear-gradient(135deg,var(--blue),var(--purple));border-radius:20px;padding:36px;text-align:center;margin-top:50px;}
+    .cta-box h3{color:#fff;font-size:1.3rem;font-weight:800;margin-bottom:8px;}
+    .cta-box p{color:rgba(255,255,255,.85);font-size:.95rem;margin-bottom:20px;}
+    .cta-box a{display:inline-block;background:#fff;color:var(--blue);padding:12px 28px;border-radius:30px;font-weight:800;text-decoration:none;font-size:.9rem;}
+    footer{background:var(--dark);color:#94a3b8;text-align:center;padding:28px 24px;font-size:.88rem;}
+    footer a{color:#60a5fa;text-decoration:none;}
+    .back-link{display:inline-flex;align-items:center;gap:6px;color:var(--blue);text-decoration:none;font-size:.88rem;font-weight:600;margin-bottom:32px;}
+  </style>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TVTBVCZH" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<nav>
+  <a href="/" class="logo"><div class="logo-icon">Vi</div><div><span class="logo-text">VinzapInfotech</span><span class="logo-sub">IT Services &amp; Training</span></div></a>
+  <div class="nav-links">
+    <a href="/">Home</a><a href="/devops-tutorials.html">DevOps</a><a href="/courses.html">Courses</a><a href="/blog/">Blog</a><a href="/about.html">About</a><a href="/contact.html">Contact</a>
+    <a href="/courses.html" class="btn-apply">Enroll Now &rarr;</a>
+  </div>
+</nav>
+
+<div class="article-hero">
+  <div class="article-tag">Docker</div>
+  <h1>Docker for Beginners &mdash; Complete Guide with Examples</h1>
+  <div class="article-meta"><span>By Rahul Sharma</span><span>&middot;</span><span>March 2026</span><span>&middot;</span><span>11 min read</span></div>
+</div>
+
+<div class="article-layout">
+  <a href="/blog/" class="back-link">&larr; Back to Blog</a>
+  <div class="article-body">
+
+    <p>If you have spent any time in software development or DevOps, you have almost certainly heard the phrase: <em>"But it works on my machine!"</em> This is the problem Docker was built to solve. Docker packages your application, its dependencies, and its environment into a single portable unit called a container &mdash; so it runs exactly the same way everywhere, whether that's your laptop, a colleague's machine, or a server in the cloud.</p>
+
+    <p>In this guide, we'll cover everything you need to know to get started with Docker: what containers are, how Docker works, how to write a Dockerfile, and how to run multi-service applications with Docker Compose.</p>
+
+    <h2>What is a Container?</h2>
+    <p>A container is a lightweight, isolated environment that runs an application and everything it needs to run &mdash; libraries, configuration files, and dependencies &mdash; bundled together as a single package. Containers share the host operating system's kernel but are isolated from each other at the process and filesystem level.</p>
+    <p>This is different from a virtual machine (VM). A VM includes its own full operating system, which makes it heavy (several gigabytes) and slow to start (minutes). A Docker container, by contrast, starts in seconds and typically weighs only megabytes because it shares the host OS kernel.</p>
+
+    <div class="highlight-box">
+      <h4>Container vs Virtual Machine</h4>
+      <p>A virtual machine virtualizes hardware and runs a full OS. A container virtualizes only the application layer and shares the host kernel. This makes containers faster to start, smaller in size, and more efficient to run at scale.</p>
+    </div>
+
+    <h2>Installing Docker</h2>
+    <p>Docker Desktop is the easiest way to install Docker on Windows and Mac. On Linux (Ubuntu), run:</p>
+    <div class="code-block"><span class="code-comment"># Update package list and install Docker</span>
+sudo apt-get update
+sudo apt-get install -y docker.io
+sudo systemctl start docker
+sudo systemctl enable docker
+
+<span class="code-comment"># Add your user to the docker group (so you don't need sudo)</span>
+sudo usermod -aG docker $USER
+
+<span class="code-comment"># Verify installation</span>
+docker --version</div>
+
+    <h2>Key Docker Concepts</h2>
+    <h3>Docker Image</h3>
+    <p>A Docker image is a read-only template that contains the instructions for creating a container. Think of it like a blueprint or a recipe. Images are built from a Dockerfile and can be stored in a registry like Docker Hub or Amazon ECR. When you run an image, Docker creates a container from it.</p>
+
+    <h3>Docker Container</h3>
+    <p>A container is a running instance of an image. You can start, stop, pause, and delete containers. Containers are isolated from each other and from the host system, but they can be connected to networks and storage volumes.</p>
+
+    <h3>Docker Hub</h3>
+    <p>Docker Hub is Docker's public registry &mdash; a library of pre-built images you can use as starting points. Instead of building from scratch, you can base your image on an official Ubuntu, Node.js, Python, or Nginx image and just add your application on top.</p>
+
+    <h2>Your First Docker Commands</h2>
+    <div class="code-block"><span class="code-comment"># Pull an image from Docker Hub</span>
+docker pull nginx
+
+<span class="code-comment"># Run a container (nginx web server on port 8080)</span>
+docker run -d -p 8080:80 --name my-nginx nginx
+
+<span class="code-comment"># List running containers</span>
+docker ps
+
+<span class="code-comment"># View container logs</span>
+docker logs my-nginx
+
+<span class="code-comment"># Stop and remove the container</span>
+docker stop my-nginx
+docker rm my-nginx
+
+<span class="code-comment"># List all images on your machine</span>
+docker images</div>
+
+    <h2>Writing a Dockerfile</h2>
+    <p>A Dockerfile is a plain text file with instructions that tell Docker how to build your image. Here is a Dockerfile for a simple Node.js application:</p>
+    <div class="code-block"><span class="code-comment"># Start from the official Node.js 20 image</span>
+FROM node:20-alpine
+
+<span class="code-comment"># Set the working directory inside the container</span>
+WORKDIR /app
+
+<span class="code-comment"># Copy package files and install dependencies</span>
+COPY package*.json ./
+RUN npm install --production
+
+<span class="code-comment"># Copy the rest of your application code</span>
+COPY . .
+
+<span class="code-comment"># Expose port 3000</span>
+EXPOSE 3000
+
+<span class="code-comment"># Command to start the application</span>
+CMD ["node", "server.js"]</div>
+
+    <p>To build this into an image and run it:</p>
+    <div class="code-block"><span class="code-comment"># Build the image and tag it as "my-app:1.0"</span>
+docker build -t my-app:1.0 .
+
+<span class="code-comment"># Run a container from it</span>
+docker run -d -p 3000:3000 --name my-app my-app:1.0</div>
+
+    <h2>Docker Compose &mdash; Running Multiple Containers</h2>
+    <p>Most real applications need multiple services &mdash; a web server, an API, a database. Docker Compose lets you define and run all of them together using a single YAML file. Here is an example for a Node.js API with a PostgreSQL database:</p>
+    <div class="code-block">version: '3.9'
+
+services:
+  api:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgres://user:password@db:5432/mydb
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=mydb
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:</div>
+
+    <p>Start both services with a single command:</p>
+    <div class="code-block"><span class="code-comment"># Start all services defined in docker-compose.yml</span>
+docker-compose up -d
+
+<span class="code-comment"># Stop all services</span>
+docker-compose down</div>
+
+    <h2>Pushing Your Image to Docker Hub</h2>
+    <p>Once you've built your image, you can push it to Docker Hub so it can be pulled and run anywhere &mdash; including on your AWS EC2 server or in a Kubernetes cluster.</p>
+    <div class="code-block"><span class="code-comment"># Log in to Docker Hub</span>
+docker login
+
+<span class="code-comment"># Tag your image with your Docker Hub username</span>
+docker tag my-app:1.0 yourusername/my-app:1.0
+
+<span class="code-comment"># Push to Docker Hub</span>
+docker push yourusername/my-app:1.0</div>
+
+    <h2>Docker Best Practices</h2>
+    <ul>
+      <li><strong>Use official base images</strong> &mdash; start from trusted, well-maintained images like node:alpine, python:slim, or nginx:alpine.</li>
+      <li><strong>Use multi-stage builds</strong> &mdash; separate your build environment from your production image to keep final images small.</li>
+      <li><strong>One process per container</strong> &mdash; each container should run a single service. Use Docker Compose to connect multiple containers.</li>
+      <li><strong>Never hardcode secrets in Dockerfiles</strong> &mdash; use environment variables or Docker Secrets to pass sensitive values at runtime.</li>
+      <li><strong>Use .dockerignore</strong> &mdash; like .gitignore, this tells Docker which files to exclude from the build context (node_modules, .git, etc.).</li>
+    </ul>
+
+    <h2>What to Learn Next</h2>
+    <p>Once you're comfortable with Docker basics, the natural next step is <strong>Kubernetes</strong> &mdash; the system for managing containers at scale across multiple servers. Kubernetes (often called K8s) builds on the same container concepts you've learned here and adds scheduling, health monitoring, auto-scaling, and service discovery.</p>
+
+    <div class="cta-box">
+      <h3>Learn Docker &amp; DevOps with Real Projects</h3>
+      <p>Our DevOps Engineering Program covers Docker, Kubernetes, AWS, CI/CD, and more &mdash; with live sessions and job placement included.</p>
+      <a href="/courses.html">View DevOps Course &rarr;</a>
+    </div>
+  </div>
+</div>
+<footer>
+  <p>&copy; 2026 Vinzap Infotech. All rights reserved. | Bangalore, India</p>
+  <p style="margin-top:8px;"><a href="/privacy-policy.html">Privacy Policy</a> &nbsp;&middot;&nbsp; <a href="/about.html">About Us</a> &nbsp;&middot;&nbsp; <a href="/blog/">Blog</a></p>
+</footer>
+</body>
+</html>

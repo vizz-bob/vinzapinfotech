@@ -13,6 +13,10 @@ env:
   AWS_REGION: us-east-1
   S3_BUCKET: vinzapinfotech.com
   CLOUDFRONT_DISTRIBUTION_ID: E3LBDJFANT9F4V
+  DOCKER_IMAGE: vinzapinfotech/website
+  EC2_HOST: 3.225.142.65          # AWS EC2 public IP — vinzapinfotech.com
+  EC2_USERNAME: ubuntu             # Default Ubuntu AMI user (change to ec2-user if Amazon Linux)
+  SITE_URL: https://www.vinzapinfotech.com
 
 jobs:
   # ─────────────────────────────────────────────
@@ -91,7 +95,7 @@ jobs:
       - name: 📁 Create build directory
         run: mkdir -p build
 
-      - name: 🗜️ Minify HTML files
+      - name: 🗜️ Minify HTML files (root + blog/)
         run: |
           for file in *.html; do
             echo "Minifying $file..."
@@ -109,6 +113,15 @@ jobs:
               cp "$file" "build/$file"
             fi
           done
+          # Minify blog articles
+          if [ -d "blog" ]; then
+            mkdir -p build/blog
+            for file in blog/*.html; do
+              fname=$(basename "$file")
+              html-minifier-terser --collapse-whitespace --remove-redundant-attributes --minify-css true "$file" -o "build/blog/$fname" || cp "$file" "build/blog/$fname"
+              echo "✅ blog/$fname minified"
+            done
+          fi
 
       - name: 📋 Copy static files
         run: |
@@ -126,6 +139,7 @@ jobs:
           echo ""
           echo "=== FILE SIZES ==="
           ls -lh build/
+          ls -lh build/blog/ 2>/dev/null || true
 
       - name: 📤 Upload build artifact
         uses: actions/upload-artifact@v4
@@ -135,10 +149,71 @@ jobs:
           retention-days: 7
 
   # ─────────────────────────────────────────────
-  # JOB 4: DEPLOY TO S3 + CLOUDFRONT
+  # JOB 4: BUILD & PUSH DOCKER IMAGE
   # ─────────────────────────────────────────────
-  deploy-production:
-    name: 🚀 Deploy to AWS S3 + CloudFront
+  docker-build:
+    name: 🐳 Build & Push Docker Image
+    runs-on: ubuntu-latest
+    needs: [build, security-scan]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    outputs:
+      image_tag: ${{ steps.meta.outputs.tags }}
+    steps:
+      - name: ⬇️ Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📥 Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: website-build
+          path: build/
+
+      - name: 🔑 Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: 🔐 Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+        continue-on-error: true   # Falls back to Docker Hub if ECR not configured
+
+      - name: 🐳 Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: 🔑 Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+        continue-on-error: true
+
+      - name: 🏷️ Extract metadata for Docker
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.DOCKER_IMAGE }}
+          tags: |
+            type=sha,prefix=,suffix=,format=short
+            type=raw,value=latest,enable={{is_default_branch}}
+
+      - name: 🐳 Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  # ─────────────────────────────────────────────
+  # JOB 5: DEPLOY TO AWS S3 + CLOUDFRONT
+  # ─────────────────────────────────────────────
+  deploy-s3:
+    name: ☁️ Deploy to S3 + CloudFront
     runs-on: ubuntu-latest
     needs: [build, security-scan]
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
@@ -163,7 +238,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
 
-      - name: ☁️ Sync HTML files to S3 (no cache — always fresh)
+      - name: ☁️ Sync HTML files to S3 (no cache)
         run: |
           aws s3 sync build/ s3://${{ env.S3_BUCKET }}/ \
             --delete \
@@ -182,7 +257,7 @@ jobs:
             --include "*.txt"
           echo "✅ XML/TXT files synced"
 
-      - name: ☁️ Sync all remaining assets (long cache)
+      - name: ☁️ Sync remaining assets to S3 (long cache)
         run: |
           aws s3 sync build/ s3://${{ env.S3_BUCKET }}/ \
             --cache-control "public, max-age=31536000" \
@@ -199,53 +274,175 @@ jobs:
             --query 'Invalidation.Id' \
             --output text)
           echo "CloudFront invalidation created: $INVALIDATION_ID"
-          echo "Waiting for invalidation to complete..."
           aws cloudfront wait invalidation-completed \
             --distribution-id ${{ env.CLOUDFRONT_DISTRIBUTION_ID }} \
             --id "$INVALIDATION_ID"
           echo "✅ CloudFront cache cleared!"
 
-      - name: 🌐 Verify deployment
+  # ─────────────────────────────────────────────
+  # JOB 6: DEPLOY TO AWS EC2 (Docker)
+  # ─────────────────────────────────────────────
+  deploy-ec2:
+    name: 🖥️ Deploy to EC2 via SSH
+    runs-on: ubuntu-latest
+    needs: [docker-build]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    environment:
+      name: production
+      url: https://www.vinzapinfotech.com
+
+    steps:
+      - name: ⬇️ Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🔐 Set up SSH key
         run: |
-          echo "Checking if site is live..."
-          sleep 10
-          STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://www.vinzapinfotech.com)
+          mkdir -p ~/.ssh
+          echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/vinzap_key.pem
+          chmod 600 ~/.ssh/vinzap_key.pem
+          # Add EC2 host to known_hosts to avoid interactive prompt
+          ssh-keyscan -H ${{ env.EC2_HOST }} >> ~/.ssh/known_hosts 2>/dev/null || true
+
+      - name: 🚀 Deploy Docker container to EC2
+        run: |
+          ssh -i ~/.ssh/vinzap_key.pem \
+              -o StrictHostKeyChecking=no \
+              -o ConnectTimeout=30 \
+              ${{ env.EC2_USERNAME }}@${{ env.EC2_HOST }} bash -s << 'ENDSSH'
+            set -e
+            echo "=== VinzapInfotech EC2 Deployment ==="
+            echo "Host: $(hostname)"
+            echo "Time: $(date)"
+            echo ""
+
+            # Install Docker if not present
+            if ! command -v docker &> /dev/null; then
+              echo "🔧 Docker not found — installing..."
+              sudo apt-get update -qq
+              sudo apt-get install -y docker.io
+              sudo systemctl start docker
+              sudo systemctl enable docker
+              sudo usermod -aG docker ubuntu
+              echo "✅ Docker installed"
+            fi
+
+            echo "🔄 Pulling latest Docker image..."
+            sudo docker pull ${{ env.DOCKER_IMAGE }}:latest
+
+            echo "🛑 Stopping existing container (if running)..."
+            sudo docker stop vinzap_web 2>/dev/null || true
+            sudo docker rm   vinzap_web 2>/dev/null || true
+
+            echo "🚀 Starting new container on port 80..."
+            sudo docker run -d \
+              --name vinzap_web \
+              --restart unless-stopped \
+              -p 80:80 \
+              ${{ env.DOCKER_IMAGE }}:latest
+
+            echo "⏳ Waiting for container to start..."
+            sleep 5
+
+            echo "📋 Container status:"
+            sudo docker ps --filter name=vinzap_web
+
+            echo "🌐 Health check:"
+            curl -s -o /dev/null -w "Local HTTP: %{http_code}\n" http://localhost/ || echo "Health check pending..."
+
+            echo "🧹 Cleaning up old images..."
+            sudo docker image prune -f
+
+            echo ""
+            echo "✅ EC2 deployment complete! vinzapinfotech.com is live."
+          ENDSSH
+
+      - name: 🌐 Verify site is publicly live
+        run: |
+          echo "Waiting 15s for DNS/proxy to propagate..."
+          sleep 15
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 20 http://www.vinzapinfotech.com || echo "000")
           echo "HTTP Status: $STATUS"
-          if [ "$STATUS" = "200" ]; then
-            echo "✅ Site is live and responding!"
+          if [ "$STATUS" = "200" ] || [ "$STATUS" = "301" ] || [ "$STATUS" = "302" ]; then
+            echo "✅ Site is live at vinzapinfotech.com!"
           else
-            echo "⚠️  Site returned status $STATUS — check CloudFront"
+            echo "⚠️  Got status $STATUS — site may still be propagating, check manually"
           fi
 
-      - name: 📣 Notify deployment success
-        if: success()
+  # ─────────────────────────────────────────────
+  # JOB 7: POST-DEPLOY — PING GOOGLE & BING
+  # ─────────────────────────────────────────────
+  seo-ping:
+    name: 📡 Ping Search Engines & Google IndexNow
+    runs-on: ubuntu-latest
+    needs: [deploy-s3, deploy-ec2]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    steps:
+      - name: ⬇️ Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🔔 Ping Google sitemap
         run: |
-          echo "🎉 DEPLOYMENT SUCCESSFUL!"
+          echo "Pinging Google with updated sitemap..."
+          curl -s "https://www.google.com/ping?sitemap=https://www.vinzapinfotech.com/sitemap.xml" -w "\nHTTP Status: %{http_code}\n" || true
+          echo "✅ Google sitemap pinged"
+
+      - name: 🔔 Ping Bing sitemap
+        run: |
+          echo "Pinging Bing with updated sitemap..."
+          curl -s "https://www.bing.com/ping?sitemap=https://www.vinzapinfotech.com/sitemap.xml" -w "\nHTTP Status: %{http_code}\n" || true
+          echo "✅ Bing sitemap pinged"
+
+      - name: 🔔 Submit changed URLs to Google Search Console (IndexNow)
+        run: |
+          echo "Submitting new/changed pages to IndexNow (used by Bing & others)..."
+          curl -X POST "https://api.indexnow.org/indexnow" \
+            -H "Content-Type: application/json; charset=utf-8" \
+            -d '{
+              "host": "www.vinzapinfotech.com",
+              "key": "${{ secrets.INDEXNOW_KEY }}",
+              "keyLocation": "https://www.vinzapinfotech.com/${{ secrets.INDEXNOW_KEY }}.txt",
+              "urlList": [
+                "https://www.vinzapinfotech.com/",
+                "https://www.vinzapinfotech.com/about.html",
+                "https://www.vinzapinfotech.com/contact.html",
+                "https://www.vinzapinfotech.com/courses.html",
+                "https://www.vinzapinfotech.com/blog/",
+                "https://www.vinzapinfotech.com/blog/devops-roadmap-2026.html",
+                "https://www.vinzapinfotech.com/blog/aws-ec2-vs-lambda.html",
+                "https://www.vinzapinfotech.com/blog/docker-beginners-guide.html",
+                "https://www.vinzapinfotech.com/blog/cicd-jenkins-github-actions.html",
+                "https://www.vinzapinfotech.com/blog/devops-salary-india-2026.html"
+              ]
+            }' \
+            -w "\nHTTP Status: %{http_code}\n" || true
+          echo "✅ IndexNow submission sent"
+
+      - name: 📣 Summary
+        run: |
+          echo "🎉 FULL DEPLOYMENT COMPLETE!"
+          echo ""
+          echo "✅ S3 + CloudFront: updated"
+          echo "✅ EC2 Docker container: restarted with latest image"
+          echo "✅ Google sitemap: pinged"
+          echo "✅ Bing sitemap: pinged"
+          echo "✅ IndexNow: submitted"
+          echo ""
           echo "URL: https://www.vinzapinfotech.com"
           echo "Deployed at: $(date)"
           echo "Commit: ${{ github.sha }}"
 
-      - name: 🔔 Notify on failure
-        if: failure()
+  # ─────────────────────────────────────────────
+  # JOB 8: NOTIFY ON FAILURE
+  # ─────────────────────────────────────────────
+  notify-failure:
+    name: 🔔 Notify on Failure
+    runs-on: ubuntu-latest
+    needs: [deploy-s3, deploy-ec2, seo-ping]
+    if: failure()
+    steps:
+      - name: ❌ Report failure
         run: |
           echo "❌ DEPLOYMENT FAILED!"
-          echo "Check the logs above for details."
-
-  # ─────────────────────────────────────────────
-  # JOB 5: POST-DEPLOY SEO PING
-  # ─────────────────────────────────────────────
-  seo-ping:
-    name: 📡 Ping Search Engines
-    runs-on: ubuntu-latest
-    needs: [deploy-production]
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    steps:
-      - name: 🔔 Ping Google sitemap
-        run: |
-          curl -s "https://www.google.com/ping?sitemap=https://www.vinzapinfotech.com/sitemap.xml" || true
-          echo "✅ Google pinged"
-
-      - name: 🔔 Ping Bing sitemap
-        run: |
-          curl -s "https://www.bing.com/ping?sitemap=https://www.vinzapinfotech.com/sitemap.xml" || true
-          echo "✅ Bing pinged"
+          echo "Commit: ${{ github.sha }}"
+          echo "Branch: ${{ github.ref }}"
+          echo "Check the workflow logs for details."

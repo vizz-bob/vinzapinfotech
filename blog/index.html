@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TVTBVCZH');</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HEL83H3BW4"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-HEL83H3BW4');</script>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="google-adsense-account" content="ca-pub-2639020346909963"/>
+  <title>DevOps & Cloud Blog | Vinzap Infotech — Tutorials, Guides & Career Tips</title>
+  <meta name="description" content="Free DevOps, AWS, Docker, Kubernetes, CI/CD and digital marketing tutorials and career guides. Written by practicing engineers at Vinzap Infotech, Bangalore."/>
+  <link rel="canonical" href="https://www.vinzapinfotech.com/blog/"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    :root { --blue:#2563eb; --indigo:#4f46e5; --purple:#7c3aed; --dark:#0f172a; --text:#1e293b; --muted:#64748b; --border:#e2e8f0; --light:#f8faff; }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'Inter',sans-serif;color:var(--text);background:var(--light);}
+    nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(37,99,235,.1);padding:0 24px;height:68px;display:flex;align-items:center;justify-content:space-between;}
+    .logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+    .logo-icon{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--blue),var(--purple));display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:900;color:#fff;}
+    .logo-text{font-size:.95rem;font-weight:800;color:var(--dark);}
+    .logo-sub{font-size:.65rem;font-weight:500;color:var(--muted);letter-spacing:.5px;text-transform:uppercase;display:block;}
+    .nav-links{display:flex;align-items:center;gap:28px;}
+    .nav-links a{font-size:.9rem;font-weight:500;color:var(--muted);text-decoration:none;transition:color .2s;}
+    .nav-links a:hover,.nav-links a.active{color:var(--blue);}
+    .btn-apply{background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;padding:10px 22px;border-radius:10px;font-size:.85rem;font-weight:700;text-decoration:none;}
+    .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;}
+    .hamburger span{width:24px;height:2px;background:var(--dark);border-radius:2px;}
+    .mobile-menu{display:none;position:fixed;top:68px;left:0;right:0;background:#fff;border-bottom:1px solid var(--border);padding:20px 24px;flex-direction:column;gap:16px;z-index:999;}
+    .mobile-menu.open{display:flex;}
+    .mobile-menu a{font-size:1rem;font-weight:500;color:var(--text);text-decoration:none;padding:8px 0;border-bottom:1px solid var(--border);}
+    @media(max-width:768px){.nav-links{display:none;}.hamburger{display:flex;}}
+
+    .page-hero{margin-top:68px;padding:70px 24px 50px;background:linear-gradient(135deg,#0f172a,#1e1b4b);text-align:center;}
+    .page-hero .tag{display:inline-block;background:rgba(99,102,241,.2);border:1px solid rgba(99,102,241,.4);color:#a5b4fc;padding:6px 18px;border-radius:30px;font-size:.8rem;font-weight:700;text-transform:uppercase;margin-bottom:20px;}
+    .page-hero h1{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;color:#fff;margin-bottom:14px;}
+    .page-hero h1 span{background:linear-gradient(135deg,#60a5fa,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+    .page-hero p{color:#94a3b8;font-size:1rem;max-width:560px;margin:0 auto;}
+
+    .blog-section{padding:70px 24px;max-width:1100px;margin:0 auto;}
+    .blog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:28px;}
+    .blog-card{background:#fff;border-radius:20px;border:1px solid var(--border);overflow:hidden;transition:transform .2s,box-shadow .2s;text-decoration:none;color:inherit;display:block;}
+    .blog-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(37,99,235,.1);}
+    .card-thumb{height:180px;display:flex;align-items:center;justify-content:center;font-size:4rem;position:relative;overflow:hidden;}
+    .card-body{padding:24px;}
+    .card-meta{display:flex;gap:12px;align-items:center;margin-bottom:12px;}
+    .card-tag{background:#eff6ff;color:var(--blue);padding:3px 10px;border-radius:8px;font-size:.75rem;font-weight:700;text-transform:uppercase;}
+    .card-date{color:var(--muted);font-size:.8rem;}
+    .card-title{font-size:1.05rem;font-weight:800;color:var(--dark);margin-bottom:10px;line-height:1.4;}
+    .card-excerpt{color:var(--muted);font-size:.88rem;line-height:1.6;margin-bottom:16px;}
+    .card-read{color:var(--blue);font-size:.85rem;font-weight:700;}
+
+    footer{background:var(--dark);color:#94a3b8;text-align:center;padding:28px 24px;font-size:.88rem;}
+    footer a{color:#60a5fa;text-decoration:none;}
+  </style>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TVTBVCZH" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<nav>
+  <a href="/" class="logo">
+    <div class="logo-icon">Vi</div>
+    <div><span class="logo-text">VinzapInfotech</span><span class="logo-sub">IT Services & Training</span></div>
+  </a>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/devops-tutorials.html">DevOps</a>
+    <a href="/courses.html">Courses</a>
+    <a href="/blog/" class="active">Blog</a>
+    <a href="/about.html">About</a>
+    <a href="/contact.html">Contact</a>
+    <a href="/courses.html" class="btn-apply">Enroll Now →</a>
+  </div>
+  <button class="hamburger" onclick="document.getElementById('mob').classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-menu" id="mob">
+  <a href="/">Home</a><a href="/devops-tutorials.html">DevOps</a><a href="/courses.html">Courses</a><a href="/blog/">Blog</a><a href="/about.html">About</a><a href="/contact.html">Contact</a>
+</div>
+
+<div class="page-hero">
+  <div class="tag">Free Learning Resources</div>
+  <h1>The Vinzap <span>Tech Blog</span></h1>
+  <p>In-depth guides on DevOps, AWS, Docker, Kubernetes, CI/CD, and digital marketing — written by practicing engineers.</p>
+</div>
+
+<section class="blog-section">
+  <div class="blog-grid">
+    <a href="/blog/devops-roadmap-2026.html" class="blog-card">
+      <div class="card-thumb" style="background:linear-gradient(135deg,#1e1b4b,#0f172a);">🗺️</div>
+      <div class="card-body">
+        <div class="card-meta"><span class="card-tag">DevOps</span><span class="card-date">April 2026</span></div>
+        <div class="card-title">The Complete DevOps Engineer Roadmap for 2026</div>
+        <div class="card-excerpt">A step-by-step guide to becoming a DevOps engineer in 2026 — covering Linux, Git, AWS, Docker, Kubernetes, Jenkins, and CI/CD pipelines, with salary benchmarks and job tips.</div>
+        <div class="card-read">Read Article →</div>
+      </div>
+    </a>
+
+    <a href="/blog/aws-ec2-vs-lambda.html" class="blog-card">
+      <div class="card-thumb" style="background:linear-gradient(135deg,#ff9900,#c05c00);">☁️</div>
+      <div class="card-body">
+        <div class="card-meta"><span class="card-tag">AWS</span><span class="card-date">April 2026</span></div>
+        <div class="card-title">AWS EC2 vs Lambda — When to Use Which?</div>
+        <div class="card-excerpt">EC2 and Lambda both run code on AWS, but they solve very different problems. This guide explains the key differences, costs, use cases, and helps you choose the right one for your workload.</div>
+        <div class="card-read">Read Article →</div>
+      </div>
+    </a>
+
+    <a href="/blog/docker-beginners-guide.html" class="blog-card">
+      <div class="card-thumb" style="background:linear-gradient(135deg,#0db7ed,#0a6fa8);">🐳</div>
+      <div class="card-body">
+        <div class="card-meta"><span class="card-tag">Docker</span><span class="card-date">March 2026</span></div>
+        <div class="card-title">Docker for Beginners — Complete Guide with Examples</div>
+        <div class="card-excerpt">Learn what Docker is, why every developer and DevOps engineer needs it, and how to build, run, and deploy your first Docker container — from scratch, with real commands.</div>
+        <div class="card-read">Read Article →</div>
+      </div>
+    </a>
+
+    <a href="/blog/cicd-jenkins-github-actions.html" class="blog-card">
+      <div class="card-thumb" style="background:linear-gradient(135deg,#2563eb,#7c3aed);">⚙️</div>
+      <div class="card-body">
+        <div class="card-meta"><span class="card-tag">CI/CD</span><span class="card-date">March 2026</span></div>
+        <div class="card-title">Jenkins vs GitHub Actions — Which CI/CD Tool to Use in 2026?</div>
+        <div class="card-excerpt">Both Jenkins and GitHub Actions can automate your build-test-deploy pipeline. But they work very differently. Here's a practical comparison to help you decide — with real pipeline examples.</div>
+        <div class="card-read">Read Article →</div>
+      </div>
+    </a>
+
+    <a href="/blog/devops-salary-india-2026.html" class="blog-card">
+      <div class="card-thumb" style="background:linear-gradient(135deg,#10b981,#065f46);">💰</div>
+      <div class="card-body">
+        <div class="card-meta"><span class="card-tag">Career</span><span class="card-date">February 2026</span></div>
+        <div class="card-title">DevOps Engineer Salary in India 2026 — Complete Guide</div>
+        <div class="card-excerpt">What does a DevOps engineer earn in India in 2026? We break down salaries by experience level, city, company size, and skills — with data from real job postings and industry surveys.</div>
+        <div class="card-read">Read Article →</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Vinzap Infotech. All rights reserved. | Bangalore, Karnataka, India</p>
+  <p style="margin-top:8px;"><a href="/privacy-policy.html">Privacy Policy</a> &nbsp;·&nbsp; <a href="/about.html">About Us</a> &nbsp;·&nbsp; <a href="/contact.html">Contact</a></p>
+</footer>
+</body>
+</html>
