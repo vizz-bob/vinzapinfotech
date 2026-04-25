@@ -4,80 +4,25 @@ on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
-  workflow_dispatch:           # allows manual trigger from GitHub UI
+  workflow_dispatch:   # allows manual trigger from GitHub Actions UI
 
 env:
   AWS_REGION: us-east-1
   S3_BUCKET: vinzapinfotech.com
   CLOUDFRONT_DISTRIBUTION_ID: E3LBDJFANT9F4V
-  DOCKER_IMAGE: vinzapinfotech/website
-  EC2_HOST: 3.225.142.65          # AWS EC2 public IP — vinzapinfotech.com
-  EC2_USERNAME: ubuntu             # Default Ubuntu AMI user (change to ec2-user if Amazon Linux)
   SITE_URL: https://www.vinzapinfotech.com
+  EC2_HOST: 3.225.142.65
+  EC2_USERNAME: ubuntu
+  EC2_WEB_ROOT: /usr/share/nginx/html   # matches root in nginx/nginx.conf
 
 jobs:
-  # ─────────────────────────────────────────────
-  # JOB 1: LINT & VALIDATE HTML
-  # ─────────────────────────────────────────────
-  lint-and-validate:
-    name: 🔍 Lint & Validate HTML
-    runs-on: ubuntu-latest
-    steps:
-      - name: ⬇️ Checkout code
-        uses: actions/checkout@v4
-
-      - name: 🟢 Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: 📦 Install HTML validator
-        run: npm install -g html-validate
-
-      - name: ✅ Validate HTML files
-        run: |
-          echo "Validating HTML files..."
-          for file in *.html; do
-            echo "→ Checking $file"
-            html-validate "$file" || true
-          done
-
-      - name: 🔗 Check for broken links (basic)
-        run: |
-          echo "Checking internal links..."
-          grep -oP 'href="[^"#http][^"]*"' *.html | grep -v 'mailto' | sort -u || true
 
   # ─────────────────────────────────────────────
-  # JOB 2: SECURITY SCAN
-  # ─────────────────────────────────────────────
-  security-scan:
-    name: 🔒 Security Scan
-    runs-on: ubuntu-latest
-    steps:
-      - name: ⬇️ Checkout code
-        uses: actions/checkout@v4
-
-      - name: 🛡️ Scan for secrets with Gitleaks
-        uses: gitleaks/gitleaks-action@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        continue-on-error: true
-
-      - name: 🔐 Check for hardcoded credentials
-        run: |
-          echo "Scanning for potential secrets..."
-          grep -rn "password\|secret\|api_key\|apikey" --include="*.html" --include="*.js" . | grep -v ".git" | grep -v "placeholder" || echo "✅ No obvious secrets found"
-
-  # ─────────────────────────────────────────────
-  # JOB 3: BUILD (Minify / Optimize)
+  # JOB 1: BUILD & MINIFY ALL HTML
   # ─────────────────────────────────────────────
   build:
-    name: 🏗️ Build & Optimize
+    name: 🏗️ Build & Minify HTML
     runs-on: ubuntu-latest
-    needs: [lint-and-validate]
     steps:
       - name: ⬇️ Checkout code
         uses: actions/checkout@v4
@@ -87,59 +32,51 @@ jobs:
         with:
           node-version: '20'
 
-      - name: 📦 Install optimization tools
-        run: |
-          npm install -g html-minifier-terser
-          sudo apt-get install -y gzip brotli
+      - name: 📦 Install minifier
+        run: npm install -g html-minifier-terser
 
       - name: 📁 Create build directory
-        run: mkdir -p build
+        run: mkdir -p build/blog
 
-      - name: 🗜️ Minify HTML files (root + blog/)
+      - name: 🗜️ Minify root HTML files
         run: |
           for file in *.html; do
-            echo "Minifying $file..."
-            if html-minifier-terser \
+            echo "→ Minifying $file"
+            html-minifier-terser \
               --collapse-whitespace \
               --remove-redundant-attributes \
               --remove-script-type-attributes \
-              --remove-tag-whitespace \
               --use-short-doctype \
               --minify-css true \
-              "$file" -o "build/$file"; then
-              echo "✅ $file minified"
-            else
-              echo "⚠️  Minification failed for $file — copying as-is"
-              cp "$file" "build/$file"
-            fi
+              "$file" -o "build/$file" || cp "$file" "build/$file"
           done
-          # Minify blog articles
+
+      - name: 🗜️ Minify blog HTML files
+        run: |
           if [ -d "blog" ]; then
-            mkdir -p build/blog
             for file in blog/*.html; do
               fname=$(basename "$file")
-              html-minifier-terser --collapse-whitespace --remove-redundant-attributes --minify-css true "$file" -o "build/blog/$fname" || cp "$file" "build/blog/$fname"
-              echo "✅ blog/$fname minified"
+              echo "→ Minifying blog/$fname"
+              html-minifier-terser --collapse-whitespace --minify-css true \
+                "$file" -o "build/blog/$fname" || cp "$file" "build/blog/$fname"
             done
           fi
 
-      - name: 📋 Copy static files
+      - name: 📋 Copy static files (sitemap, robots, ads.txt)
         run: |
-          cp sitemap.xml build/ 2>/dev/null || true
-          cp robots.txt build/ 2>/dev/null || true
-          cp ads.txt build/ 2>/dev/null || true
+          cp sitemap.xml build/   2>/dev/null || true
+          cp robots.txt  build/   2>/dev/null || true
+          cp ads.txt     build/   2>/dev/null || true
           cp BingSiteAuth.xml build/ 2>/dev/null || true
-          cp -r images build/ 2>/dev/null || true
-          cp -r assets build/ 2>/dev/null || true
+          cp -r images   build/   2>/dev/null || true
+          cp -r assets   build/   2>/dev/null || true
 
-      - name: 📊 Build size report
+      - name: 📊 Build report
         run: |
-          echo "=== BUILD SIZE REPORT ==="
-          du -sh build/
+          echo "Files in build:"
+          find build/ -type f | sort
           echo ""
-          echo "=== FILE SIZES ==="
-          ls -lh build/
-          ls -lh build/blog/ 2>/dev/null || true
+          echo "Total size: $(du -sh build/ | cut -f1)"
 
       - name: 📤 Upload build artifact
         uses: actions/upload-artifact@v4
@@ -149,83 +86,18 @@ jobs:
           retention-days: 7
 
   # ─────────────────────────────────────────────
-  # JOB 4: BUILD & PUSH DOCKER IMAGE
-  # ─────────────────────────────────────────────
-  docker-build:
-    name: 🐳 Build & Push Docker Image
-    runs-on: ubuntu-latest
-    needs: [build, security-scan]
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    outputs:
-      image_tag: ${{ steps.meta.outputs.tags }}
-    steps:
-      - name: ⬇️ Checkout code
-        uses: actions/checkout@v4
-
-      - name: 📥 Download build artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: website-build
-          path: build/
-
-      - name: 🔑 Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_REGION }}
-
-      - name: 🔐 Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v2
-        continue-on-error: true   # Falls back to Docker Hub if ECR not configured
-
-      - name: 🐳 Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: 🔑 Login to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-        continue-on-error: true
-
-      - name: 🏷️ Extract metadata for Docker
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ env.DOCKER_IMAGE }}
-          tags: |
-            type=sha,prefix=,suffix=,format=short
-            type=raw,value=latest,enable={{is_default_branch}}
-
-      - name: 🐳 Build and push Docker image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-
-  # ─────────────────────────────────────────────
-  # JOB 5: DEPLOY TO AWS S3 + CLOUDFRONT
+  # JOB 2: DEPLOY TO AWS S3 + CLOUDFRONT
   # ─────────────────────────────────────────────
   deploy-s3:
-    name: ☁️ Deploy to S3 + CloudFront
+    name: ☁️ Deploy → S3 + CloudFront
     runs-on: ubuntu-latest
-    needs: [build, security-scan]
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    needs: build
     environment:
       name: production
-      url: https://www.vinzapinfotech.com
+      url: ${{ env.SITE_URL }}
 
     steps:
-      - name: ⬇️ Checkout code
-        uses: actions/checkout@v4
-
-      - name: 📥 Download build artifact
+      - name: 📥 Download build
         uses: actions/download-artifact@v4
         with:
           name: website-build
@@ -238,7 +110,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
 
-      - name: ☁️ Sync HTML files to S3 (no cache)
+      - name: ☁️ Upload HTML (no-cache)
         run: |
           aws s3 sync build/ s3://${{ env.S3_BUCKET }}/ \
             --delete \
@@ -246,203 +118,128 @@ jobs:
             --content-type "text/html; charset=utf-8" \
             --exclude "*" \
             --include "*.html"
-          echo "✅ HTML files synced"
+          echo "✅ HTML files uploaded"
 
-      - name: ☁️ Sync XML / TXT files to S3
+      - name: ☁️ Upload sitemap & SEO files
         run: |
           aws s3 sync build/ s3://${{ env.S3_BUCKET }}/ \
             --cache-control "public, max-age=86400" \
             --exclude "*" \
             --include "*.xml" \
             --include "*.txt"
-          echo "✅ XML/TXT files synced"
+          echo "✅ SEO files uploaded"
 
-      - name: ☁️ Sync remaining assets to S3 (long cache)
+      - name: ☁️ Upload static assets (long cache)
         run: |
           aws s3 sync build/ s3://${{ env.S3_BUCKET }}/ \
             --cache-control "public, max-age=31536000" \
             --exclude "*.html" \
             --exclude "*.xml" \
             --exclude "*.txt"
-          echo "✅ Assets synced"
+          echo "✅ Assets uploaded"
 
       - name: ⚡ Invalidate CloudFront cache
         run: |
-          INVALIDATION_ID=$(aws cloudfront create-invalidation \
+          INV_ID=$(aws cloudfront create-invalidation \
             --distribution-id ${{ env.CLOUDFRONT_DISTRIBUTION_ID }} \
             --paths "/*" \
             --query 'Invalidation.Id' \
             --output text)
-          echo "CloudFront invalidation created: $INVALIDATION_ID"
+          echo "Invalidation: $INV_ID — waiting..."
           aws cloudfront wait invalidation-completed \
             --distribution-id ${{ env.CLOUDFRONT_DISTRIBUTION_ID }} \
-            --id "$INVALIDATION_ID"
-          echo "✅ CloudFront cache cleared!"
+            --id "$INV_ID"
+          echo "✅ CloudFront cache cleared"
 
   # ─────────────────────────────────────────────
-  # JOB 6: DEPLOY TO AWS EC2 (Docker)
+  # JOB 3: DEPLOY TO EC2 (nginx — no Docker)
   # ─────────────────────────────────────────────
   deploy-ec2:
-    name: 🖥️ Deploy to EC2 via SSH
+    name: 🖥️ Deploy → EC2 (nginx)
     runs-on: ubuntu-latest
-    needs: [docker-build]
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    needs: build
     environment:
       name: production
-      url: https://www.vinzapinfotech.com
+      url: ${{ env.SITE_URL }}
 
     steps:
-      - name: ⬇️ Checkout code
-        uses: actions/checkout@v4
+      - name: 📥 Download build
+        uses: actions/download-artifact@v4
+        with:
+          name: website-build
+          path: build/
 
-      - name: 🔐 Set up SSH key
+      - name: 🔐 Setup SSH key (Vinzap1.pem)
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/vinzap_key.pem
-          chmod 600 ~/.ssh/vinzap_key.pem
-          # Add EC2 host to known_hosts to avoid interactive prompt
+          echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/vinzap.pem
+          chmod 600 ~/.ssh/vinzap.pem
+          # Avoid interactive host-key prompt
           ssh-keyscan -H ${{ env.EC2_HOST }} >> ~/.ssh/known_hosts 2>/dev/null || true
 
-      - name: 🚀 Deploy Docker container to EC2
+      - name: 📂 Create web root on EC2 (if not exists)
         run: |
-          ssh -i ~/.ssh/vinzap_key.pem \
+          ssh -i ~/.ssh/vinzap.pem \
               -o StrictHostKeyChecking=no \
               -o ConnectTimeout=30 \
-              ${{ env.EC2_USERNAME }}@${{ env.EC2_HOST }} bash -s << 'ENDSSH'
-            set -e
-            echo "=== VinzapInfotech EC2 Deployment ==="
-            echo "Host: $(hostname)"
-            echo "Time: $(date)"
-            echo ""
+              ${{ env.EC2_USERNAME }}@${{ env.EC2_HOST }} \
+              "sudo mkdir -p ${{ env.EC2_WEB_ROOT }}/blog && \
+               sudo chown -R ${{ env.EC2_USERNAME }}:${{ env.EC2_USERNAME }} ${{ env.EC2_WEB_ROOT }}"
 
-            # Install Docker if not present
-            if ! command -v docker &> /dev/null; then
-              echo "🔧 Docker not found — installing..."
-              sudo apt-get update -qq
-              sudo apt-get install -y docker.io
-              sudo systemctl start docker
-              sudo systemctl enable docker
-              sudo usermod -aG docker ubuntu
-              echo "✅ Docker installed"
-            fi
-
-            echo "🔄 Pulling latest Docker image..."
-            sudo docker pull ${{ env.DOCKER_IMAGE }}:latest
-
-            echo "🛑 Stopping existing container (if running)..."
-            sudo docker stop vinzap_web 2>/dev/null || true
-            sudo docker rm   vinzap_web 2>/dev/null || true
-
-            echo "🚀 Starting new container on port 80..."
-            sudo docker run -d \
-              --name vinzap_web \
-              --restart unless-stopped \
-              -p 80:80 \
-              ${{ env.DOCKER_IMAGE }}:latest
-
-            echo "⏳ Waiting for container to start..."
-            sleep 5
-
-            echo "📋 Container status:"
-            sudo docker ps --filter name=vinzap_web
-
-            echo "🌐 Health check:"
-            curl -s -o /dev/null -w "Local HTTP: %{http_code}\n" http://localhost/ || echo "Health check pending..."
-
-            echo "🧹 Cleaning up old images..."
-            sudo docker image prune -f
-
-            echo ""
-            echo "✅ EC2 deployment complete! vinzapinfotech.com is live."
-          ENDSSH
-
-      - name: 🌐 Verify site is publicly live
+      - name: 📡 Rsync build files to EC2
         run: |
-          echo "Waiting 15s for DNS/proxy to propagate..."
-          sleep 15
-          STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 20 http://www.vinzapinfotech.com || echo "000")
-          echo "HTTP Status: $STATUS"
-          if [ "$STATUS" = "200" ] || [ "$STATUS" = "301" ] || [ "$STATUS" = "302" ]; then
-            echo "✅ Site is live at vinzapinfotech.com!"
+          rsync -avz --delete \
+            -e "ssh -i ~/.ssh/vinzap.pem -o StrictHostKeyChecking=no" \
+            build/ \
+            ${{ env.EC2_USERNAME }}@${{ env.EC2_HOST }}:${{ env.EC2_WEB_ROOT }}/
+          echo "✅ Files synced to EC2"
+
+      - name: 🔄 Reload nginx on EC2
+        run: |
+          ssh -i ~/.ssh/vinzap.pem \
+              -o StrictHostKeyChecking=no \
+              ${{ env.EC2_USERNAME }}@${{ env.EC2_HOST }} \
+              "sudo nginx -t && sudo systemctl reload nginx && echo '✅ Nginx reloaded'"
+
+      - name: 🌐 Health check EC2
+        run: |
+          sleep 5
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 15 http://${{ env.EC2_HOST }}/ || echo "000")
+          echo "EC2 direct HTTP status: $STATUS"
+          if [ "$STATUS" = "200" ] || [ "$STATUS" = "301" ]; then
+            echo "✅ EC2 is serving the site!"
           else
-            echo "⚠️  Got status $STATUS — site may still be propagating, check manually"
+            echo "⚠️  Got $STATUS — check nginx on EC2"
           fi
 
   # ─────────────────────────────────────────────
-  # JOB 7: POST-DEPLOY — PING GOOGLE & BING
+  # JOB 4: PING GOOGLE + BING (after both deploys)
   # ─────────────────────────────────────────────
   seo-ping:
-    name: 📡 Ping Search Engines & Google IndexNow
+    name: 📡 Ping Google & Bing
     runs-on: ubuntu-latest
     needs: [deploy-s3, deploy-ec2]
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    steps:
-      - name: ⬇️ Checkout code
-        uses: actions/checkout@v4
 
+    steps:
       - name: 🔔 Ping Google sitemap
         run: |
-          echo "Pinging Google with updated sitemap..."
-          curl -s "https://www.google.com/ping?sitemap=https://www.vinzapinfotech.com/sitemap.xml" -w "\nHTTP Status: %{http_code}\n" || true
-          echo "✅ Google sitemap pinged"
+          curl -s "https://www.google.com/ping?sitemap=${{ env.SITE_URL }}/sitemap.xml" \
+            -w "\nStatus: %{http_code}" || true
+          echo "✅ Google pinged"
 
       - name: 🔔 Ping Bing sitemap
         run: |
-          echo "Pinging Bing with updated sitemap..."
-          curl -s "https://www.bing.com/ping?sitemap=https://www.vinzapinfotech.com/sitemap.xml" -w "\nHTTP Status: %{http_code}\n" || true
-          echo "✅ Bing sitemap pinged"
+          curl -s "https://www.bing.com/ping?sitemap=${{ env.SITE_URL }}/sitemap.xml" \
+            -w "\nStatus: %{http_code}" || true
+          echo "✅ Bing pinged"
 
-      - name: 🔔 Submit changed URLs to Google Search Console (IndexNow)
+      - name: ✅ Final summary
         run: |
-          echo "Submitting new/changed pages to IndexNow (used by Bing & others)..."
-          curl -X POST "https://api.indexnow.org/indexnow" \
-            -H "Content-Type: application/json; charset=utf-8" \
-            -d '{
-              "host": "www.vinzapinfotech.com",
-              "key": "${{ secrets.INDEXNOW_KEY }}",
-              "keyLocation": "https://www.vinzapinfotech.com/${{ secrets.INDEXNOW_KEY }}.txt",
-              "urlList": [
-                "https://www.vinzapinfotech.com/",
-                "https://www.vinzapinfotech.com/about.html",
-                "https://www.vinzapinfotech.com/contact.html",
-                "https://www.vinzapinfotech.com/courses.html",
-                "https://www.vinzapinfotech.com/blog/",
-                "https://www.vinzapinfotech.com/blog/devops-roadmap-2026.html",
-                "https://www.vinzapinfotech.com/blog/aws-ec2-vs-lambda.html",
-                "https://www.vinzapinfotech.com/blog/docker-beginners-guide.html",
-                "https://www.vinzapinfotech.com/blog/cicd-jenkins-github-actions.html",
-                "https://www.vinzapinfotech.com/blog/devops-salary-india-2026.html"
-              ]
-            }' \
-            -w "\nHTTP Status: %{http_code}\n" || true
-          echo "✅ IndexNow submission sent"
-
-      - name: 📣 Summary
-        run: |
-          echo "🎉 FULL DEPLOYMENT COMPLETE!"
-          echo ""
-          echo "✅ S3 + CloudFront: updated"
-          echo "✅ EC2 Docker container: restarted with latest image"
-          echo "✅ Google sitemap: pinged"
-          echo "✅ Bing sitemap: pinged"
-          echo "✅ IndexNow: submitted"
-          echo ""
-          echo "URL: https://www.vinzapinfotech.com"
-          echo "Deployed at: $(date)"
-          echo "Commit: ${{ github.sha }}"
-
-  # ─────────────────────────────────────────────
-  # JOB 8: NOTIFY ON FAILURE
-  # ─────────────────────────────────────────────
-  notify-failure:
-    name: 🔔 Notify on Failure
-    runs-on: ubuntu-latest
-    needs: [deploy-s3, deploy-ec2, seo-ping]
-    if: failure()
-    steps:
-      - name: ❌ Report failure
-        run: |
-          echo "❌ DEPLOYMENT FAILED!"
-          echo "Commit: ${{ github.sha }}"
-          echo "Branch: ${{ github.ref }}"
-          echo "Check the workflow logs for details."
+          echo "════════════════════════════════════"
+          echo "  🎉 DEPLOYMENT COMPLETE"
+          echo "════════════════════════════════════"
+          echo "  Site:    ${{ env.SITE_URL }}"
+          echo "  EC2:     ${{ env.EC2_HOST }}"
+          echo "  Commit:  ${{ github.sha }}"
+          echo "  Time:    $(date)"
+          echo "════════════════════════════════════"
