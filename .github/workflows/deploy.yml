@@ -144,11 +144,9 @@ jobs:
             --paths "/*" \
             --query 'Invalidation.Id' \
             --output text)
-          echo "Invalidation: $INV_ID — waiting..."
-          aws cloudfront wait invalidation-completed \
-            --distribution-id ${{ env.CLOUDFRONT_DISTRIBUTION_ID }} \
-            --id "$INV_ID"
-          echo "✅ CloudFront cache cleared"
+          echo "✅ CloudFront invalidation created: $INV_ID"
+          echo "Cache clears in ~1-3 min in the background. No need to wait."
+          echo "Check: https://console.aws.amazon.com/cloudfront"
 
   # ─────────────────────────────────────────────
   # JOB 3: BACKUP FILES TO EC2
