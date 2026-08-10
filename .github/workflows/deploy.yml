@@ -4,24 +4,24 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:   # allows manual trigger from GitHub Actions UI
+  workflow_dispatch:
 
 env:
   AWS_REGION: us-east-1
   S3_BUCKET: vinzapinfotech.com
   CLOUDFRONT_DISTRIBUTION_ID: E3LBDJFANT9F4V
   SITE_URL: https://www.vinzapinfotech.com
-  EC2_HOST: 3.225.142.65
-  EC2_USERNAME: ubuntu
 
 jobs:
 
   # ─────────────────────────────────────────────
   # JOB 1: BUILD & MINIFY ALL HTML
   # ─────────────────────────────────────────────
+
   build:
     name: 🏗️ Build & Minify HTML
     runs-on: ubuntu-latest
+
     steps:
       - name: ⬇️ Checkout code
         uses: actions/checkout@v4
@@ -56,19 +56,21 @@ jobs:
             for file in blog/*.html; do
               fname=$(basename "$file")
               echo "→ Minifying blog/$fname"
-              html-minifier-terser --collapse-whitespace --minify-css true \
+              html-minifier-terser \
+                --collapse-whitespace \
+                --minify-css true \
                 "$file" -o "build/blog/$fname" || cp "$file" "build/blog/$fname"
             done
           fi
 
       - name: 📋 Copy static files (sitemap, robots, ads.txt)
         run: |
-          cp sitemap.xml build/   2>/dev/null || true
-          cp robots.txt  build/   2>/dev/null || true
-          cp ads.txt     build/   2>/dev/null || true
+          cp sitemap.xml build/ 2>/dev/null || true
+          cp robots.txt build/ 2>/dev/null || true
+          cp ads.txt build/ 2>/dev/null || true
           cp BingSiteAuth.xml build/ 2>/dev/null || true
-          cp -r images   build/   2>/dev/null || true
-          cp -r assets   build/   2>/dev/null || true
+          cp -r images build/ 2>/dev/null || true
+          cp -r assets build/ 2>/dev/null || true
 
       - name: 📊 Build report
         run: |
@@ -84,13 +86,16 @@ jobs:
           path: build/
           retention-days: 7
 
+
   # ─────────────────────────────────────────────
   # JOB 2: DEPLOY TO AWS S3 + CLOUDFRONT
   # ─────────────────────────────────────────────
+
   deploy-s3:
     name: ☁️ Deploy → S3 + CloudFront
     runs-on: ubuntu-latest
     needs: build
+
     environment:
       name: production
       url: ${{ env.SITE_URL }}
@@ -144,60 +149,20 @@ jobs:
             --paths "/*" \
             --query 'Invalidation.Id' \
             --output text)
+
           echo "✅ CloudFront invalidation created: $INV_ID"
-          echo "Cache clears in ~1-3 min in the background. No need to wait."
-          echo "Check: https://console.aws.amazon.com/cloudfront"
+          echo "Cache clears in ~1-3 min in the background."
+          echo "Check CloudFront console if needed."
+
 
   # ─────────────────────────────────────────────
-  # JOB 3: BACKUP FILES TO EC2
-  # Site is served via S3 + CloudFront.
-  # EC2 just keeps a backup copy of all files.
+  # JOB 3: PING GOOGLE + BING
   # ─────────────────────────────────────────────
-  deploy-ec2:
-    name: 🖥️ Backup → EC2 (file copy)
-    runs-on: ubuntu-latest
-    needs: build
-    environment:
-      name: production
-      url: ${{ env.SITE_URL }}
 
-    steps:
-      - name: 📥 Download build
-        uses: actions/download-artifact@v4
-        with:
-          name: website-build
-          path: build/
-
-      - name: 🔐 Setup SSH key (Vinzap1.pem)
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/vinzap.pem
-          chmod 600 ~/.ssh/vinzap.pem
-          ssh-keyscan -H ${{ env.EC2_HOST }} >> ~/.ssh/known_hosts 2>/dev/null || true
-
-      - name: 📂 Ensure backup folder exists on EC2
-        run: |
-          ssh -i ~/.ssh/vinzap.pem \
-              -o StrictHostKeyChecking=no \
-              -o ConnectTimeout=30 \
-              ${{ env.EC2_USERNAME }}@${{ env.EC2_HOST }} \
-              "mkdir -p ~/vinzap-backup/blog"
-
-      - name: 📡 Copy build files to EC2 backup folder
-        run: |
-          rsync -avz --delete \
-            -e "ssh -i ~/.ssh/vinzap.pem -o StrictHostKeyChecking=no" \
-            build/ \
-            ${{ env.EC2_USERNAME }}@${{ env.EC2_HOST }}:~/vinzap-backup/
-          echo "✅ Backup complete on EC2 at ~/vinzap-backup/"
-
-  # ─────────────────────────────────────────────
-  # JOB 4: PING GOOGLE + BING (after both deploys)
-  # ─────────────────────────────────────────────
   seo-ping:
     name: 📡 Ping Google & Bing
     runs-on: ubuntu-latest
-    needs: [deploy-s3, deploy-ec2]
+    needs: deploy-s3
 
     steps:
       - name: 🔔 Ping Google sitemap
@@ -218,7 +183,6 @@ jobs:
           echo "  🎉 DEPLOYMENT COMPLETE"
           echo "════════════════════════════════════"
           echo "  Site:    ${{ env.SITE_URL }}"
-          echo "  EC2:     ${{ env.EC2_HOST }}"
           echo "  Commit:  ${{ github.sha }}"
           echo "  Time:    $(date)"
           echo "════════════════════════════════════"
