@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TVTBVCZH');</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HEL83H3BW4"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-HEL83H3BW4');</script>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="google-adsense-account" content="ca-pub-2639020346909963"/>
+  <title>Kubernetes for Beginners: Pods, Deployments and Services Explained | Vinzap Infotech</title>
+  <meta name="description" content="A plain-English Kubernetes guide for beginners. Learn the architecture, Pods, Deployments and Services, run a local cluster, and use essential kubectl commands."/>
+  <link rel="canonical" href="https://www.vinzapinfotech.com/blog/kubernetes-beginners-guide.html"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--blue:#2563eb;--purple:#7c3aed;--docker:#0db7ed;--dark:#0f172a;--text:#1e293b;--muted:#64748b;--border:#e2e8f0;--light:#f8faff;}
+    *{box-sizing:border-box;margin:0;padding:0;}body{font-family:'Inter',sans-serif;color:var(--text);background:var(--light);line-height:1.8;}
+    nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(37,99,235,.1);padding:0 24px;height:68px;display:flex;align-items:center;justify-content:space-between;}
+    .logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+    .logo-icon{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--blue),var(--purple));display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:900;color:#fff;}
+    .logo-text{font-size:.95rem;font-weight:800;color:var(--dark);}
+    .logo-sub{font-size:.65rem;color:var(--muted);letter-spacing:.5px;text-transform:uppercase;display:block;}
+    .nav-links{display:flex;align-items:center;gap:24px;}
+    .nav-links a{font-size:.88rem;font-weight:500;color:var(--muted);text-decoration:none;}
+    .nav-links a:hover{color:var(--blue);}
+    .btn-apply{background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;padding:9px 20px;border-radius:10px;font-size:.85rem;font-weight:700;text-decoration:none;}
+    @media(max-width:768px){.nav-links{display:none;}}
+    .article-hero{margin-top:68px;padding:60px 24px 40px;background:linear-gradient(135deg,#1d4ed8,#326ce5);text-align:center;}
+    .article-tag{display:inline-block;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.4);color:#fff;padding:5px 16px;border-radius:30px;font-size:.78rem;font-weight:700;text-transform:uppercase;margin-bottom:16px;}
+    .article-hero h1{font-size:clamp(1.6rem,3.5vw,2.5rem);font-weight:900;color:#fff;max-width:750px;margin:0 auto 16px;line-height:1.25;}
+    .article-meta{color:rgba(255,255,255,.75);font-size:.88rem;margin-top:12px;}
+    .article-meta span{margin:0 8px;}
+    .article-layout{max-width:780px;margin:0 auto;padding:50px 24px 70px;}
+    .article-body h2{font-size:1.5rem;font-weight:800;color:var(--dark);margin:40px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--border);}
+    .article-body h3{font-size:1.15rem;font-weight:700;color:var(--dark);margin:28px 0 10px;}
+    .article-body p{color:var(--text);font-size:1rem;margin-bottom:18px;line-height:1.85;}
+    .article-body ul,.article-body ol{margin:0 0 18px 24px;color:var(--text);}
+    .article-body li{margin-bottom:8px;font-size:.97rem;line-height:1.7;}
+    .article-body strong{color:var(--dark);}
+    .code-block{background:#1e293b;color:#e2e8f0;border-radius:12px;padding:20px 24px;font-size:.88rem;font-family:'Courier New',monospace;margin:18px 0;overflow-x:auto;line-height:1.7;white-space:pre;}
+    .code-comment{color:#64748b;}
+    .code-cmd{color:#86efac;}
+    .code-string{color:#fbbf24;}
+    .highlight-box{background:linear-gradient(135deg,#eff6ff,#f0f4ff);border:1px solid #bfdbfe;border-radius:16px;padding:24px 28px;margin:28px 0;}
+    .highlight-box h4{color:var(--blue);font-size:.9rem;font-weight:700;text-transform:uppercase;margin-bottom:8px;}
+    .highlight-box p{margin:0;color:var(--text);font-size:.95rem;}
+    .cta-box{background:linear-gradient(135deg,var(--blue),var(--purple));border-radius:20px;padding:36px;text-align:center;margin-top:50px;}
+    .cta-box h3{color:#fff;font-size:1.3rem;font-weight:800;margin-bottom:8px;}
+    .cta-box p{color:rgba(255,255,255,.85);font-size:.95rem;margin-bottom:20px;}
+    .cta-box a{display:inline-block;background:#fff;color:var(--blue);padding:12px 28px;border-radius:30px;font-weight:800;text-decoration:none;font-size:.9rem;}
+    footer{background:var(--dark);color:#94a3b8;text-align:center;padding:28px 24px;font-size:.88rem;}
+    footer a{color:#60a5fa;text-decoration:none;}
+    .back-link{display:inline-flex;align-items:center;gap:6px;color:var(--blue);text-decoration:none;font-size:.88rem;font-weight:600;margin-bottom:32px;}
+  </style>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TVTBVCZH" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<nav>
+  <a href="/" class="logo"><div class="logo-icon">Vi</div><div><span class="logo-text">VinzapInfotech</span><span class="logo-sub">IT Services &amp; Training</span></div></a>
+  <div class="nav-links">
+    <a href="/">Home</a><a href="/devops-tutorials.html">DevOps</a><a href="/courses.html">Courses</a><a href="/blog/">Blog</a><a href="/about.html">About</a><a href="/contact.html">Contact</a>
+    <a href="/courses.html" class="btn-apply">Enroll Now &rarr;</a>
+  </div>
+</nav>
+
+<div class="article-hero">
+  <div class="article-tag">Kubernetes</div>
+  <h1>Kubernetes for Beginners: Pods, Deployments and Services Explained</h1>
+  <div class="article-meta"><span>By the Vinzap Infotech Team</span><span>&middot;</span><span>October 2026</span><span>&middot;</span><span>12 min read</span></div>
+</div>
+
+<div class="article-layout">
+  <a href="/blog/" class="back-link">&larr; Back to Blog</a>
+  <div class="article-body">
+
+    <p>Once you can package an application in a Docker container, a new question appears: how do you run dozens of containers across many servers, keep them healthy, update them without downtime, and scale them when traffic grows? <strong>Kubernetes</strong> (often written K8s) is the most widely used answer. This guide explains the core ideas in plain language and walks you through running your first application on a local cluster.</p>
+
+    <h2>What Is Kubernetes?</h2>
+    <p>Kubernetes is an open-source system that automates the deployment, scaling and management of containerised applications. You tell Kubernetes the <em>desired state</em>, for example &ldquo;run three copies of this container&rdquo;, and it keeps working until reality matches. If a container crashes, Kubernetes starts a new one. If a server fails, it moves the work to another server.</p>
+    <p>If containers are new to you, start with our <a href="/blog/docker-beginners-guide.html">Docker for Beginners guide</a>.</p>
+
+    <h2>Kubernetes Architecture in Simple Terms</h2>
+    <p>A Kubernetes <strong>cluster</strong> is a group of machines split into two roles:</p>
+    <ul>
+      <li><strong>Control plane</strong> &mdash; the brain. It includes the API server (the front door for every command), the scheduler (decides where each Pod runs), the controller manager (keeps the actual state matching the desired state) and etcd (the database that stores cluster data).</li>
+      <li><strong>Worker nodes</strong> &mdash; the machines that run your containers. Each node runs the kubelet (an agent that talks to the control plane) and a container runtime.</li>
+    </ul>
+
+    <h2>The Objects You Must Know</h2>
+    <ul>
+      <li><strong>Pod</strong> &mdash; the smallest unit. It wraps one or more containers that share networking and storage. Pods are temporary, so you rarely create them directly.</li>
+      <li><strong>Deployment</strong> &mdash; describes how many Pods you want and which image to run. It handles rolling updates and rollbacks.</li>
+      <li><strong>Service</strong> &mdash; gives a group of Pods one stable address and load-balances traffic between them, even as Pods come and go.</li>
+      <li><strong>Namespace</strong> &mdash; a way to separate teams or environments inside one cluster.</li>
+      <li><strong>ConfigMap and Secret</strong> &mdash; hold configuration and sensitive values outside your container image.</li>
+      <li><strong>Ingress</strong> &mdash; routes outside HTTP and HTTPS traffic to Services, often by domain name or path.</li>
+    </ul>
+
+    <h2>Set Up a Local Cluster</h2>
+    <p>You do not need a cloud account to practise. Install Docker, then either <strong>minikube</strong> or <strong>kind</strong>, plus the <code>kubectl</code> command-line tool.</p>
+<div class="code-block"><span class="code-comment"># Start a local single-node cluster with minikube</span>
+minikube start
+
+<span class="code-comment"># Check that kubectl can talk to it</span>
+kubectl get nodes
+kubectl cluster-info</div>
+
+    <h2>Deploy Your First Application</h2>
+    <p>Create a file called <code>nginx-deployment.yaml</code>:</p>
+<div class="code-block">apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:1.27
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "64Mi"
+            limits:
+              memory: "128Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web
+spec:
+  type: NodePort
+  selector:
+    app: web
+  ports:
+    - port: 80
+      targetPort: 80</div>
+    <p>The Deployment asks for three nginx Pods. The <code>labels</code> let the Service find them: any Pod labelled <code>app: web</code> receives traffic. Apply the file and look at what was created:</p>
+<div class="code-block">kubectl apply -f nginx-deployment.yaml
+
+kubectl get deployments
+kubectl get pods
+kubectl get services
+
+<span class="code-comment"># Open the service in your browser (minikube)</span>
+minikube service web</div>
+
+    <h2>Everyday kubectl Commands</h2>
+<div class="code-block"><span class="code-comment"># See details and recent events for a Pod (first place to look when something fails)</span>
+kubectl describe pod &lt;pod-name&gt;
+
+<span class="code-comment"># Read container logs</span>
+kubectl logs &lt;pod-name&gt;
+
+<span class="code-comment"># Open a shell inside a running container</span>
+kubectl exec -it &lt;pod-name&gt; -- sh
+
+<span class="code-comment"># Scale up or down</span>
+kubectl scale deployment web --replicas=5
+
+<span class="code-comment"># Update the image (rolling update with no downtime)</span>
+kubectl set image deployment/web nginx=nginx:1.27.1
+
+<span class="code-comment"># Watch the rollout, and undo it if something goes wrong</span>
+kubectl rollout status deployment/web
+kubectl rollout undo deployment/web
+
+<span class="code-comment"># Remove everything you created from the file</span>
+kubectl delete -f nginx-deployment.yaml</div>
+    <div class="highlight-box"><h4>Try this to see self-healing</h4><p>Delete one Pod with <code>kubectl delete pod &lt;pod-name&gt;</code> and run <code>kubectl get pods</code> straight away. Kubernetes notices that only two Pods are running and starts a replacement to get back to three.</p></div>
+
+    <h2>Common Beginner Problems</h2>
+    <ul>
+      <li><strong>ImagePullBackOff</strong> &mdash; Kubernetes cannot download the image. Check the image name and tag, and whether the registry needs credentials.</li>
+      <li><strong>CrashLoopBackOff</strong> &mdash; the container starts and keeps crashing. Read <code>kubectl logs</code> and <code>kubectl describe pod</code> for the reason.</li>
+      <li><strong>Pending Pods</strong> &mdash; the cluster does not have enough CPU or memory, or the Pod asks for something that is not available. The events section of <code>describe</code> explains why.</li>
+      <li><strong>Service not reachable</strong> &mdash; the Service selector does not match the Pod labels. Compare them carefully, because one typo breaks the connection.</li>
+    </ul>
+
+    <h2>Kubernetes in the Cloud</h2>
+    <p>Running your own control plane is hard work, so most teams use a managed service such as Amazon EKS, Google GKE or Azure AKS. The concepts in this guide are identical; the cloud provider simply operates the control plane for you. A common production path is: build an image in a CI pipeline, push it to a registry, and deploy it to the cluster using the same YAML, usually packaged with Helm.</p>
+
+    <h2>What to Learn Next</h2>
+    <ul>
+      <li>ConfigMaps, Secrets and environment variables</li>
+      <li>Health checks (liveness and readiness probes)</li>
+      <li>Persistent volumes for data that must survive restarts</li>
+      <li>Ingress controllers and TLS certificates</li>
+      <li>Helm charts, and GitOps tools such as Argo CD</li>
+    </ul>
+    <p>Automate the image build with our <a href="/blog/github-actions-docker-hub-tutorial.html">GitHub Actions tutorial</a>, provision the cluster with <a href="/blog/terraform-beginners-guide.html">Terraform</a>, and see the whole journey in the <a href="/blog/devops-roadmap-2026.html">DevOps roadmap for 2026</a>.</p>
+
+    <div class="cta-box">
+      <h3>Master Kubernetes with Hands-On Projects</h3>
+      <p>Our DevOps program covers Kubernetes, Docker, Terraform, CI/CD and AWS with live mentoring.</p>
+      <a href="/career.html">Apply for the Program &rarr;</a>
+    </div>
+  </div>
+</div>
+<footer>
+  <p>&copy; 2026 Vinzap Infotech. All rights reserved. | Bangalore, India</p>
+  <p style="margin-top:8px;"><a href="/privacy-policy.html">Privacy Policy</a> &nbsp;&middot;&nbsp; <a href="/terms.html">Terms of Service</a> &nbsp;&middot;&nbsp; <a href="/career.html">Careers</a> &nbsp;&middot;&nbsp; <a href="/about.html">About Us</a> &nbsp;&middot;&nbsp; <a href="/contact.html">Contact</a> &nbsp;&middot;&nbsp; <a href="/blog/">Blog</a></p>
+</footer>
+</body>
+</html>

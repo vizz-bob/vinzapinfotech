@@ -4,49 +4,62 @@
   <!-- Core Pages -->
   <url>
     <loc>https://www.vinzapinfotech.com/</loc>
-    <lastmod>2026-04-25</lastmod>
+    <lastmod>2026-10-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://www.vinzapinfotech.com/about.html</loc>
-    <lastmod>2026-04-25</lastmod>
+    <lastmod>2026-10-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.vinzapinfotech.com/contact.html</loc>
-    <lastmod>2026-04-25</lastmod>
+    <lastmod>2026-10-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.vinzapinfotech.com/courses.html</loc>
-    <lastmod>2026-04-25</lastmod>
+    <lastmod>2026-10-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.vinzapinfotech.com/devops-tutorials.html</loc>
-    <lastmod>2026-04-25</lastmod>
+    <lastmod>2026-10-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.vinzapinfotech.com/digital-marketing.html</loc>
-    <lastmod>2026-04-25</lastmod>
+    <lastmod>2026-10-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.vinzapinfotech.com/projects.html</loc>
-    <lastmod>2026-04-25</lastmod>
+    <lastmod>2026-10-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.vinzapinfotech.com/privacy-policy.html</loc>
-    <lastmod>2026-03-17</lastmod>
+    <lastmod>2026-10-13</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://www.vinzapinfotech.com/career.html</loc>
+    <lastmod>2026-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.vinzapinfotech.com/terms.html</loc>
+    <lastmod>2026-10-13</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
@@ -54,7 +67,7 @@
   <!-- Blog Index -->
   <url>
     <loc>https://www.vinzapinfotech.com/blog/index.html</loc>
-    <lastmod>2026-04-25</lastmod>
+    <lastmod>2026-10-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -62,31 +75,56 @@
   <!-- Blog Articles -->
   <url>
     <loc>https://www.vinzapinfotech.com/blog/devops-roadmap-2026.html</loc>
-    <lastmod>2026-04-25</lastmod>
+    <lastmod>2026-10-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.vinzapinfotech.com/blog/aws-ec2-vs-lambda.html</loc>
-    <lastmod>2026-04-25</lastmod>
+    <lastmod>2026-10-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.vinzapinfotech.com/blog/docker-beginners-guide.html</loc>
-    <lastmod>2026-04-25</lastmod>
+    <lastmod>2026-10-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.vinzapinfotech.com/blog/cicd-jenkins-github-actions.html</loc>
-    <lastmod>2026-04-25</lastmod>
+    <lastmod>2026-10-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.vinzapinfotech.com/blog/devops-salary-india-2026.html</loc>
-    <lastmod>2026-04-25</lastmod>
+    <lastmod>2026-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://www.vinzapinfotech.com/blog/github-actions-docker-hub-tutorial.html</loc>
+    <lastmod>2026-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.vinzapinfotech.com/blog/terraform-beginners-guide.html</loc>
+    <lastmod>2026-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.vinzapinfotech.com/blog/kubernetes-beginners-guide.html</loc>
+    <lastmod>2026-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.vinzapinfotech.com/blog/linux-commands-for-devops.html</loc>
+    <lastmod>2026-10-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>

@@ -117,7 +117,6 @@ jobs:
       - name: ☁️ Upload HTML (no-cache)
         run: |
           aws s3 sync build/ s3://${{ env.S3_BUCKET }}/ \
-            --delete \
             --cache-control "no-cache, no-store, must-revalidate" \
             --content-type "text/html; charset=utf-8" \
             --exclude "*" \

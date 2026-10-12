@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TVTBVCZH');</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HEL83H3BW4"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-HEL83H3BW4');</script>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="google-adsense-account" content="ca-pub-2639020346909963"/>
+  <title>GitHub Actions Tutorial: Build and Push a Docker Image to Docker Hub | Vinzap Infotech</title>
+  <meta name="description" content="Step-by-step GitHub Actions CI/CD tutorial. Build a Docker image on every push and publish it to Docker Hub with secrets, tags and a test job, with a complete workflow file."/>
+  <link rel="canonical" href="https://www.vinzapinfotech.com/blog/github-actions-docker-hub-tutorial.html"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--blue:#2563eb;--purple:#7c3aed;--docker:#0db7ed;--dark:#0f172a;--text:#1e293b;--muted:#64748b;--border:#e2e8f0;--light:#f8faff;}
+    *{box-sizing:border-box;margin:0;padding:0;}body{font-family:'Inter',sans-serif;color:var(--text);background:var(--light);line-height:1.8;}
+    nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(37,99,235,.1);padding:0 24px;height:68px;display:flex;align-items:center;justify-content:space-between;}
+    .logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+    .logo-icon{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--blue),var(--purple));display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:900;color:#fff;}
+    .logo-text{font-size:.95rem;font-weight:800;color:var(--dark);}
+    .logo-sub{font-size:.65rem;color:var(--muted);letter-spacing:.5px;text-transform:uppercase;display:block;}
+    .nav-links{display:flex;align-items:center;gap:24px;}
+    .nav-links a{font-size:.88rem;font-weight:500;color:var(--muted);text-decoration:none;}
+    .nav-links a:hover{color:var(--blue);}
+    .btn-apply{background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;padding:9px 20px;border-radius:10px;font-size:.85rem;font-weight:700;text-decoration:none;}
+    @media(max-width:768px){.nav-links{display:none;}}
+    .article-hero{margin-top:68px;padding:60px 24px 40px;background:linear-gradient(135deg,#1e293b,#2563eb);text-align:center;}
+    .article-tag{display:inline-block;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.4);color:#fff;padding:5px 16px;border-radius:30px;font-size:.78rem;font-weight:700;text-transform:uppercase;margin-bottom:16px;}
+    .article-hero h1{font-size:clamp(1.6rem,3.5vw,2.5rem);font-weight:900;color:#fff;max-width:750px;margin:0 auto 16px;line-height:1.25;}
+    .article-meta{color:rgba(255,255,255,.75);font-size:.88rem;margin-top:12px;}
+    .article-meta span{margin:0 8px;}
+    .article-layout{max-width:780px;margin:0 auto;padding:50px 24px 70px;}
+    .article-body h2{font-size:1.5rem;font-weight:800;color:var(--dark);margin:40px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--border);}
+    .article-body h3{font-size:1.15rem;font-weight:700;color:var(--dark);margin:28px 0 10px;}
+    .article-body p{color:var(--text);font-size:1rem;margin-bottom:18px;line-height:1.85;}
+    .article-body ul,.article-body ol{margin:0 0 18px 24px;color:var(--text);}
+    .article-body li{margin-bottom:8px;font-size:.97rem;line-height:1.7;}
+    .article-body strong{color:var(--dark);}
+    .code-block{background:#1e293b;color:#e2e8f0;border-radius:12px;padding:20px 24px;font-size:.88rem;font-family:'Courier New',monospace;margin:18px 0;overflow-x:auto;line-height:1.7;white-space:pre;}
+    .code-comment{color:#64748b;}
+    .code-cmd{color:#86efac;}
+    .code-string{color:#fbbf24;}
+    .highlight-box{background:linear-gradient(135deg,#eff6ff,#f0f4ff);border:1px solid #bfdbfe;border-radius:16px;padding:24px 28px;margin:28px 0;}
+    .highlight-box h4{color:var(--blue);font-size:.9rem;font-weight:700;text-transform:uppercase;margin-bottom:8px;}
+    .highlight-box p{margin:0;color:var(--text);font-size:.95rem;}
+    .cta-box{background:linear-gradient(135deg,var(--blue),var(--purple));border-radius:20px;padding:36px;text-align:center;margin-top:50px;}
+    .cta-box h3{color:#fff;font-size:1.3rem;font-weight:800;margin-bottom:8px;}
+    .cta-box p{color:rgba(255,255,255,.85);font-size:.95rem;margin-bottom:20px;}
+    .cta-box a{display:inline-block;background:#fff;color:var(--blue);padding:12px 28px;border-radius:30px;font-weight:800;text-decoration:none;font-size:.9rem;}
+    footer{background:var(--dark);color:#94a3b8;text-align:center;padding:28px 24px;font-size:.88rem;}
+    footer a{color:#60a5fa;text-decoration:none;}
+    .back-link{display:inline-flex;align-items:center;gap:6px;color:var(--blue);text-decoration:none;font-size:.88rem;font-weight:600;margin-bottom:32px;}
+  </style>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TVTBVCZH" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<nav>
+  <a href="/" class="logo"><div class="logo-icon">Vi</div><div><span class="logo-text">VinzapInfotech</span><span class="logo-sub">IT Services &amp; Training</span></div></a>
+  <div class="nav-links">
+    <a href="/">Home</a><a href="/devops-tutorials.html">DevOps</a><a href="/courses.html">Courses</a><a href="/blog/">Blog</a><a href="/about.html">About</a><a href="/contact.html">Contact</a>
+    <a href="/courses.html" class="btn-apply">Enroll Now &rarr;</a>
+  </div>
+</nav>
+
+<div class="article-hero">
+  <div class="article-tag">CI/CD</div>
+  <h1>GitHub Actions Tutorial: Build and Push a Docker Image to Docker Hub</h1>
+  <div class="article-meta"><span>By the Vinzap Infotech Team</span><span>&middot;</span><span>October 2026</span><span>&middot;</span><span>11 min read</span></div>
+</div>
+
+<div class="article-layout">
+  <a href="/blog/" class="back-link">&larr; Back to Blog</a>
+  <div class="article-body">
+
+    <p>Every time you push code, someone has to build it, test it and ship it. Doing that by hand is slow and easy to get wrong. <strong>GitHub Actions</strong> lets you automate the whole job inside GitHub itself, with no separate server to maintain. In this tutorial you will build a real pipeline: every push to your <code>main</code> branch will build a Docker image and publish it to Docker Hub automatically.</p>
+
+    <p>This is the same flow used by many teams to release containerised applications, and it is a great first CI/CD project for your portfolio. If you are new to containers, read our <a href="/blog/docker-beginners-guide.html">Docker for Beginners guide</a> first.</p>
+
+    <h2>How GitHub Actions Works</h2>
+    <p>GitHub Actions has only a few concepts, and once you know them every workflow file becomes easy to read:</p>
+    <ul>
+      <li><strong>Workflow</strong> &mdash; an automated process defined in a YAML file inside <code>.github/workflows/</code> in your repository.</li>
+      <li><strong>Event</strong> &mdash; what starts the workflow, such as a push, a pull request, a schedule or a manual click.</li>
+      <li><strong>Job</strong> &mdash; a group of steps that runs on one machine. Jobs can run in parallel or one after another.</li>
+      <li><strong>Runner</strong> &mdash; the machine that runs a job. GitHub provides hosted Linux, Windows and macOS runners, or you can use your own.</li>
+      <li><strong>Step</strong> &mdash; a single task, either a shell command (<code>run</code>) or a reusable action (<code>uses</code>).</li>
+      <li><strong>Secret</strong> &mdash; an encrypted value, such as a password or token, that your workflow can read but nobody can see in the logs.</li>
+    </ul>
+
+    <h2>What You Need Before Starting</h2>
+    <ul>
+      <li>A GitHub account and a repository with a small application.</li>
+      <li>A free Docker Hub account.</li>
+      <li>A <code>Dockerfile</code> in the root of the repository.</li>
+    </ul>
+    <p>If you do not have an application yet, create a tiny one. This example serves a static page with nginx:</p>
+<div class="code-block"><span class="code-comment"># Dockerfile</span>
+FROM nginx:alpine
+COPY index.html /usr/share/nginx/html/index.html
+EXPOSE 80</div>
+    <p>Add a simple <code>index.html</code> next to it, commit both files and push them to GitHub.</p>
+
+    <h2>Step 1: Create a Docker Hub Access Token</h2>
+    <p>Never put your Docker Hub password in a workflow. Create an access token instead, which you can revoke at any time without changing your password.</p>
+    <ol>
+      <li>Sign in to Docker Hub and open <strong>Account settings &rarr; Personal access tokens</strong> (the exact menu name can change, so look under Security if you do not see it).</li>
+      <li>Generate a new token with a clear name such as <em>github-actions</em>.</li>
+      <li>Give it read and write permission for repositories, then copy the token. You will not be able to see it again.</li>
+    </ol>
+
+    <h2>Step 2: Add Secrets to Your GitHub Repository</h2>
+    <p>In your GitHub repository, open <strong>Settings &rarr; Secrets and variables &rarr; Actions</strong> and create two repository secrets:</p>
+    <ul>
+      <li><code>DOCKERHUB_USERNAME</code> &mdash; your Docker Hub username.</li>
+      <li><code>DOCKERHUB_TOKEN</code> &mdash; the access token you just created.</li>
+    </ul>
+    <div class="highlight-box"><h4>Why secrets matter</h4><p>Anything you commit to a public repository is visible to everyone, including automated scanners that look for leaked passwords. Secrets are stored encrypted and GitHub hides their values in workflow logs.</p></div>
+
+    <h2>Step 3: Write the Workflow File</h2>
+    <p>Create the file <code>.github/workflows/docker-publish.yml</code> with the following content:</p>
+<div class="code-block">name: Build and Push Docker Image
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v4
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/my-demo-app:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/my-demo-app:${{ github.sha }}</div>
+    <p>Here is what each part does:</p>
+    <ul>
+      <li><code>on</code> starts the workflow on every push to <code>main</code>. <code>workflow_dispatch</code> adds a manual <em>Run workflow</em> button.</li>
+      <li><code>runs-on: ubuntu-latest</code> asks GitHub for a fresh Linux machine for this job.</li>
+      <li><code>actions/checkout</code> downloads your repository code onto the runner.</li>
+      <li><code>docker/login-action</code> signs in to Docker Hub using your secrets.</li>
+      <li><code>docker/build-push-action</code> builds the image from your Dockerfile and pushes it. We publish two tags: <code>latest</code> and the commit ID (<code>github.sha</code>), so you can always trace an image back to the exact code that built it.</li>
+    </ul>
+    <p>The action versions shown here were current when we wrote this guide. Check the Marketplace page of each action for the latest major version before you copy the file into a real project.</p>
+
+    <h2>Step 4: Run It and Watch the Pipeline</h2>
+    <p>Commit the workflow file and push it to <code>main</code>. Then open the <strong>Actions</strong> tab in your repository. You will see a new run with a yellow dot while it works and a green tick when it succeeds. Click the run to see every step and its logs. When it finishes, open your repository on Docker Hub and you will find the new image with both tags.</p>
+    <p>Test it on your own machine:</p>
+<div class="code-block"><span class="code-comment"># Replace YOUR_USERNAME with your Docker Hub username</span>
+docker pull YOUR_USERNAME/my-demo-app:latest
+docker run -d -p 8080:80 YOUR_USERNAME/my-demo-app:latest
+
+<span class="code-comment"># Open http://localhost:8080 in your browser</span></div>
+
+    <h2>Add a Test Step Before Publishing</h2>
+    <p>A real pipeline should never publish an image that has not been checked. Add a job that runs your tests and make the Docker job wait for it with <code>needs</code>:</p>
+<div class="code-block">jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run tests
+        run: |
+          echo "Run your project tests here, for example: npm test or pytest"
+
+  docker:
+    needs: test        # only runs if the test job passes
+    runs-on: ubuntu-latest
+    steps:
+<span class="code-comment">      # ... same steps as before ...</span></div>
+    <p>If the test job fails, the Docker job is skipped and nothing is published. This is the core idea of CI/CD: automatic checks first, automatic delivery second.</p>
+
+    <h2>Common Problems and Fixes</h2>
+    <ul>
+      <li><strong>"denied: requested access to the resource is denied"</strong> &mdash; the token has no write permission, the username secret is wrong, or the image name does not start with your Docker Hub username.</li>
+      <li><strong>"Dockerfile: no such file or directory"</strong> &mdash; the <code>context</code> is wrong. If your Dockerfile is inside a folder, set <code>context: ./folder-name</code>.</li>
+      <li><strong>Workflow does not start</strong> &mdash; the file must be inside <code>.github/workflows/</code>, end in <code>.yml</code>, and be on the branch listed under <code>on</code>.</li>
+      <li><strong>Secrets show as empty</strong> &mdash; secret names are case-sensitive, and secrets are not passed to workflows triggered from forks of your repository.</li>
+    </ul>
+
+    <h2>Best Practices</h2>
+    <ul>
+      <li>Use access tokens with the minimum permission needed, and rotate them regularly.</li>
+      <li>Tag images with the commit ID or a version, and avoid relying only on <code>latest</code> in production.</li>
+      <li>Keep each workflow small and readable. Split long pipelines into separate jobs.</li>
+      <li>Use caching to speed up builds once your pipeline works.</li>
+      <li>Protect the <code>main</code> branch so code is reviewed before it is merged and deployed.</li>
+    </ul>
+
+    <h2>What to Learn Next</h2>
+    <p>Now that you can build and publish an image automatically, the next step is deploying it. You can run the image on a server, on AWS, or on Kubernetes. Read our <a href="/blog/kubernetes-beginners-guide.html">Kubernetes for Beginners guide</a> to see where your container goes next, and compare tools in <a href="/blog/cicd-jenkins-github-actions.html">Jenkins vs GitHub Actions</a>. You can also follow the step-by-step video versions in our <a href="/devops-tutorials.html">free DevOps tutorials</a>.</p>
+
+    <div class="cta-box">
+      <h3>Build Real CI/CD Pipelines with Mentors</h3>
+      <p>Our DevOps program covers GitHub Actions, Docker, Kubernetes, Terraform and AWS through live projects.</p>
+      <a href="/career.html">Apply for the Program &rarr;</a>
+    </div>
+  </div>
+</div>
+<footer>
+  <p>&copy; 2026 Vinzap Infotech. All rights reserved. | Bangalore, India</p>
+  <p style="margin-top:8px;"><a href="/privacy-policy.html">Privacy Policy</a> &nbsp;&middot;&nbsp; <a href="/terms.html">Terms of Service</a> &nbsp;&middot;&nbsp; <a href="/career.html">Careers</a> &nbsp;&middot;&nbsp; <a href="/about.html">About Us</a> &nbsp;&middot;&nbsp; <a href="/contact.html">Contact</a> &nbsp;&middot;&nbsp; <a href="/blog/">Blog</a></p>
+</footer>
+</body>
+</html>
