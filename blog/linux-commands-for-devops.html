@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TVTBVCZH');</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HEL83H3BW4"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-HEL83H3BW4');</script>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="google-adsense-account" content="ca-pub-2639020346909963"/>
+  <title>Essential Linux Commands Every DevOps Engineer Should Know | Vinzap Infotech</title>
+  <meta name="description" content="A practical guide to the Linux commands DevOps engineers use daily: files, search, permissions, processes, systemd, networking, SSH and more, with simple examples."/>
+  <link rel="canonical" href="https://www.vinzapinfotech.com/blog/linux-commands-for-devops.html"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--blue:#2563eb;--purple:#7c3aed;--docker:#0db7ed;--dark:#0f172a;--text:#1e293b;--muted:#64748b;--border:#e2e8f0;--light:#f8faff;}
+    *{box-sizing:border-box;margin:0;padding:0;}body{font-family:'Inter',sans-serif;color:var(--text);background:var(--light);line-height:1.8;}
+    nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(37,99,235,.1);padding:0 24px;height:68px;display:flex;align-items:center;justify-content:space-between;}
+    .logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+    .logo-icon{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--blue),var(--purple));display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:900;color:#fff;}
+    .logo-text{font-size:.95rem;font-weight:800;color:var(--dark);}
+    .logo-sub{font-size:.65rem;color:var(--muted);letter-spacing:.5px;text-transform:uppercase;display:block;}
+    .nav-links{display:flex;align-items:center;gap:24px;}
+    .nav-links a{font-size:.88rem;font-weight:500;color:var(--muted);text-decoration:none;}
+    .nav-links a:hover{color:var(--blue);}
+    .btn-apply{background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;padding:9px 20px;border-radius:10px;font-size:.85rem;font-weight:700;text-decoration:none;}
+    @media(max-width:768px){.nav-links{display:none;}}
+    .article-hero{margin-top:68px;padding:60px 24px 40px;background:linear-gradient(135deg,#111827,#374151);text-align:center;}
+    .article-tag{display:inline-block;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.4);color:#fff;padding:5px 16px;border-radius:30px;font-size:.78rem;font-weight:700;text-transform:uppercase;margin-bottom:16px;}
+    .article-hero h1{font-size:clamp(1.6rem,3.5vw,2.5rem);font-weight:900;color:#fff;max-width:750px;margin:0 auto 16px;line-height:1.25;}
+    .article-meta{color:rgba(255,255,255,.75);font-size:.88rem;margin-top:12px;}
+    .article-meta span{margin:0 8px;}
+    .article-layout{max-width:780px;margin:0 auto;padding:50px 24px 70px;}
+    .article-body h2{font-size:1.5rem;font-weight:800;color:var(--dark);margin:40px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--border);}
+    .article-body h3{font-size:1.15rem;font-weight:700;color:var(--dark);margin:28px 0 10px;}
+    .article-body p{color:var(--text);font-size:1rem;margin-bottom:18px;line-height:1.85;}
+    .article-body ul,.article-body ol{margin:0 0 18px 24px;color:var(--text);}
+    .article-body li{margin-bottom:8px;font-size:.97rem;line-height:1.7;}
+    .article-body strong{color:var(--dark);}
+    .code-block{background:#1e293b;color:#e2e8f0;border-radius:12px;padding:20px 24px;font-size:.88rem;font-family:'Courier New',monospace;margin:18px 0;overflow-x:auto;line-height:1.7;white-space:pre;}
+    .code-comment{color:#64748b;}
+    .code-cmd{color:#86efac;}
+    .code-string{color:#fbbf24;}
+    .highlight-box{background:linear-gradient(135deg,#eff6ff,#f0f4ff);border:1px solid #bfdbfe;border-radius:16px;padding:24px 28px;margin:28px 0;}
+    .highlight-box h4{color:var(--blue);font-size:.9rem;font-weight:700;text-transform:uppercase;margin-bottom:8px;}
+    .highlight-box p{margin:0;color:var(--text);font-size:.95rem;}
+    .cta-box{background:linear-gradient(135deg,var(--blue),var(--purple));border-radius:20px;padding:36px;text-align:center;margin-top:50px;}
+    .cta-box h3{color:#fff;font-size:1.3rem;font-weight:800;margin-bottom:8px;}
+    .cta-box p{color:rgba(255,255,255,.85);font-size:.95rem;margin-bottom:20px;}
+    .cta-box a{display:inline-block;background:#fff;color:var(--blue);padding:12px 28px;border-radius:30px;font-weight:800;text-decoration:none;font-size:.9rem;}
+    footer{background:var(--dark);color:#94a3b8;text-align:center;padding:28px 24px;font-size:.88rem;}
+    footer a{color:#60a5fa;text-decoration:none;}
+    .back-link{display:inline-flex;align-items:center;gap:6px;color:var(--blue);text-decoration:none;font-size:.88rem;font-weight:600;margin-bottom:32px;}
+  </style>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TVTBVCZH" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<nav>
+  <a href="/" class="logo"><div class="logo-icon">Vi</div><div><span class="logo-text">VinzapInfotech</span><span class="logo-sub">IT Services &amp; Training</span></div></a>
+  <div class="nav-links">
+    <a href="/">Home</a><a href="/devops-tutorials.html">DevOps</a><a href="/courses.html">Courses</a><a href="/blog/">Blog</a><a href="/about.html">About</a><a href="/contact.html">Contact</a>
+    <a href="/courses.html" class="btn-apply">Enroll Now &rarr;</a>
+  </div>
+</nav>
+
+<div class="article-hero">
+  <div class="article-tag">Linux</div>
+  <h1>Essential Linux Commands Every DevOps Engineer Should Know</h1>
+  <div class="article-meta"><span>By the Vinzap Infotech Team</span><span>&middot;</span><span>October 2026</span><span>&middot;</span><span>10 min read</span></div>
+</div>
+
+<div class="article-layout">
+  <a href="/blog/" class="back-link">&larr; Back to Blog</a>
+  <div class="article-body">
+
+    <p>Almost every server, container and cloud machine you will work with as a DevOps engineer runs Linux. You do not need to memorise hundreds of commands, but a core set will save you hours every week. This guide groups the most useful ones by task, with examples you can try on any Linux machine, a virtual machine, or Windows with WSL.</p>
+    <p>Always be careful when running commands as an administrator. Practise on a test machine first, and read a command before you press Enter.</p>
+
+    <h2>1. Moving Around and Managing Files</h2>
+<div class="code-block">pwd                       # show the current directory
+ls -lah                   # list files with sizes, permissions and hidden files
+cd /var/log               # change directory
+cd ~                      # go to your home directory
+mkdir -p projects/demo    # create a folder (and any missing parent folders)
+cp file.txt backup.txt    # copy a file
+cp -r folder folder-bak   # copy a folder
+mv old.txt new.txt        # rename or move
+rm file.txt               # delete a file (there is no recycle bin)
+rm -r folder              # delete a folder and everything in it</div>
+    <p><strong>Tip:</strong> be extremely careful with <code>rm -r</code>, especially with variables or wildcards. Check the path with <code>ls</code> first.</p>
+
+    <h2>2. Reading and Editing Files</h2>
+<div class="code-block">cat app.conf              # print a whole file
+less app.log              # scroll through a long file (press q to quit)
+head -n 20 app.log        # first 20 lines
+tail -n 50 app.log        # last 50 lines
+tail -f app.log           # follow a log file live as it grows
+nano app.conf             # simple terminal editor
+vim app.conf              # powerful editor (press i to type, Esc then :wq to save)</div>
+    <p>The command <code>tail -f</code> is one of the most used tools for debugging, because it shows new log lines the moment they are written.</p>
+
+    <h2>3. Searching</h2>
+<div class="code-block">grep "error" app.log              # lines that contain "error"
+grep -i "error" app.log           # ignore upper/lower case
+grep -r "DB_HOST" /etc/myapp      # search inside all files in a folder
+grep -v "debug" app.log           # lines that do NOT contain "debug"
+find /var/log -name "*.log"       # find files by name
+find . -type f -mtime -1          # files changed in the last day</div>
+
+    <h2>4. Combining Commands with Pipes</h2>
+    <p>The pipe symbol <code>|</code> sends the output of one command into another. This is where Linux becomes powerful:</p>
+<div class="code-block"><span class="code-comment"># Count how many error lines are in a log</span>
+grep "ERROR" app.log | wc -l
+
+<span class="code-comment"># Show the 10 most common values in the first column of a file</span>
+cut -d' ' -f1 access.log | sort | uniq -c | sort -nr | head -10
+
+<span class="code-comment"># Find a running process by name</span>
+ps aux | grep nginx
+
+<span class="code-comment"># Save output to a file, or append to it</span>
+ls -l &gt; files.txt
+echo "done" &gt;&gt; files.txt</div>
+
+    <h2>5. Permissions and Ownership</h2>
+    <p>Every file has an owner, a group and permissions for read (r), write (w) and execute (x). The command <code>ls -l</code> shows them, for example <code>-rwxr-xr--</code>.</p>
+<div class="code-block">chmod +x deploy.sh        # make a script executable
+chmod 644 file.txt        # owner can read/write, others can read
+chmod 600 id_rsa          # private keys must not be readable by others
+chown ubuntu:ubuntu app/  # change owner and group
+sudo command              # run one command as administrator</div>
+    <div class="highlight-box"><h4>Avoid chmod 777</h4><p>Giving everyone full access to a file or folder is a common shortcut that creates security problems. Find the exact permission the program needs and grant only that.</p></div>
+
+    <h2>6. Processes and System Health</h2>
+<div class="code-block">top                       # live view of CPU and memory use (q to quit)
+htop                      # friendlier version, if installed
+ps aux                    # list all running processes
+kill 1234                 # ask process 1234 to stop
+kill -9 1234              # force it to stop (last resort)
+free -h                   # memory usage
+df -h                     # disk space per filesystem
+du -sh /var/log/*         # how big is each item in a folder
+uptime                    # how long the machine has been up, and load</div>
+    <p>When a server is slow, the usual first questions are: is the CPU busy (<code>top</code>), is memory full (<code>free -h</code>), and is the disk full (<code>df -h</code>)?</p>
+
+    <h2>7. Services and Logs with systemd</h2>
+    <p>Most modern Linux distributions use <strong>systemd</strong> to start and manage background services.</p>
+<div class="code-block">sudo systemctl status nginx       # is the service running?
+sudo systemctl start nginx
+sudo systemctl stop nginx
+sudo systemctl restart nginx
+sudo systemctl enable nginx       # start automatically at boot
+journalctl -u nginx -n 100        # last 100 log lines for the service
+journalctl -u nginx -f            # follow the logs live</div>
+
+    <h2>8. Networking</h2>
+<div class="code-block">ip addr                           # show IP addresses
+ping -c 4 google.com              # test connectivity
+curl -I https://example.com       # fetch only the HTTP headers
+curl -s https://api.example.com/health   # call an API quietly
+ss -tulpn                         # which programs are listening on which ports
+nslookup example.com              # check DNS</div>
+    <p>If a website is down, <code>curl -I</code> shows the HTTP status, <code>ss -tulpn</code> shows whether your app is really listening on the port, and <code>nslookup</code> checks whether the domain points where you expect.</p>
+
+    <h2>9. Remote Access and File Transfer</h2>
+<div class="code-block">ssh -i mykey.pem ubuntu@203.0.113.10     # log in to a remote server
+scp backup.tar.gz ubuntu@203.0.113.10:/home/ubuntu/   # copy a file to a server
+rsync -avz ./site/ ubuntu@203.0.113.10:/var/www/site/ # sync a folder efficiently</div>
+
+    <h2>10. Installing and Updating Software</h2>
+<div class="code-block"><span class="code-comment"># Debian / Ubuntu</span>
+sudo apt update
+sudo apt install nginx
+
+<span class="code-comment"># Amazon Linux / RHEL / CentOS</span>
+sudo yum install nginx        # or: sudo dnf install nginx
+
+<span class="code-comment"># Compress and extract</span>
+tar -czf backup.tar.gz folder/
+tar -xzf backup.tar.gz</div>
+
+    <h2>Habits That Make You Faster</h2>
+    <ul>
+      <li>Press <strong>Tab</strong> to auto-complete file names and commands.</li>
+      <li>Press the <strong>Up arrow</strong> or <strong>Ctrl+R</strong> to search your command history.</li>
+      <li>Use <code>man command</code> or <code>command --help</code> when you forget an option.</li>
+      <li>Write repeated tasks as small shell scripts and keep them in Git.</li>
+      <li>Learn to read error messages carefully; the answer is often in the last line.</li>
+    </ul>
+
+    <h2>What to Learn Next</h2>
+    <p>With these commands you can inspect a server, read its logs and fix common problems. The next steps are shell scripting, cron jobs for scheduling, and then the tools built on top of Linux: <a href="/blog/docker-beginners-guide.html">Docker</a>, <a href="/blog/kubernetes-beginners-guide.html">Kubernetes</a> and <a href="/blog/terraform-beginners-guide.html">Terraform</a>. Our <a href="/blog/devops-roadmap-2026.html">DevOps roadmap</a> shows the full order, and the <a href="/devops-tutorials.html">free tutorials page</a> has video lessons including Linux.</p>
+
+    <div class="cta-box">
+      <h3>Build Your Linux and DevOps Skills</h3>
+      <p>Learn Linux, AWS, Docker, Kubernetes and CI/CD through live projects with mentor support.</p>
+      <a href="/career.html">Apply for the Program &rarr;</a>
+    </div>
+  </div>
+</div>
+<footer>
+  <p>&copy; 2026 Vinzap Infotech. All rights reserved. | Bangalore, India</p>
+  <p style="margin-top:8px;"><a href="/privacy-policy.html">Privacy Policy</a> &nbsp;&middot;&nbsp; <a href="/terms.html">Terms of Service</a> &nbsp;&middot;&nbsp; <a href="/career.html">Careers</a> &nbsp;&middot;&nbsp; <a href="/about.html">About Us</a> &nbsp;&middot;&nbsp; <a href="/contact.html">Contact</a> &nbsp;&middot;&nbsp; <a href="/blog/">Blog</a></p>
+</footer>
+</body>
+</html>

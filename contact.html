@@ -189,6 +189,9 @@
       <h2>Send Us a Message</h2>
       <p>Fill in the form below and we'll get back to you as soon as possible.</p>
       <form id="contactForm" onsubmit="handleSubmit(event)">
+        <input type="hidden" name="access_key" value="6500884b-f440-4d73-92d2-7729f84af3e6"/>
+        <input type="hidden" name="from_name" value="VinzapInfotech Website - Contact Page"/>
+        <input type="hidden" name="redirect" value="false"/>
         <div class="form-row">
           <div class="form-group">
             <label for="firstName">First Name *</label>
@@ -265,7 +268,7 @@
 <footer>
   <p>© 2026 Vinzap Infotech. All rights reserved. | Bangalore, Karnataka, India</p>
   <p style="margin-top:8px;">
-    <a href="/privacy-policy.html">Privacy Policy</a> &nbsp;·&nbsp;
+    <a href="/privacy-policy.html">Privacy Policy</a> &nbsp;&middot;&nbsp; <a href="/terms.html">Terms of Service</a> &nbsp;&middot;&nbsp; <a href="/career.html">Careers</a> &nbsp;·&nbsp;
     <a href="/about.html">About Us</a> &nbsp;·&nbsp;
     <a href="/contact.html">Contact</a> &nbsp;·&nbsp;
     <a href="/blog/">Blog</a>
@@ -273,12 +276,33 @@
 </footer>
 
 <script>
-function handleSubmit(e) {
+async function handleSubmit(e) {
   e.preventDefault();
-  // In production, connect this to your backend/FormSpree/EmailJS
-  document.getElementById('successMsg').classList.add('show');
-  document.getElementById('contactForm').reset();
-  setTimeout(() => document.getElementById('successMsg').classList.remove('show'), 6000);
+  const form = e.target;
+  const btn = form.querySelector('.submit-btn');
+  const ok = document.getElementById('successMsg');
+  const label = btn.textContent;
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+  const data = new FormData(form);
+  data.set('name', (data.get('firstName') || '') + ' ' + (data.get('lastName') || ''));
+  data.set('subject', 'Contact page enquiry: ' + (data.get('subject') || ''));
+  try {
+    const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: data });
+    const out = await res.json();
+    if (out.success) {
+      ok.textContent = '\u2705 Message sent! We\'ll respond within 2\u20134 hours during business hours.';
+      ok.classList.add('show');
+      form.reset();
+      if (window.gtag) gtag('event', 'form_submit', { event_category: 'lead', event_label: 'contact_page' });
+    } else { throw new Error('failed'); }
+  } catch (err) {
+    ok.textContent = 'Sorry, something went wrong. Please email us at vizz.bob@gmail.com';
+    ok.classList.add('show');
+  }
+  btn.textContent = label;
+  btn.disabled = false;
+  setTimeout(() => ok.classList.remove('show'), 8000);
 }
 function toggleFaq(el) {
   const item = el.parentElement;

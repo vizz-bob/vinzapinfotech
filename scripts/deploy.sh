@@ -62,10 +62,9 @@ else
     DEPLOY_DIR="."
 fi
 
-# ── Deploy HTML files (no-cache) ──
+# ── Deploy HTML files (no-cache). Add/overwrite only: never deletes anything from S3 ──
 echo -e "\n${YELLOW}☁️  Uploading HTML files to S3...${NC}"
 aws s3 sync $DEPLOY_DIR/ s3://$S3_BUCKET/ \
-    --delete \
     --cache-control "no-cache, no-store, must-revalidate" \
     --exclude "*" \
     --include "*.html" \
